@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/00_MyAssets/05_Scenes/00_inner_world.unity
+    guid: edf33eb84d1fbe1478b2480c3aae907f
+  - enabled: 1
+    path: Assets/00_MyAssets/05_Scenes/01_External_world.unity
+    guid: 413fd1f5a0c4e0040abb8b19b5b60085
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_UseUCBPForAssetBundles: 0
