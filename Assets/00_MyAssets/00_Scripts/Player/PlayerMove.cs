@@ -11,43 +11,27 @@ public class PlayerMove : MonoBehaviour
 
     void Awake()
     {
-        moveSpeed = 5f;
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     void Update()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float h = 0f;
+        float v = 0f;
+
+        if (InputManager.MoveUp) v += 1f;
+        if (InputManager.MoveDown) v -= 1f;
+        if (InputManager.MoveRight) h += 1f;
+        if (InputManager.MoveLeft) h -= 1f;
 
         inputDirection = new Vector3(h, 0f, v).normalized;
     }
-    private void OnEnable()
-    {
-        GameManager.ChangeScene += ChangeScene;
-        GameManager.OnPlay += OnPlay;
-    }
-
-    private void OnDisable()
-    {
-        GameManager.ChangeScene -= ChangeScene;
-    }
-
     void FixedUpdate()
     {
         Vector3 move = inputDirection * moveSpeed * Time.fixedDeltaTime;
         Vector3 targetPos = rb.position + move;
 
         rb.MovePosition(targetPos);
-    }
-
-    void ChangeScene()
-    {
-        moveSpeed = 0;
-    }
-    void OnPlay()
-    {
-        moveSpeed = 5f;
     }
 }

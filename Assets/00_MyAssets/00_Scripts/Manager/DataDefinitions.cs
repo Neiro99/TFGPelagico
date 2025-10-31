@@ -6,6 +6,7 @@ public static class DataDefinitions
         ChangeScene,
         Play, 
         Pause, 
+        Reading,
         GameOver
     }
 }

@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public static event Action ChangeScene;
     public static event Action OnPlay;
     public static event Action OnPause;
+    public static event Action OnReading;
     public static event Action OnGameOver;
 
     private void Awake()
@@ -52,6 +53,9 @@ public class GameManager : MonoBehaviour
                 break;
             case GameStates.Pause:
                 OnPause?.Invoke();
+                break;
+            case GameStates.Reading:
+                OnReading?.Invoke();
                 break;
             case GameStates.GameOver:
                 OnGameOver?.Invoke();

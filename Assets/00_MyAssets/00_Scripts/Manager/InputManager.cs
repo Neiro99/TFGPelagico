@@ -1,43 +1,76 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using static DataDefinitions;
 
-/// <summary>
-/// DESCRIPCIÓN:
-/// Fecha:
-/// Autor:
-/// </summary>
 public class InputManager : MonoBehaviour
 {
-    //*************************************************************************************************************
-    #region 1 Definicion de variables
-    public static Vector2 Movement { get; private set; }
-    public static bool JumpPressed { get; private set; }
-    public static bool AttackPressed { get; private set; }
-    public static bool PausePressed { get; private set; }
-    public static bool InteractueObjects { get; private set; }
+    public static InputManager Instance { get; private set; }
 
-    #endregion 1
-    //*************************************************************************************************************
-    #region 2 Funciones de Unity
+    private PlayerInputActions inputActions;
 
-    void Update()
+    public static bool MoveUp { get; private set; }
+    public static bool MoveDown { get; private set; }
+    public static bool MoveLeft { get; private set; }
+    public static bool MoveRight { get; private set; }
+
+    public static event Action InteractPressedEvent;
+    public static event Action SelectPressedEvent;
+
+    private void Awake()
     {
-        // Movimiento en plano XZ
-        Movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
-        // Entrada de acciones
-        JumpPressed = Input.GetKeyDown(KeyCode.Space);
-        AttackPressed = Input.GetMouseButtonDown(0);
-        PausePressed = Input.GetKeyDown(KeyCode.Escape);
-        InteractueObjects = Input.GetKey(KeyCode.E);
-
-
-
-
+        Instance = this;
+        inputActions = new PlayerInputActions();
+        inputActions.Player.Enable();
     }
-    #endregion 2
-    //*************************************************************************************************************
-    #region 3 Mis funciones
+    private void OnEnable()
+    {
+        GameManager.ChangeScene += ChangeScene;
+        GameManager.OnPlay += OnPlay;
+        GameManager.OnReading += OnRead;
+    }
 
-    #endregion 3
-    //*************************************************************************************************************
+    private void OnDisable()
+    {
+        GameManager.ChangeScene -= ChangeScene;
+        GameManager.OnPlay -= OnPlay;
+        GameManager.OnReading -= OnRead;
+    }
+    private void Update()
+    {
+        MoveUp = inputActions.Player.MoveUp.IsPressed();
+        MoveDown = inputActions.Player.MoveDown.IsPressed();
+        MoveLeft = inputActions.Player.MoveLeft.IsPressed();
+        MoveRight = inputActions.Player.MoveRight.IsPressed();
+
+        if (inputActions.Player.Pause.WasPressedThisFrame())
+            GameManager.instance.ChangeState(GameStates.Pause);
+
+        if (inputActions.Player.Interact.WasPressedThisFrame())
+            InteractPressedEvent?.Invoke();
+
+        if (inputActions.UI.Select.WasPressedThisFrame())
+            SelectPressedEvent?.Invoke();
+    }
+
+    void ChangeScene()
+    {
+        inputActions.Player.Disable();
+    }
+    void OnPlay()
+    {
+        inputActions.Player.Enable();
+        inputActions.UI.Disable();
+    }
+    void OnRead()
+    {
+        inputActions.Player.Disable();
+        inputActions.UI.Enable();
+    }
 }
