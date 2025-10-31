@@ -6,57 +6,48 @@ public class TypewriterEffect : MonoBehaviour
 {
     [SerializeField] private float typingSpeed = 0.05f;
     private TextMeshProUGUI textMesh;
-    private string fullText;
     private Coroutine typingCoroutine;
 
     void Awake()
     {
         textMesh = GetComponent<TextMeshProUGUI>();
-        fullText = textMesh.text;
-        textMesh.text = "";
     }
 
-    void OnEnable()
-    {
-        StartTyping();
-        InputManager.SelectPressedEvent += SkipText;
-    }
-
-   void OnDisable()
-   {
-        InputManager.SelectPressedEvent -= SkipText;
-   }
-
-    public void StartTyping()
+    public void StartTyping(string newText)
     {
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
 
-        typingCoroutine = StartCoroutine(ShowText());
+        typingCoroutine = StartCoroutine(ShowText(newText));
     }
 
-    IEnumerator ShowText()
+    IEnumerator ShowText(string text)
     {
         textMesh.text = "";
-
-        for (int i = 0; i < fullText.Length; i++)
+        foreach (char c in text)
         {
-            textMesh.text += fullText[i];
+            textMesh.text += c;
             yield return new WaitForSeconds(typingSpeed);
         }
     }
 
-    public void SkipText()
+    public void SkipText(string fullText)
     {
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
 
-       if(textMesh.text == fullText)
-       {
-            UIManager.Instance.DesActivateUI(1);
-            GameManager.instance.ChangeState(DataDefinitions.GameStates.Play);
-       }
-
         textMesh.text = fullText;
     }
+    public void ResetEffect()
+    {
+        if (typingCoroutine != null)
+            StopCoroutine(typingCoroutine);
+
+        if (textMesh == null)
+            textMesh = GetComponent<TextMeshProUGUI>();
+
+        textMesh.text = "";
+    }
+
+
 }

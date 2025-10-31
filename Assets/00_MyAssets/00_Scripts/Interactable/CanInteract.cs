@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class Object : MonoBehaviour
+public class CanInteract : MonoBehaviour
 {
     bool canInteract;
+    public int UIIndex;
 
     private void Awake()
     {
@@ -36,7 +37,7 @@ public class Object : MonoBehaviour
     {
         if (canInteract)
         {
-            UIManager.Instance.ActivateUI(1);
+            UIManager.Instance.ActivateUI(UIIndex);
             GameManager.instance.ChangeState(DataDefinitions.GameStates.Reading);
         }
     }
