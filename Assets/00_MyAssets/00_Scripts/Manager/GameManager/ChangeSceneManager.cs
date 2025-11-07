@@ -5,13 +5,14 @@ using UnityEngine.SceneManagement;
 [RequireComponent (typeof(Canvas), typeof (Animator))]
 public class ChangeSceneManager  : MonoBehaviour
 {
-    public static ChangeSceneManager instancia;
+    public static ChangeSceneManager instance;
     Animator anim;
     string actualScene;
+    public int nextSceneInsdex;
 
     private void Awake()
     {
-        instancia = this;
+        instance = this;
         anim = GetComponent<Animator>();
         anim.enabled = false;
     }
@@ -33,14 +34,7 @@ public class ChangeSceneManager  : MonoBehaviour
 
     void SelectedScene()
     {
-        if (actualScene == "00_inner_world")
-        {
-            SceneManager.LoadScene("01_External_world");
-        }
-        else
-        {
-            SceneManager.LoadScene("00_inner_world");
-        }
+        SceneManager.LoadScene(nextSceneInsdex);
     }
     void OnFadeComplete()
     {

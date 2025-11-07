@@ -16,6 +16,9 @@ public class InputManager : MonoBehaviour
 
     public static event Action InteractPressedEvent;
     public static event Action SelectPressedEvent;
+    public static event Action MoveDownPressedEvent;
+    public static event Action MoveUpPressedEvent;
+    
 
     private void Awake()
     {
@@ -33,14 +36,16 @@ public class InputManager : MonoBehaviour
     {
         GameManager.ChangeScene += ChangeScene;
         GameManager.OnPlay += OnPlay;
-        GameManager.OnReading += OnRead;
+        GameManager.OnReading += OnUI;
+        GameManager.OnMainMenu += OnUI;
     }
 
     private void OnDisable()
     {
         GameManager.ChangeScene -= ChangeScene;
         GameManager.OnPlay -= OnPlay;
-        GameManager.OnReading -= OnRead;
+        GameManager.OnReading -= OnUI;
+        GameManager.OnMainMenu -= OnUI;
     }
     private void Update()
     {
@@ -57,18 +62,25 @@ public class InputManager : MonoBehaviour
 
         if (inputActions.UI.Select.WasPressedThisFrame())
             SelectPressedEvent?.Invoke();
+
+        if (inputActions.UI.MoveDown.WasPressedThisFrame())
+            MoveDownPressedEvent?.Invoke();
+
+        if (inputActions.UI.MoveUp.WasPressedThisFrame())
+            MoveUpPressedEvent?.Invoke();
     }
 
     void ChangeScene()
     {
         inputActions.Player.Disable();
+        inputActions.UI.Disable();
     }
     void OnPlay()
     {
         inputActions.Player.Enable();
         inputActions.UI.Disable();
     }
-    void OnRead()
+    void OnUI()
     {
         inputActions.Player.Disable();
         inputActions.UI.Enable();

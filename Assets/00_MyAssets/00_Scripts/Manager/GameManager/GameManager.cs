@@ -31,6 +31,10 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (SceneManager.GetActiveScene().buildIndex == 1)
+                ChangeSceneManager.instance.nextSceneInsdex = 2;
+            else
+                ChangeSceneManager.instance.nextSceneInsdex = 1;
             ChangeState(GameStates.ChangeScene);
         }
     }
