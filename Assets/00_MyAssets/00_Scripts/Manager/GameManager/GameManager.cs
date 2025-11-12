@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public static event Action OnReading;
     public static event Action OnGameOver;
 
+    public string currentDialogueCSV;
+
     private void Awake()
     {
         SingletonPattern();
@@ -31,6 +33,8 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            ChangeSceneManager.instance.typeOfFade = "SwichFade";
+
             if (SceneManager.GetActiveScene().buildIndex == 1)
                 ChangeSceneManager.instance.nextSceneInsdex = 2;
             else

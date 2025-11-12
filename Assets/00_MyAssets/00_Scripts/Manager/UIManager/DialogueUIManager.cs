@@ -1,7 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using System.Collections;
+
 
 public class DialogueUIManager : MonoBehaviour
 {
@@ -11,30 +12,25 @@ public class DialogueUIManager : MonoBehaviour
     [SerializeField] private TypewriterEffect typewriter;
     [SerializeField] private int UIPosition;
 
-    [Header("Datos del diálogo")]
-    [SerializeField] private List<DialogueLine> dialogueLines = new();
+    [Header("Referencias externas")]
+    [SerializeField] private DialogueDecisionManager decisionManager;
 
-    private int currentLine = 0;
-    private bool isTyping = false;
-
-    void Start()
-    {
-
-    }
+    private List<DialogueLine> dialogueLines;
+    private int currentLine;
+    private bool isTyping;
+    private string csvFileName;
 
     void OnEnable()
     {
+        csvFileName = GameManager.instance.currentDialogueCSV;
+        dialogueLines = DialogueCSVLoader.LoadDialogue(csvFileName);
         ResetDialogue();
-        dialogueText.text = "";
-        nameText.text = "";
-
         ShowLine();
-        InputManager.SelectPressedEvent += SkipText; 
+        InputManager.SelectPressedEvent += SkipText;
     }
-    void OnDisable() 
-    {
-        InputManager.SelectPressedEvent -= SkipText; 
-    }
+
+    void OnDisable() => InputManager.SelectPressedEvent -= SkipText;
+
     void SkipText()
     {
         if (isTyping)
@@ -42,10 +38,7 @@ public class DialogueUIManager : MonoBehaviour
             typewriter.SkipText(dialogueLines[currentLine].text);
             isTyping = false;
         }
-        else
-        {
-            NextLine();
-        }
+        else NextLine();
     }
 
     void ShowLine()
@@ -56,8 +49,17 @@ public class DialogueUIManager : MonoBehaviour
             return;
         }
 
-        nameText.text = dialogueLines[currentLine].Name;
-        StartCoroutine(PlayTypewriter(dialogueLines[currentLine].text));
+        var line = dialogueLines[currentLine];
+
+        if (line.isDecision)
+        {
+            dialogueText.text = "";
+            decisionManager.ShowDecision(line, this);
+            return;
+        }
+
+        nameText.text = line.Name;
+        StartCoroutine(PlayTypewriter(line.text));
     }
 
     IEnumerator PlayTypewriter(string text)
@@ -68,30 +70,36 @@ public class DialogueUIManager : MonoBehaviour
         isTyping = false;
     }
 
-    void NextLine()
+    public void JumpToLine(int lineIndex)
     {
-        currentLine++;
+        currentLine = lineIndex;
         ShowLine();
     }
+
+    void NextLine()
+    {
+        var line = dialogueLines[currentLine];
+        if (line.nextLine >= 0)
+            currentLine = line.nextLine;
+        else
+            currentLine++;
+
+        ShowLine();
+    }
+
 
     void EndDialogue()
     {
         UIManager.Instance.DesActivateUI(UIPosition);
         GameManager.instance.ChangeState(DataDefinitions.GameStates.Play);
     }
+
     void ResetDialogue()
     {
         currentLine = 0;
         isTyping = false;
         dialogueText.text = "";
         nameText.text = "";
-        typewriter.ResetEffect(); 
+        typewriter.ResetEffect();
     }
-}
-
-[System.Serializable]
-public class DialogueLine
-{
-    public string Name;
-    [TextArea(2, 4)] public string text;
 }

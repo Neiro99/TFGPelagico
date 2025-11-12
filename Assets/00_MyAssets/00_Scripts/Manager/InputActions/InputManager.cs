@@ -38,6 +38,7 @@ public class InputManager : MonoBehaviour
         GameManager.OnPlay += OnPlay;
         GameManager.OnReading += OnUI;
         GameManager.OnMainMenu += OnUI;
+        GameManager.OnPause += OnUI;
     }
 
     private void OnDisable()
@@ -46,6 +47,7 @@ public class InputManager : MonoBehaviour
         GameManager.OnPlay -= OnPlay;
         GameManager.OnReading -= OnUI;
         GameManager.OnMainMenu -= OnUI;
+        GameManager.OnPause -= OnUI;
     }
     private void Update()
     {

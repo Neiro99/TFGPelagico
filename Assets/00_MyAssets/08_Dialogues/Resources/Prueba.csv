@@ -1,0 +1,6 @@
+Name,Text,IsDecision,Options,NextLines,AffinityChange
+Syn,¿Te encuentras bien? Agárrame la mano, te ayudaré a levantarte,,,,
+,,TRUE,Agarrarle la mano;Levantarse sin ayuda,2;3,10;-5
+Syn,Perfecto, vamos allá.,,,4,
+Syn,Está bien, puedo sola.,,,4,
+Aley,Alejop,,,,

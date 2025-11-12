@@ -3,10 +3,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainMenuManager : MonoBehaviour
+public class PauseManager : MonoBehaviour
 {
     [Header("Referencias")]
-    public GameObject mainMenuUI;
+    public GameObject PauseUI;
     public List<GameObject> menuButtons;
     public int menuIndex;
 
@@ -14,36 +14,35 @@ public class MainMenuManager : MonoBehaviour
     {
         menuIndex = 0;
 
-        GameManager.OnMainMenu += ActivateMenu;
-        GameManager.ChangeScene += DeactivateMenu;
-        GameManager.OnPlay += DeactivateMenu;
-        InputManager.MoveUpPressedEvent += () => NavigateMenu(true);
-        InputManager.MoveDownPressedEvent += () => NavigateMenu(false);
+        GameManager.OnPause += ActivatePause;
+        GameManager.ChangeScene += DeactivatePause;
+        GameManager.OnPlay += DeactivatePause;
+        InputManager.MoveUpPressedEvent += () => NavigatePause(true);
+        InputManager.MoveDownPressedEvent += () => NavigatePause(false);
         InputManager.SelectPressedEvent += SelectOption;
     }
 
     private void OnDisable()
     {
-        GameManager.OnMainMenu -= ActivateMenu;
-        GameManager.ChangeScene -= DeactivateMenu;
-        GameManager.OnPlay -= DeactivateMenu;
-        InputManager.MoveUpPressedEvent -= () => NavigateMenu(true);
-        InputManager.MoveDownPressedEvent -= () => NavigateMenu(false);
+        GameManager.OnPause -= ActivatePause;
+        GameManager.ChangeScene -= DeactivatePause;
+        GameManager.OnPlay -= DeactivatePause;
+        InputManager.MoveUpPressedEvent -= () => NavigatePause(true);
+        InputManager.MoveDownPressedEvent -= () => NavigatePause(false);
         InputManager.SelectPressedEvent -= SelectOption;
     }
-    private void ActivateMenu()
+    private void ActivatePause()
     {
-        mainMenuUI.SetActive(true);
+        PauseUI.SetActive(true);
     }
-    private void DeactivateMenu()
+    private void DeactivatePause()
     {
-        //aun no se muy bien que hacer aqui
-        //mainMenuUI.SetActive(false);
+        PauseUI.SetActive(false);
     }
 
-    private void NavigateMenu(bool itsUp)
+    private void NavigatePause(bool itsUp)
     {
-        UpdateMenuSelection(0);
+        UpdatePauseSelection(0);
 
         if (itsUp)
         {
@@ -58,9 +57,9 @@ public class MainMenuManager : MonoBehaviour
                 menuIndex = 0;
         }
 
-        UpdateMenuSelection(1);
+        UpdatePauseSelection(1);
     }
-    private void UpdateMenuSelection(int changeColor)
+    private void UpdatePauseSelection(int changeColor)
     {
         menuButtons[menuIndex].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, changeColor);
         menuButtons[menuIndex].transform.GetChild(2).GetComponent<Image>().color = new Color(1f, 1f, 1f, changeColor);
@@ -68,50 +67,35 @@ public class MainMenuManager : MonoBehaviour
 
     private void SelectOption()
     {
-        switch(menuIndex)
+        switch (menuIndex)
         {
             case 0:
-                StartGame();
+                Continue();
                 break;
             case 1:
-                OpenSettings();
+                Configuration();
                 break;
             case 2:
-                OpenExtras();
-                break;
-            case 3:
-                OpenCredits();
-                break;
-            case 4:
-                QuitGame();
+                Exit();               
                 break;
         }
     }
 
-    public void StartGame()
+    public void Continue()
     {
         ChangeSceneManager.instance.nextSceneInsdex = 1;
         ChangeSceneManager.instance.typeOfFade = "StandarFade";
         GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
     }
 
-    public void OpenSettings()
+    public void Configuration()
     {
         Debug.Log("Abrir configuración");
     }
 
-    public void OpenExtras()
+    public void Exit()
     {
         Debug.Log("Abrir extras");
     }
 
-    public void OpenCredits()
-    {
-        Debug.Log("Abrir créditos");
-    }
-
-    public void QuitGame()
-    {
-        Debug.Log("Salir del juego");
-    }
 }

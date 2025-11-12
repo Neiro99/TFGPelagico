@@ -7,14 +7,14 @@ public class ChangeSceneManager  : MonoBehaviour
 {
     public static ChangeSceneManager instance;
     Animator anim;
-    string actualScene;
     public int nextSceneInsdex;
+    public string typeOfFade;
+
 
     private void Awake()
     {
         instance = this;
         anim = GetComponent<Animator>();
-        anim.enabled = false;
     }
     private void OnEnable()
     {
@@ -28,8 +28,7 @@ public class ChangeSceneManager  : MonoBehaviour
 
     void ChangeScene()
     {
-        actualScene = SceneManager.GetActiveScene().name;
-        anim.enabled = true;
+        anim.SetBool(typeOfFade, true);
     }
 
     void SelectedScene()
@@ -38,8 +37,8 @@ public class ChangeSceneManager  : MonoBehaviour
     }
     void OnFadeComplete()
     {
+        anim.SetBool(typeOfFade, false);
         GameManager.instance.ChangeState(DataDefinitions.GameStates.Play);
-        anim.enabled = false;
     }
 
 }
