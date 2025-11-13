@@ -1,0 +1,11 @@
+Name,Text,IsDecision,Options,NextLines,AffinityChange
+????,"¿Te encuentras bien? Agárrame la mano, te ayudaré a levantarte",,,,
+,,TRUE,Agarrarle la mano;Levantarse sin ayuda,2;3,1;0
+Aster,Muchas gracias ¿cómo te llamas?,,,5,
+Aster,"Está bien, puedo sola.",,,4,
+????,Vale... Bueno...,,,,
+Syn,"Me llamo Syn. Soy una de las nuevas habitantes de este lugar, al que llamamos El Piélago. Cuando llegamos todos aquí, las cosas estaban muy revueltas y las noches eran frías y siniestras; a veces nos daba la sensación de que unas sombras nos acechaban. Decidimos entonces intentar construir un lugar para resguardarnos.",,,,
+Syn,"¿Ves esos enormes restos de lo que antaño debió ser un buque de guerra? ¡Los estamos intentando restaurar y convertirlos en nuestra casa! El pequeño Munin y yo buscamos objetos para decorarla, otro de nosotros diseña su funcionamiento y nuestra última amiga investiga el bosque en busca de materiales útiles para proteger el claro.",,,,
+Syn,"Justo el chico que se encarga de restaurarlo estaba aquí hace un rato, pero ha desaparecido de repente… Con lo miedoso que es, tal vez se haya perdido buscando algo. Si quieres, puedes echar un vistazo al claro; yo intentaré buscarlo para presentártelo y así podremos seguir trabajando todos juntos.",,,,
+Aster,Está bien…,,,,
+Aster,"(“Vaya, si ni siquiera le he dicho mi nombre… ¿Cómo he acabado aceptando trabajar con gente extraña y en un lugar aún más extraño? No entiendo nada…”)",,,,

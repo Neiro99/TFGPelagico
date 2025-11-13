@@ -13,12 +13,12 @@ public class MainMenuManager : MonoBehaviour
     private void OnEnable()
     {
         menuIndex = 0;
-
         GameManager.OnMainMenu += ActivateMenu;
         GameManager.ChangeScene += DeactivateMenu;
         GameManager.OnPlay += DeactivateMenu;
-        InputManager.MoveUpPressedEvent += () => NavigateMenu(true);
-        InputManager.MoveDownPressedEvent += () => NavigateMenu(false);
+
+        InputManager.MoveUpPressedEvent += MoveUp;
+        InputManager.MoveDownPressedEvent += MoveDown;
         InputManager.SelectPressedEvent += SelectOption;
     }
 
@@ -27,10 +27,15 @@ public class MainMenuManager : MonoBehaviour
         GameManager.OnMainMenu -= ActivateMenu;
         GameManager.ChangeScene -= DeactivateMenu;
         GameManager.OnPlay -= DeactivateMenu;
-        InputManager.MoveUpPressedEvent -= () => NavigateMenu(true);
-        InputManager.MoveDownPressedEvent -= () => NavigateMenu(false);
+
+        InputManager.MoveUpPressedEvent -= MoveUp;
+        InputManager.MoveDownPressedEvent -= MoveDown;
         InputManager.SelectPressedEvent -= SelectOption;
     }
+
+    private void MoveUp() => NavigateMenu(true);
+    private void MoveDown() => NavigateMenu(false);
+
     private void ActivateMenu()
     {
         mainMenuUI.SetActive(true);

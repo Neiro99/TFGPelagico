@@ -4,7 +4,8 @@ public static class DataDefinitions
     {
         MainMenu,
         ChangeScene,
-        Play, 
+        Play,
+        Cinematic,
         Pause, 
         Reading,
         GameOver

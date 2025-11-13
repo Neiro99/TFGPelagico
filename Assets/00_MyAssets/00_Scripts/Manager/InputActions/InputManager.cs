@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static DataDefinitions;
@@ -19,6 +20,8 @@ public class InputManager : MonoBehaviour
     public static event Action MoveDownPressedEvent;
     public static event Action MoveUpPressedEvent;
     
+    public bool canMove;
+
 
     private void Awake()
     {
@@ -28,6 +31,7 @@ public class InputManager : MonoBehaviour
             return;
         }
 
+        canMove = true;
         Instance = this;
         inputActions = new PlayerInputActions();
         inputActions.Player.Enable();
@@ -39,6 +43,7 @@ public class InputManager : MonoBehaviour
         GameManager.OnReading += OnUI;
         GameManager.OnMainMenu += OnUI;
         GameManager.OnPause += OnUI;
+        GameManager.OnCinematic += OnCinematic;
     }
 
     private void OnDisable()
@@ -48,16 +53,20 @@ public class InputManager : MonoBehaviour
         GameManager.OnReading -= OnUI;
         GameManager.OnMainMenu -= OnUI;
         GameManager.OnPause -= OnUI;
+        GameManager.OnCinematic -= OnCinematic;
     }
     private void Update()
     {
-        MoveUp = inputActions.Player.MoveUp.IsPressed();
-        MoveDown = inputActions.Player.MoveDown.IsPressed();
-        MoveLeft = inputActions.Player.MoveLeft.IsPressed();
-        MoveRight = inputActions.Player.MoveRight.IsPressed();
+        if (canMove) 
+        {
+            MoveUp = inputActions.Player.MoveUp.IsPressed();
+            MoveDown = inputActions.Player.MoveDown.IsPressed();
+            MoveLeft = inputActions.Player.MoveLeft.IsPressed();
+            MoveRight = inputActions.Player.MoveRight.IsPressed();
+        }
 
-        if (inputActions.Player.Pause.WasPressedThisFrame())
-            GameManager.instance.ChangeState(GameStates.Pause);
+        if (inputActions.Player.Pause.WasPressedThisFrame() || inputActions.UI.Pause.WasPressedThisFrame())
+            GameManager.instance.Pause();
 
         if (inputActions.Player.Interact.WasPressedThisFrame())
             InteractPressedEvent?.Invoke();
@@ -86,5 +95,11 @@ public class InputManager : MonoBehaviour
     {
         inputActions.Player.Disable();
         inputActions.UI.Enable();
+    }
+
+    private void OnCinematic()
+    {
+        inputActions.Player.Disable();
+        inputActions.UI.Disable();
     }
 }

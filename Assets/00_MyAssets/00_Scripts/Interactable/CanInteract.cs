@@ -3,12 +3,15 @@ using UnityEngine;
 public class CanInteract : MonoBehaviour
 {
     bool canInteract;
-    public int UIIndex;
+    private IInteractable interactable;
+
 
     private void Awake()
     {
         canInteract = false;
+        interactable = GetComponent<IInteractable>();
     }
+
     private void OnEnable()
     {
         InputManager.InteractPressedEvent += TryInteract;
@@ -35,10 +38,12 @@ public class CanInteract : MonoBehaviour
     }
     void TryInteract()
     {
-        if (canInteract)
+        
+        if (canInteract && interactable != null)
         {
-            UIManager.Instance.ActivateUI(UIIndex);
-            GameManager.instance.ChangeState(DataDefinitions.GameStates.Reading);
+            transform.GetChild(0).gameObject.SetActive(false);
+            interactable.ItsInteracting();
         }
     }
+
 }

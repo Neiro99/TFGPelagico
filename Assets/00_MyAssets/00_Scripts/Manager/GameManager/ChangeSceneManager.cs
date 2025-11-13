@@ -38,7 +38,10 @@ public class ChangeSceneManager  : MonoBehaviour
     void OnFadeComplete()
     {
         anim.SetBool(typeOfFade, false);
-        GameManager.instance.ChangeState(DataDefinitions.GameStates.Play);
+        if(nextSceneInsdex == 0 )
+            GameManager.instance.ChangeState(DataDefinitions.GameStates.MainMenu);
+        else
+            GameManager.instance.ChangeState(DataDefinitions.GameStates.Play);
     }
 
 }

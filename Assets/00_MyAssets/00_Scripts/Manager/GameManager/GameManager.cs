@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public static event Action OnPause;
     public static event Action OnReading;
     public static event Action OnGameOver;
+    public static event Action OnCinematic;
 
     public string currentDialogueCSV;
 
@@ -31,16 +32,16 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ChangeSceneManager.instance.typeOfFade = "SwichFade";
-
-            if (SceneManager.GetActiveScene().buildIndex == 1)
-                ChangeSceneManager.instance.nextSceneInsdex = 2;
-            else
-                ChangeSceneManager.instance.nextSceneInsdex = 1;
-            ChangeState(GameStates.ChangeScene);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    ChangeSceneManager.instance.typeOfFade = "SwichFade";
+        //
+        //    if (SceneManager.GetActiveScene().buildIndex == 1)
+        //        ChangeSceneManager.instance.nextSceneInsdex = 2;
+        //    else
+        //        ChangeSceneManager.instance.nextSceneInsdex = 1;
+        //    ChangeState(GameStates.ChangeScene);
+        //}
     }
 
     public void ChangeState(GameStates _newState)
@@ -58,6 +59,9 @@ public class GameManager : MonoBehaviour
                 break;
             case GameStates.Play:
                 OnPlay?.Invoke();
+                break;
+            case GameStates.Cinematic:
+                OnCinematic?.Invoke();
                 break;
             case GameStates.Pause:
                 OnPause?.Invoke();
@@ -82,7 +86,6 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
 
     }
-
     public void Pause()
     {
         if (actualState == GameStates.Play) ChangeState(GameStates.Pause);

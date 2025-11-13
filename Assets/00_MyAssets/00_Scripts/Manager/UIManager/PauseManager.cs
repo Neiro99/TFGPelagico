@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class PauseManager : MonoBehaviour
 {
     [Header("Referencias")]
-    public GameObject PauseUI;
     public List<GameObject> menuButtons;
     public int menuIndex;
 
@@ -14,31 +13,20 @@ public class PauseManager : MonoBehaviour
     {
         menuIndex = 0;
 
-        GameManager.OnPause += ActivatePause;
-        GameManager.ChangeScene += DeactivatePause;
-        GameManager.OnPlay += DeactivatePause;
-        InputManager.MoveUpPressedEvent += () => NavigatePause(true);
-        InputManager.MoveDownPressedEvent += () => NavigatePause(false);
+        InputManager.MoveUpPressedEvent += MoveUp;
+        InputManager.MoveDownPressedEvent += MoveDown;
         InputManager.SelectPressedEvent += SelectOption;
     }
 
     private void OnDisable()
     {
-        GameManager.OnPause -= ActivatePause;
-        GameManager.ChangeScene -= DeactivatePause;
-        GameManager.OnPlay -= DeactivatePause;
-        InputManager.MoveUpPressedEvent -= () => NavigatePause(true);
-        InputManager.MoveDownPressedEvent -= () => NavigatePause(false);
+        InputManager.MoveUpPressedEvent -= MoveUp;
+        InputManager.MoveDownPressedEvent -= MoveDown;
         InputManager.SelectPressedEvent -= SelectOption;
     }
-    private void ActivatePause()
-    {
-        PauseUI.SetActive(true);
-    }
-    private void DeactivatePause()
-    {
-        PauseUI.SetActive(false);
-    }
+
+    private void MoveUp() => NavigatePause(true);
+    private void MoveDown() => NavigatePause(false);
 
     private void NavigatePause(bool itsUp)
     {
@@ -61,9 +49,12 @@ public class PauseManager : MonoBehaviour
     }
     private void UpdatePauseSelection(int changeColor)
     {
-        menuButtons[menuIndex].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, changeColor);
-        menuButtons[menuIndex].transform.GetChild(2).GetComponent<Image>().color = new Color(1f, 1f, 1f, changeColor);
+        Color c = new Color(0.953f, 0.976f, 1f, changeColor);
+
+        menuButtons[menuIndex].transform.GetChild(0).GetComponent<Image>().color = c;
+        menuButtons[menuIndex].transform.GetChild(2).GetComponent<Image>().color = c;
     }
+
 
     private void SelectOption()
     {
@@ -83,9 +74,7 @@ public class PauseManager : MonoBehaviour
 
     public void Continue()
     {
-        ChangeSceneManager.instance.nextSceneInsdex = 1;
-        ChangeSceneManager.instance.typeOfFade = "StandarFade";
-        GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
+        GameManager.instance.ChangeState(DataDefinitions.GameStates.Play);
     }
 
     public void Configuration()
@@ -95,7 +84,10 @@ public class PauseManager : MonoBehaviour
 
     public void Exit()
     {
-        Debug.Log("Abrir extras");
+        menuIndex = 0;
+        ChangeSceneManager.instance.nextSceneInsdex = 0;
+        ChangeSceneManager.instance.typeOfFade = "StandarFade";
+        GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
     }
 
 }
