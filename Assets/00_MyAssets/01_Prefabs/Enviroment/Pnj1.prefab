@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3704774683942577151}
   - component: {fileID: 1704786536544734768}
   - component: {fileID: 8867834236959238855}
+  - component: {fileID: 3717172255207772652}
   m_Layer: 0
   m_Name: Pnj1
   m_TagString: Untagged
@@ -68,7 +69,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d3f1d9a3edf0064e83a1f7d133cd721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIIndex: 0
+--- !u!114 &3717172255207772652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281410551045217068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787603fa2a625804a951f4189701fdab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4762574675370685071
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,8 +121,8 @@ SpriteRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4762574675370685071}
   m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -258,7 +270,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: E
+  m_text: Pulsa "E" para hablar con ????
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -285,8 +297,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
-  m_fontSizeBase: 12
+  m_fontSize: 4.32
+  m_fontSizeBase: 4.32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -323,7 +335,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 1.4078255, w: 0}
+  m_margin: {x: -1.7373149, y: 0, z: 0.02473259, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0

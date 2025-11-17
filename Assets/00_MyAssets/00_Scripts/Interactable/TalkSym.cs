@@ -13,6 +13,7 @@ public class TalkSym : MonoBehaviour
     }
     public void ItsInteracting()
     {
+        GameManager.instance.currentDialogueCSV = "00_Dialogo1AsterConoceASyn";
         UIManager.Instance.ActivateUI(0);
         GameManager.instance.ChangeState(DataDefinitions.GameStates.Reading);
         transform.GetChild(0).gameObject.SetActive(false);

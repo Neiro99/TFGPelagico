@@ -6,6 +6,7 @@ public class DialogueDecisionManager : MonoBehaviour
 {
     [SerializeField] private GameObject decisionPanel;
     [SerializeField] private List<TextMeshProUGUI> optionTexts;
+    [SerializeField] private List<GameObject> Selector;
 
     private DialogueLine currentDecisionLine;
     private int decisionIndex;
@@ -73,7 +74,10 @@ public class DialogueDecisionManager : MonoBehaviour
         for (int i = 0; i < optionTexts.Count; i++)
         {
             if (!optionTexts[i].gameObject.activeSelf) continue;
-            optionTexts[i].color = (i == decisionIndex) ? Color.yellow : Color.white;
+
+            if (i < Selector.Count)
+                Selector[i].SetActive(i == decisionIndex);
         }
     }
+
 }

@@ -1,6 +1,6 @@
 Name,Text,IsDecision,Options,NextLines,AffinityChange
-????,"¿Te encuentras bien? Agárrame la mano, te ayudaré a levantarte",,,,
-,,TRUE,Agarrarle la mano;Levantarse sin ayuda,2;3,1;0
+????,"¿Te encuentras bien? Agárrame la mano, te ayudaré a levantarte.",,,,
+,,TRUE,Agarrarle la mano.;Levantarse sin ayuda.,2;3,1;0
 Aster,Muchas gracias ¿cómo te llamas?,,,5,
 Aster,"Está bien, puedo sola.",,,4,
 ????,Vale... Bueno...,,,,

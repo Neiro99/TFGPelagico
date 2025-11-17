@@ -628,6 +628,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2751502460169404094, guid: 032f2ac7f3662264da72036ea56942c8, type: 3}
+      propertyPath: m_text
+      value: Vertical-slice alpha
+      objectReference: {fileID: 0}
     - target: {fileID: 3110192877103325263, guid: 032f2ac7f3662264da72036ea56942c8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
