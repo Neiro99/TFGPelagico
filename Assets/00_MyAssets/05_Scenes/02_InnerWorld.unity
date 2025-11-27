@@ -4152,26 +4152,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4803925866943126291, guid: e26b8b2784afe8442ae5e40296b59019, type: 3}
-      propertyPath: m_Height
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4803925866943126291, guid: e26b8b2784afe8442ae5e40296b59019, type: 3}
-      propertyPath: m_Center.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440732363597646012, guid: e26b8b2784afe8442ae5e40296b59019, type: 3}
-      propertyPath: m_CastShadows
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440732363597646012, guid: e26b8b2784afe8442ae5e40296b59019, type: 3}
-      propertyPath: m_ReceiveShadows
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440732363597646012, guid: e26b8b2784afe8442ae5e40296b59019, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: f0d9da0b2ff81524a88e6d75dae8ab4a, type: 2}
     - target: {fileID: 7701445973836208839, guid: e26b8b2784afe8442ae5e40296b59019, type: 3}
       propertyPath: m_Name
       value: Player
@@ -4232,10 +4212,6 @@ PrefabInstance:
     - target: {fileID: 2281410551045217068, guid: 7e53fcee4ae244542bba1b2d0c64a73d, type: 3}
       propertyPath: m_Name
       value: Pnj1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2281410551045217068, guid: 7e53fcee4ae244542bba1b2d0c64a73d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3704774683942577151, guid: 7e53fcee4ae244542bba1b2d0c64a73d, type: 3}
       propertyPath: m_LocalPosition.x
