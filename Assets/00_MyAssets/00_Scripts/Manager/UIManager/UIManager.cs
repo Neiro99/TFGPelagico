@@ -1,17 +1,28 @@
+using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager Instance;
+    public static UIManager instance { get; private set; }
+
+
+    [Header("UI roots")]
+    public GameObject background;
+    public GameObject characters;
+    public GameObject objectView;
+    public GameObject puzzle;
+    public GameObject dialogue;
+    public GameObject pause;
+
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
             return;
         }
-        Instance = this;
+
+        instance = this;
     }
 
     private void OnEnable()
@@ -27,23 +38,53 @@ public class UIManager : MonoBehaviour
         GameManager.ChangeScene -= DeactivatePause;
         GameManager.OnPlay -= DeactivatePause;
     }
-    public void ActivateUI(int uiIndex)
+
+    public void ActivateUI(string objectUI, bool active)
     {
-        transform.GetChild(uiIndex).gameObject.SetActive(true);
+        switch (objectUI)
+        {
+            case "background":
+                background.SetActive(active);
+                break;
+            case "characters":
+                characters.SetActive(active);
+                break;
+            case "objectView":
+                objectView.SetActive(active);
+                break;
+            case "puzzle":
+                puzzle.SetActive(active);
+                break;
+            case "dialogue":
+                dialogue.SetActive(active);
+                break;
+            case "pause":
+                pause.SetActive(active);
+                break;
+        }
     }
-    public void DesActivateUI(int uiIndex)
+    public void DeactivateUI(string uiKey)
     {
-        transform.GetChild(uiIndex).gameObject.SetActive(false);
+        ActivateUI(uiKey, false);
     }
 
-    void ActivatePause()
+    public void ResetUI()
     {
-        ActivateUI(2);
-        Time.timeScale = 0f;
+        background.SetActive(false);
+        characters.SetActive(false);
+        objectView.SetActive(false);
+        puzzle.SetActive(false);
+        dialogue.SetActive(false);
+        pause.SetActive(false);
     }
-    void DeactivatePause()
+    private void ActivatePause()
     {
-        DesActivateUI(2);
-        Time.timeScale = 1f;
+        ActivateUI("pause", true);
     }
+
+    private void DeactivatePause()
+    {
+        ActivateUI("pause", false);
+    }
+
 }

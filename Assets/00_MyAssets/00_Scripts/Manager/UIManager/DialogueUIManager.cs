@@ -90,7 +90,7 @@ public class DialogueUIManager : MonoBehaviour
 
     void EndDialogue()
     {
-        UIManager.Instance.DesActivateUI(UIPosition);
+        UIManager.instance.ResetUI();
         GameManager.instance.ChangeState(DataDefinitions.GameStates.Play);
     }
 

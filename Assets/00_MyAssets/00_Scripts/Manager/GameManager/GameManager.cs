@@ -29,21 +29,6 @@ public class GameManager : MonoBehaviour
     {
         ChangeState(actualState);
     }
-
-    private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    ChangeSceneManager.instance.typeOfFade = "SwichFade";
-        //
-        //    if (SceneManager.GetActiveScene().buildIndex == 1)
-        //        ChangeSceneManager.instance.nextSceneInsdex = 2;
-        //    else
-        //        ChangeSceneManager.instance.nextSceneInsdex = 1;
-        //    ChangeState(GameStates.ChangeScene);
-        //}
-    }
-
     public void ChangeState(GameStates _newState)
     {
         actualState = _newState;

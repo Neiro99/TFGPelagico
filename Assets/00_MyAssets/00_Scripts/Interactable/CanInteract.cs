@@ -38,7 +38,6 @@ public class CanInteract : MonoBehaviour
     }
     void TryInteract()
     {
-        
         if (canInteract && interactable != null)
         {
             transform.GetChild(0).gameObject.SetActive(false);

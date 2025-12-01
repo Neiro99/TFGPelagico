@@ -13,8 +13,12 @@ public class TalkSym : MonoBehaviour
     }
     public void ItsInteracting()
     {
-        GameManager.instance.currentDialogueCSV = "00_Dialogo1AsterConoceASyn";
-        UIManager.Instance.ActivateUI(0);
+        GameManager.instance.currentDialogueCSV = "Syn";
+
+        UIManager.instance.ActivateUI("background", true);
+        UIManager.instance.ActivateUI("dialogue", true);
+        UIManager.instance.ActivateUI("characters", true);
+
         GameManager.instance.ChangeState(DataDefinitions.GameStates.Reading);
         transform.GetChild(0).gameObject.SetActive(false);
         InputManager.Instance.canMove = true;
