@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ObjectForeground : MonoBehaviour, IInteractable
+public class ObjectForeground : MonoBehaviour, Interactable
 {
     bool firstInteract;
     public bool showImage;
@@ -13,12 +13,17 @@ public class ObjectForeground : MonoBehaviour, IInteractable
     public int imageType; 
     public string spriteKey;
 
+    public bool caninteract;
+
     public void Start()
     {
+        caninteract = true;
         firstInteract = true;
     }
     public void ItsInteracting()
     {
+        if (!caninteract) return;
+
         if (firstInteract)
         {
             GameManager.instance.currentDialogueCSV = textToShow1;

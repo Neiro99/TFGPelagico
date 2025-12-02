@@ -54,6 +54,11 @@ public class SelectionCursor : MonoBehaviour
         UpdateCursorVisualPosition();
     }
 
+    private void OnEnable()
+    {
+        InputManager.Instance.canMove = false;
+    }
+
     private void Update()
     {
         HandleMovementInput();

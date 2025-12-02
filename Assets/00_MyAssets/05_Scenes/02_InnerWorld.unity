@@ -193,6 +193,7 @@ MonoBehaviour:
   textToShow2: Salpa2
   imageType: 2
   spriteKey: Salpa
+  caninteract: 0
 --- !u!114 &29359240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +218,8 @@ GameObject:
   - component: {fileID: 61174347}
   - component: {fileID: 61174349}
   - component: {fileID: 61174348}
+  - component: {fileID: 61174351}
+  - component: {fileID: 61174350}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -236,7 +239,8 @@ Transform:
   m_LocalPosition: {x: 0.47796836, y: -0.101, z: -0.63}
   m_LocalScale: {x: 0.19349095, y: 0.19349095, z: 0.19349095}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1685452960}
   m_Father: {fileID: 1915440898}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &61174347
@@ -328,6 +332,31 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.319842, y: 1.253034, z: 3.0665588}
   m_Center: {x: -0.00000105682, y: -0.7734825, z: -1.4332806}
+--- !u!114 &61174350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61174345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c7366f6620799458ccd6e85c5c5de1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectForeground: {fileID: 1915440895}
+--- !u!114 &61174351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61174345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d3f1d9a3edf0064e83a1f7d133cd721, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &71248824
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,6 +1259,7 @@ MonoBehaviour:
   textToShow2: TableTorpere
   imageType: 2
   spriteKey: TableTorpere
+  caninteract: 0
 --- !u!114 &535492814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1519,46 +1549,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: === GameManager ===
       objectReference: {fileID: 0}
-    - target: {fileID: 4312309395244030267, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: entries.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4312309395244030267, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: position.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4312309395244030267, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: 'position.Array.data[0]'
-      value: 
-      objectReference: {fileID: 888524897}
-    - target: {fileID: 4312309395244030267, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: 'position.Array.data[1]'
-      value: 
-      objectReference: {fileID: 1686311920}
-    - target: {fileID: 4312309395244030267, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: 'position.Array.data[2]'
-      value: 
-      objectReference: {fileID: 1457437911}
-    - target: {fileID: 4312309395244030267, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: entries.Array.data[1].key
-      value: TableTorpere
-      objectReference: {fileID: 0}
-    - target: {fileID: 4312309395244030267, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: entries.Array.data[2].key
-      value: Door
-      objectReference: {fileID: 0}
-    - target: {fileID: 4312309395244030267, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: entries.Array.data[3].key
-      value: Door
-      objectReference: {fileID: 0}
-    - target: {fileID: 4312309395244030267, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: entries.Array.data[2].sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 2e3d184223209a742aee560624c648d8, type: 3}
-    - target: {fileID: 4312309395244030267, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: entries.Array.data[3].sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 5cf8dee33c3340d41824e50d7edabde4, type: 3}
     - target: {fileID: 4659869576210555800, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1691,17 +1681,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &888524897 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9155659575896205289, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-  m_PrefabInstance: {fileID: 793305821}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &912931308
 GameObject:
   m_ObjectHideFlags: 0
@@ -2413,6 +2392,7 @@ MonoBehaviour:
   textToShow2: Sauce
   imageType: 0
   spriteKey: 
+  caninteract: 0
 --- !u!114 &1019679709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3310,17 +3290,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1457437911 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2825426808284277125, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-  m_PrefabInstance: {fileID: 793305821}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1490667805
 GameObject:
   m_ObjectHideFlags: 0
@@ -3809,17 +3778,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1686311920 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4814335477876756702, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-  m_PrefabInstance: {fileID: 793305821}
+--- !u!1 &1685452959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1685452960}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1685452960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685452959}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 61174346}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1706229306
 GameObject:
   m_ObjectHideFlags: 0
@@ -4640,6 +4629,7 @@ MonoBehaviour:
   textToShow2: Boat
   imageType: 0
   spriteKey: 
+  caninteract: 0
 --- !u!114 &1915440896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5255,6 +5245,10 @@ PrefabInstance:
     - target: {fileID: 2281410551045217068, guid: 7e53fcee4ae244542bba1b2d0c64a73d, type: 3}
       propertyPath: m_Name
       value: Pnj1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281410551045217068, guid: 7e53fcee4ae244542bba1b2d0c64a73d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3704774683942577151, guid: 7e53fcee4ae244542bba1b2d0c64a73d, type: 3}
       propertyPath: m_LocalPosition.x

@@ -95,7 +95,8 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        ChangeSceneManager.instance.nextSceneInsdex = 1;
+        print("Iniciar juego");
+        ChangeSceneManager.instance.nextSceneInsdex = 2;
         ChangeSceneManager.instance.typeOfFade = "StandarFade";
         GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
     }
@@ -118,5 +119,6 @@ public class MainMenuManager : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("Salir del juego");
+        Application.Quit();
     }
 }

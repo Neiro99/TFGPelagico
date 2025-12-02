@@ -3,13 +3,13 @@ using UnityEngine;
 public class CanInteract : MonoBehaviour
 {
     bool canInteract;
-    private IInteractable interactable;
+    private Interactable interactable;
 
 
     private void Awake()
     {
         canInteract = false;
-        interactable = GetComponent<IInteractable>();
+        interactable = GetComponent<Interactable>();
     }
 
     private void OnEnable()

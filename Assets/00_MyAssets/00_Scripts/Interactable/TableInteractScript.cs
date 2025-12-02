@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using static DataDefinitions;
 
-public class TableInteractScript : MonoBehaviour, IInteractable
+public class TableInteractScript : MonoBehaviour, Interactable
 {
     private Animator anim;
     private void Awake()
@@ -19,7 +19,7 @@ public class TableInteractScript : MonoBehaviour, IInteractable
     {
         yield return new WaitForSeconds(1f);
         ChangeSceneManager.instance.typeOfFade = "SwichFade";
-        ChangeSceneManager.instance.nextSceneInsdex = 2;
+        ChangeSceneManager.instance.nextSceneInsdex = 3;
         GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
     }
 }

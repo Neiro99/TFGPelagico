@@ -80,10 +80,10 @@ public class MusicManager : MonoBehaviour
     {
         if (EsPrimeraReproduccion() || EsMusicaDistinta(_indice))
         {
-            audioSource.clip = musicas[_indice];
-            audioSource.loop = _enBucle;
+            //audioSource.clip = musicas[_indice];
+            //audioSource.loop = _enBucle;
 
-            audioSource.Play();
+            //audioSource.Play();
             //Debug.Log($"Reproduce pista: <color=cyan>{_indice}</color>");
         }
     }
