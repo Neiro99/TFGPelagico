@@ -27,6 +27,12 @@ public class PuzzleChecker : MonoBehaviour
         {
             bool solved = IsSolved();
             Debug.Log("Puzzle solved? " + solved);
+            if (solved)
+            {
+                ChangeSceneManager.instance.nextSceneInsdex = 4;
+                ChangeSceneManager.instance.typeOfFade = "StandarFade";
+                GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
+            }
         }
     }
 
