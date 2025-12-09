@@ -1,20 +1,25 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class ItsOpen : MonoBehaviour, Interactable
 {
     bool firstInteract;
     public ObjectForeground objectForeground;
+    public TMP_Text ChangeText;
+
     public void Start()
     {
         firstInteract = true;
     }
+
     public void ItsInteracting()
     {
         if (firstInteract)
         {
             firstInteract = false;
             StartCoroutine(WaitAndEnableInteraction());
+            ChangeText.text = "Pulsa de nuevo \"E\" para abrir la puerta";
         }
         else
         {

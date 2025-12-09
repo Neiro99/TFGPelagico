@@ -1473,7 +1473,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 600, y: -251.625}
+  m_AnchoredPosition: {x: 600, y: -192.30003}
   m_SizeDelta: {x: 1200, y: 44.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7691190435262661168
@@ -1504,7 +1504,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\"Espacio\" para seleccionar\n y soltar"
+  m_text: "\"Espacio\" para \nseleccionar una pieza \ny moverla. Vuelve a \npulsarlo
+    para \ndeseleccionarla\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b2f646df193f2348b24049d6ff3cd5a, type: 2}
   m_sharedMaterial: {fileID: 7336897319810564710, guid: 0b2f646df193f2348b24049d6ff3cd5a, type: 2}
@@ -1910,7 +1911,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 600, y: -366.27502}
+  m_AnchoredPosition: {x: 600, y: -398.67502}
   m_SizeDelta: {x: 1200, y: 44.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8758015926852287921
@@ -2049,7 +2050,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 600, y: -22.325}
+  m_AnchoredPosition: {x: 600, y: 37}
   m_SizeDelta: {x: 1200, y: 44.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9149018128421480059
@@ -2080,9 +2081,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Conecta las tuberias
-
-    desde "Start" hasta "End"'
+  m_text: "Conecta las tuber\xEDas\ndesde \"Start\" hasta \"End\"\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b2f646df193f2348b24049d6ff3cd5a, type: 2}
   m_sharedMaterial: {fileID: 7336897319810564710, guid: 0b2f646df193f2348b24049d6ff3cd5a, type: 2}
@@ -2437,7 +2436,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3033587237402909344}
-  - component: {fileID: 7170402650333139130}
   m_Layer: 5
   m_Name: Decisions
   m_TagString: Untagged
@@ -2469,32 +2467,6 @@ RectTransform:
   m_AnchoredPosition: {x: -259, y: 208}
   m_SizeDelta: {x: 1200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7170402650333139130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4960403882536530761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 70
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!1 &5029734695893862258
 GameObject:
   m_ObjectHideFlags: 0
@@ -3323,7 +3295,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 600, y: -480.92502}
+  m_AnchoredPosition: {x: 600, y: -513.32495}
   m_SizeDelta: {x: 1200, y: 44.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4033931838310696160
@@ -3955,7 +3927,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 600, y: -136.975}
+  m_AnchoredPosition: {x: 600, y: -77.65004}
   m_SizeDelta: {x: 1200, y: 44.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5172483622072223897
@@ -3986,9 +3958,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fijate bien en que piezas
-
-    se pueden mover o girar'
+  m_text: "F\xEDjate bien en qu\xE9 piezas\nse pueden mover o girar"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b2f646df193f2348b24049d6ff3cd5a, type: 2}
   m_sharedMaterial: {fileID: 7336897319810564710, guid: 0b2f646df193f2348b24049d6ff3cd5a, type: 2}
