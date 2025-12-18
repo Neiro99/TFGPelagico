@@ -1,51 +1,58 @@
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
-/// <summary>
-/// DESCRIPCION:
-/// 
-/// </summary>
-
-[RequireComponent (typeof(AudioSource))]
+[RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
 {
-    // ***********************************************
-    #region 1) Definicion de variables
     public static SoundManager instancia;
-    AudioSource audioSource;
 
-    public AudioClip[] sonidoInterfaz;
-    public AudioClip coinSound;
-    public AudioClip lifeSound;
-    public AudioClip starSound;
-    public AudioClip keySound;
+    [Header("SFX List (por índice)")]
+    [SerializeField] private AudioClip[] sfx;
 
-    #endregion
-    // ***********************************************
-    #region 2) Funciones de Unity
+    [Header("Ajustes")]
+    [Range(0f, 1f)][SerializeField] private float volumen = 1f;
+
+    private AudioSource audioSource;
+
     private void Awake()
     {
+        if (instancia != null && instancia != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         instancia = this;
+        DontDestroyOnLoad(gameObject);
+
         audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
+        audioSource.volume = 1f; // el volumen final lo controlamos en PlayOneShot
     }
-    #endregion
-// ***********************************************
-    #region 3) Funciones originales
 
-
-    public void Reproducir_SonidoInterfaz(int _indice)
+    /// <summary>
+    /// Reproduce un SFX por índice (0..n-1)
+    /// </summary>
+    public void PlaySFX(int indice)
     {
-        audioSource.PlayOneShot(sonidoInterfaz[_indice]);
+        PlaySFX(indice, 1f);
     }
 
-    public void ItemsSound(string _item)
+    /// <summary>
+    /// Reproduce un SFX por índice con multiplicador de volumen (ej: 0.5f, 1.2f)
+    /// </summary>
+    public void PlaySFX(int indice, float volumenExtra)
     {
-        if (_item == "Coin") audioSource.PlayOneShot(coinSound);
-        if (_item == "Key") audioSource.PlayOneShot(keySound);
-        if (_item == "Heart") audioSource.PlayOneShot(lifeSound);
-        if (_item == "Star") audioSource.PlayOneShot(starSound);
+        if (sfx == null || sfx.Length == 0) return;
+        if (indice < 0 || indice >= sfx.Length) return;
+        if (sfx[indice] == null) return;
+
+        float finalVol = Mathf.Clamp01(volumen * Mathf.Max(0f, volumenExtra));
+        audioSource.PlayOneShot(sfx[indice], finalVol);
     }
 
-    #endregion
-// ***********************************************
+    public void SetVolumen(float v)
+    {
+        volumen = Mathf.Clamp01(v);
+    }
 }

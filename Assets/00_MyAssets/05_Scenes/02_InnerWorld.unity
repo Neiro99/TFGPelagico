@@ -5446,7 +5446,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2281410551045217068, guid: 7e53fcee4ae244542bba1b2d0c64a73d, type: 3}
       propertyPath: m_Name
-      value: Pnj1
+      value: Syn
       objectReference: {fileID: 0}
     - target: {fileID: 2281410551045217068, guid: 7e53fcee4ae244542bba1b2d0c64a73d, type: 3}
       propertyPath: m_IsActive

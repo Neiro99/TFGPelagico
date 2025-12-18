@@ -40,6 +40,7 @@ public class CanInteract : MonoBehaviour
     {
         if (canInteract && interactable != null)
         {
+            SoundManager.instancia.PlaySFX(4);
             transform.GetChild(0).gameObject.SetActive(false);
             interactable.ItsInteracting();
         }

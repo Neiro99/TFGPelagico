@@ -1,107 +1,157 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
-/// <summary>
-/// DESCRIPCION:
-/// 
-/// </summary>
-
-[RequireComponent (typeof(AudioSource))]
+[RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
 {
-    // ***********************************************
-    #region 1) Definicion de variables
     public static MusicManager instancia;
 
-    AudioSource audioSource;
+    [SerializeField] private AudioClip musica1;
+    [SerializeField] private AudioClip musica2;
+    [SerializeField] private AudioClip musica3;
 
-    public AudioClip[] musicas;
-    #endregion
-    // ***********************************************
-    #region 2) Funciones de Unity
+    [Range(0f, 1f)][SerializeField] private float volumen = 1f;
+    [SerializeField] private bool loop = true;
+
+    [Header("Fade")]
+    [SerializeField] private float fadeOutTime = 1.5f;
+    [SerializeField] private float fadeInTime = 1.5f;
+
+    // Curva del fade: por defecto ease-in-out suave
+    [SerializeField]
+    private AnimationCurve fadeCurve =
+        AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+
+    private AudioSource audioSource;
+    private Coroutine fadeRoutine;
+
     private void Awake()
     {
+        if (instancia != null && instancia != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         instancia = this;
-        audioSource = GetComponent<AudioSource> ();
+        DontDestroyOnLoad(gameObject);
+
+        audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
+        audioSource.loop = loop;
+        audioSource.volume = volumen;
     }
 
-    #region GESTION EVENTOS COMO SUBSCRIPTOR
     private void OnEnable()
     {
-        GameManager.OnMainMenu += OnMenuInicial;
-        GameManager.OnPlay += OnJugando;
-        GameManager.OnPause += OnPausado;
-        GameManager.OnGameOver += OnJuegoFinalizado;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
-        GameManager.OnMainMenu -= OnMenuInicial;
-        GameManager.OnPlay -= OnJugando;
-        GameManager.OnPause -= OnPausado;
-        GameManager.OnGameOver -= OnJuegoFinalizado;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    #region FUNCIONES QUE SE VAN A EJECUTAR SI HAY SUBSCRIPCION Y SE INVOCA EL EVENTO
-    void OnMenuInicial()
+    private void Start()
     {
-
-        CambioVolumen(1f);
-        ReproducirMusica(0, true);
+        CambiarMusicaPara(SceneManager.GetActiveScene().buildIndex);
     }
 
-    void OnCuentaAtras()
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-
+        CambiarMusicaPara(scene.buildIndex);
     }
 
-    void OnJugando()
+    private void CambiarMusicaPara(int buildIndex)
     {
-        CambioVolumen(0.4f);
-        ReproducirMusica(1, true);
-        if (!audioSource.isPlaying) audioSource.UnPause();
-    }
+        AudioClip objetivo = ClipSegunBuildIndex(buildIndex);
+        if (objetivo == null) return;
 
-    void OnPausado()
-    {
-        if (audioSource.isPlaying) audioSource.Pause();
-    }
-
-    void OnJuegoFinalizado()
-    {
-        ReproducirMusica(3, true);
-    }
-    #endregion
-    #endregion
-    #endregion
-    // ***********************************************
-    #region 3) Funciones originales
-    public void ReproducirMusica(int _indice, bool _enBucle)
-    {
-        if (EsPrimeraReproduccion() || EsMusicaDistinta(_indice))
+        // Si es la misma, no reiniciar
+        if (audioSource.clip == objetivo)
         {
-            //audioSource.clip = musicas[_indice];
-            //audioSource.loop = _enBucle;
+            if (!audioSource.isPlaying) audioSource.UnPause();
+            return;
+        }
 
-            //audioSource.Play();
-            //Debug.Log($"Reproduce pista: <color=cyan>{_indice}</color>");
+        if (fadeRoutine != null) StopCoroutine(fadeRoutine);
+
+        // Si no hay nada sonando todavía: arranca con fade in
+        if (audioSource.clip == null || !audioSource.isPlaying)
+        {
+            audioSource.clip = objetivo;
+            audioSource.loop = loop;
+            audioSource.volume = 0f;
+            audioSource.Play();
+            fadeRoutine = StartCoroutine(FadeTo(volumen, fadeInTime));
+            return;
+        }
+
+        fadeRoutine = StartCoroutine(FadeSwap(objetivo));
+    }
+
+    private IEnumerator FadeSwap(AudioClip nuevoClip)
+    {
+        yield return FadeTo(0f, fadeOutTime);
+
+        audioSource.Stop();
+        audioSource.clip = nuevoClip;
+        audioSource.loop = loop;
+        audioSource.volume = 0f;
+        audioSource.Play();
+
+        yield return FadeTo(volumen, fadeInTime);
+
+        fadeRoutine = null;
+    }
+
+    private IEnumerator FadeTo(float target, float duration)
+    {
+        float start = audioSource.volume;
+
+        if (duration <= 0f)
+        {
+            audioSource.volume = target;
+            yield break;
+        }
+
+        float t = 0f;
+        while (t < duration)
+        {
+            t += Time.unscaledDeltaTime;
+            float normalized = Mathf.Clamp01(t / duration);
+
+            // Curva suave (y editable desde el inspector)
+            float eased = fadeCurve.Evaluate(normalized);
+
+            audioSource.volume = Mathf.Lerp(start, target, eased);
+            yield return null;
+        }
+
+        audioSource.volume = target;
+    }
+
+    private AudioClip ClipSegunBuildIndex(int buildIndex)
+    {
+        switch (buildIndex)
+        {
+            case 0:
+            case 1:
+            case 4:
+                return musica1;
+            case 2:
+                return musica2;
+            case 3:
+                return musica3;
+            default:
+                return musica1;
         }
     }
 
-    bool EsPrimeraReproduccion()
+    public void SetVolumen(float v)
     {
-        return audioSource.clip == null;
+        volumen = Mathf.Clamp01(v);
+        audioSource.volume = volumen;
     }
-
-    bool EsMusicaDistinta(int _indice)
-    {
-        return audioSource.clip != null && audioSource.clip != musicas[_indice]; 
-    }
-
-    public void CambioVolumen (float _volumen)
-    {
-        audioSource.volume = _volumen;
-    }
-    #endregion
-// ***********************************************
 }

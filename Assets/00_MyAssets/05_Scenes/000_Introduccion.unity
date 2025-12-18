@@ -129,19 +129,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1303663148696228789, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
       propertyPath: actualState
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1303663148696228789, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: currentDialogueCSV
-      value: 
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3377395579887025635, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
       propertyPath: m_Name
       value: === GameManager ===
-      objectReference: {fileID: 0}
-    - target: {fileID: 4237796230918713528, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4659869576210555800, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
       propertyPath: m_LocalPosition.x
