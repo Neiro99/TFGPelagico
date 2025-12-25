@@ -11,7 +11,8 @@ public class PauseManager : MonoBehaviour
 
     private void OnEnable()
     {
-        menuIndex = 0;
+        menuIndex = 1;
+        NavigatePause(true);
 
         InputManager.MoveUpPressedEvent += MoveUp;
         InputManager.MoveDownPressedEvent += MoveDown;
@@ -31,6 +32,7 @@ public class PauseManager : MonoBehaviour
     private void NavigatePause(bool itsUp)
     {
         UpdatePauseSelection(0);
+        ResetPauseSelector();
 
         if (itsUp)
         {
@@ -53,6 +55,17 @@ public class PauseManager : MonoBehaviour
 
         menuButtons[menuIndex].transform.GetChild(0).GetComponent<Image>().color = c;
         menuButtons[menuIndex].transform.GetChild(2).GetComponent<Image>().color = c;
+    }
+
+    private void ResetPauseSelector()
+    {
+        int i;
+        for (i = 0; i < menuButtons.Count; i++)
+        {
+            menuButtons[i].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 0);
+            menuButtons[i].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 0);
+            menuButtons[i].transform.GetChild(2).GetComponent<Image>().color = new Color(1f, 1f, 1f, 0);
+        }
     }
 
 
@@ -84,7 +97,8 @@ public class PauseManager : MonoBehaviour
 
     public void Exit()
     {
-        menuIndex = 0;
+        menuIndex = 1;
+        NavigatePause(true);
         ChangeSceneManager.instance.nextSceneInsdex = 0;
         ChangeSceneManager.instance.typeOfFade = "StandarFade";
         GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);

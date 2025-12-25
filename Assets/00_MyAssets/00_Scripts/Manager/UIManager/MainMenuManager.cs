@@ -10,12 +10,17 @@ public class MainMenuManager : MonoBehaviour
     public List<GameObject> menuButtons;
     public int menuIndex;
 
+    public GameObject credits;
+    public GameObject mainMenu;
+    public bool mainMenuWorks;
+
+
+
     private void OnEnable()
     {
         menuIndex = 0;
+        mainMenuWorks = true;
         GameManager.OnMainMenu += ActivateMenu;
-        GameManager.ChangeScene += DeactivateMenu;
-        GameManager.OnPlay += DeactivateMenu;
 
         InputManager.MoveUpPressedEvent += MoveUp;
         InputManager.MoveDownPressedEvent += MoveDown;
@@ -25,8 +30,6 @@ public class MainMenuManager : MonoBehaviour
     private void OnDisable()
     {
         GameManager.OnMainMenu -= ActivateMenu;
-        GameManager.ChangeScene -= DeactivateMenu;
-        GameManager.OnPlay -= DeactivateMenu;
 
         InputManager.MoveUpPressedEvent -= MoveUp;
         InputManager.MoveDownPressedEvent -= MoveDown;
@@ -40,15 +43,10 @@ public class MainMenuManager : MonoBehaviour
     {
         mainMenuUI.SetActive(true);
     }
-    private void DeactivateMenu()
-    {
-        //aun no se muy bien que hacer aqui
-        //mainMenuUI.SetActive(false);
-    }
-
     private void NavigateMenu(bool itsUp)
     {
         UpdateMenuSelection(0);
+        ResetMenuSelector();
 
         if (itsUp)
         {
@@ -70,10 +68,31 @@ public class MainMenuManager : MonoBehaviour
         menuButtons[menuIndex].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, changeColor);
         menuButtons[menuIndex].transform.GetChild(2).GetComponent<Image>().color = new Color(1f, 1f, 1f, changeColor);
     }
+    private void ResetMenuSelector()
+    {
+        int i;
+        for (i = 0; i < menuButtons.Count; i++)
+        {
+            menuButtons[i].transform.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 0);
+            menuButtons[i].transform.GetChild(2).GetComponent<Image>().color = new Color(1f, 1f, 1f, 0);
+        }
+    }
 
     private void SelectOption()
     {
-        switch(menuIndex)
+
+        if (!mainMenuWorks)
+        {
+            mainMenuWorks = true;
+            mainMenu.SetActive(true);
+            credits.SetActive(false);
+            menuIndex = 1;
+            NavigateMenu(true);
+            return;
+        }
+            
+
+        switch (menuIndex)
         {
             case 0:
                 StartGame();
@@ -95,7 +114,6 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        print("Iniciar juego");
         ChangeSceneManager.instance.nextSceneInsdex = 2;
         ChangeSceneManager.instance.typeOfFade = "StandarFade";
         GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
@@ -108,12 +126,16 @@ public class MainMenuManager : MonoBehaviour
 
     public void OpenExtras()
     {
-        Debug.Log("Abrir extras");
+        ChangeSceneManager.instance.nextSceneInsdex = 0;
+        ChangeSceneManager.instance.typeOfFade = "StandarFade";
+        GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
     }
 
     public void OpenCredits()
     {
-        Debug.Log("Abrir créditos");
+        mainMenuWorks = false;
+        mainMenu.SetActive(false);
+        credits.SetActive(true);
     }
 
     public void QuitGame()

@@ -22,4 +22,9 @@ public class TableInteractScript : MonoBehaviour, Interactable
         ChangeSceneManager.instance.nextSceneInsdex = 3;
         GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
     }
+
+    public void makesound()
+    {
+        SoundManager.instancia.PlaySFX(5,1);
+    }
 }
