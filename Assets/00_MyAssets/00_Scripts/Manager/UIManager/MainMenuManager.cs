@@ -14,11 +14,16 @@ public class MainMenuManager : MonoBehaviour
     public GameObject mainMenu;
     public bool mainMenuWorks;
 
+    public GameObject settingsMenu;
+    public SettingsMenuManager settingsMgr;
+    public bool settingsWorks;
+
 
 
     private void OnEnable()
     {
         menuIndex = 0;
+        settingsWorks = true;
         mainMenuWorks = true;
         GameManager.OnMainMenu += ActivateMenu;
 
@@ -80,7 +85,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void SelectOption()
     {
-
+        // VOLVER DESDE CRÉDITOS
         if (!mainMenuWorks)
         {
             mainMenuWorks = true;
@@ -90,27 +95,20 @@ public class MainMenuManager : MonoBehaviour
             NavigateMenu(true);
             return;
         }
-            
+
+        if (!settingsWorks)
+            return;
 
         switch (menuIndex)
         {
-            case 0:
-                StartGame();
-                break;
-            case 1:
-                OpenSettings();
-                break;
-            case 2:
-                OpenExtras();
-                break;
-            case 3:
-                OpenCredits();
-                break;
-            case 4:
-                QuitGame();
-                break;
+            case 0: StartGame(); break;
+            case 1: OpenSettings(); break;
+            case 2: OpenExtras(); break;
+            case 3: OpenCredits(); break;
+            case 4: QuitGame(); break;
         }
     }
+
 
     public void StartGame()
     {
@@ -121,8 +119,29 @@ public class MainMenuManager : MonoBehaviour
 
     public void OpenSettings()
     {
-        Debug.Log("Abrir configuración");
+        settingsWorks = false;
+
+        mainMenu.SetActive(false);
+        credits.SetActive(false);
+
+        settingsMenu.SetActive(true);
+        settingsMgr.Open();
     }
+
+    public void CloseSettingsFromSettingsMenu()
+    {
+        settingsWorks = true;
+
+        settingsMgr.Close();
+        settingsMenu.SetActive(false);
+
+        mainMenu.SetActive(true);
+
+        menuIndex = 1;
+        ResetMenuSelector();
+        UpdateMenuSelection(1);
+    }
+
 
     public void OpenExtras()
     {
@@ -143,4 +162,5 @@ public class MainMenuManager : MonoBehaviour
         Debug.Log("Salir del juego");
         Application.Quit();
     }
+
 }

@@ -27,20 +27,14 @@ public class SoundManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
         audioSource.loop = false;
-        audioSource.volume = 1f; // el volumen final lo controlamos en PlayOneShot
+        audioSource.volume = 1f;
     }
 
-    /// <summary>
-    /// Reproduce un SFX por índice (0..n-1)
-    /// </summary>
     public void PlaySFX(int indice)
     {
         PlaySFX(indice, 1f);
     }
 
-    /// <summary>
-    /// Reproduce un SFX por índice con multiplicador de volumen (ej: 0.5f, 1.2f)
-    /// </summary>
     public void PlaySFX(int indice, float volumenExtra)
     {
         if (sfx == null || sfx.Length == 0) return;
