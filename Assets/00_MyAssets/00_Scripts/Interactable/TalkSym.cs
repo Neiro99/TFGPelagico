@@ -14,6 +14,7 @@ public class TalkSym : MonoBehaviour
     public void ItsInteracting()
     {
         GameManager.instance.currentDialogueCSV = "Syn";
+        GameManager.instance.currentDialogueAction = "FinishTalkSym";
 
         UIManager.instance.ActivateUI("background", true);
         UIManager.instance.ActivateUI("dialogue", true);

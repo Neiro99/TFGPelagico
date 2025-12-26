@@ -90,6 +90,21 @@ public class DialogueUIManager : MonoBehaviour
 
     void EndDialogue()
     {
+        string action = GameManager.instance.currentDialogueAction;
+
+        switch (action)
+        {
+            case "FinishTalkSym":
+                    SynAction.Instance.FinishTalkSym();
+                break;
+
+            case "OpenDoor":
+                    //DoorAction.Instance.OpenDoor();
+                break;
+        }
+
+        GameManager.instance.currentDialogueAction = "";
+
         UIManager.instance.ResetUI();
         GameManager.instance.ChangeState(DataDefinitions.GameStates.Play);
     }

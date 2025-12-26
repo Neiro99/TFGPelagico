@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public static event Action OnCinematic;
 
     public string currentDialogueCSV;
+    public string currentDialogueAction;
 
     private void Awake()
     {
