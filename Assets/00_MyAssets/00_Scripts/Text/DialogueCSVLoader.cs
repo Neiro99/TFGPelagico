@@ -34,12 +34,10 @@ public static class DialogueCSVLoader
 
             if (dl.isDecision)
             {
-                // Options (3)
                 dl.options = new List<string>();
                 if (!string.IsNullOrWhiteSpace(parts[3]))
                     dl.options.AddRange(parts[3].Split(';'));
 
-                // NextLines (4)
                 dl.nextLineIndex = new List<int>();
                 if (!string.IsNullOrWhiteSpace(parts[4]))
                 {
@@ -47,7 +45,6 @@ public static class DialogueCSVLoader
                         if (int.TryParse(idx.Trim(), out int val)) dl.nextLineIndex.Add(val);
                 }
 
-                // AffinityChange (5)
                 dl.affinityChange = new List<int>();
                 if (!string.IsNullOrWhiteSpace(parts[5]))
                 {

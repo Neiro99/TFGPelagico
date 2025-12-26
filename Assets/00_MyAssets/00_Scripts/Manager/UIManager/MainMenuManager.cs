@@ -85,7 +85,6 @@ public class MainMenuManager : MonoBehaviour
 
     private void SelectOption()
     {
-        // VOLVER DESDE CRÉDITOS
         if (!mainMenuWorks)
         {
             mainMenuWorks = true;

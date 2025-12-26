@@ -18,7 +18,6 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private float fadeOutTime = 1.5f;
     [SerializeField] private float fadeInTime = 1.5f;
 
-    // Curva del fade: por defecto ease-in-out suave
     [SerializeField]
     private AnimationCurve fadeCurve =
         AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
@@ -68,7 +67,6 @@ public class MusicManager : MonoBehaviour
         AudioClip objetivo = ClipSegunBuildIndex(buildIndex);
         if (objetivo == null) return;
 
-        // Si es la misma, no reiniciar
         if (audioSource.clip == objetivo)
         {
             if (!audioSource.isPlaying) audioSource.UnPause();
@@ -77,7 +75,6 @@ public class MusicManager : MonoBehaviour
 
         if (fadeRoutine != null) StopCoroutine(fadeRoutine);
 
-        // Si no hay nada sonando todavía: arranca con fade in
         if (audioSource.clip == null || !audioSource.isPlaying)
         {
             audioSource.clip = objetivo;
@@ -122,7 +119,6 @@ public class MusicManager : MonoBehaviour
             t += Time.unscaledDeltaTime;
             float normalized = Mathf.Clamp01(t / duration);
 
-            // Curva suave (y editable desde el inspector)
             float eased = fadeCurve.Evaluate(normalized);
 
             audioSource.volume = Mathf.Lerp(start, target, eased);

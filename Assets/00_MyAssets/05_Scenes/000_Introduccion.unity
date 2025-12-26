@@ -127,10 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1303663148696228789, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: actualState
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 2223909239006421008, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
+      propertyPath: background
+      value: 
+      objectReference: {fileID: 2121390983}
     - target: {fileID: 3377395579887025635, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
       propertyPath: m_Name
       value: === GameManager ===
@@ -833,6 +833,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863692501}
   m_CullTransparentMesh: 1
+--- !u!1 &2121390983 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1900403212315965400, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
+  m_PrefabInstance: {fileID: 70944932}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &179799754741829447
 RectTransform:
   m_ObjectHideFlags: 0
@@ -984,6 +989,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   menuIndex: 0
+  credits: {fileID: 0}
+  mainMenu: {fileID: 0}
+  mainMenuWorks: 0
+  settingsMenu: {fileID: 0}
+  settingsMgr: {fileID: 0}
+  settingsWorks: 0
 --- !u!224 &4877404668027181333
 RectTransform:
   m_ObjectHideFlags: 0

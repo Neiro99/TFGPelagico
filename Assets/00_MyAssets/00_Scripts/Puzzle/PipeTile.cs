@@ -48,7 +48,6 @@ public class PipeTile : MonoBehaviour
     [Header("Rotation")]
     public RotationState rotationState = RotationState.Deg0;
 
-    // Internal zero-based grid position
     [HideInInspector]
     public Vector2Int gridPos;
 
@@ -74,7 +73,6 @@ public class PipeTile : MonoBehaviour
     private Image uiImage;
     private SpriteRenderer spriteRenderer;
 
-    // World/local positions for each grid cell
     private static readonly float[] columnWorldX = { -400f, -230f, -70f, 70f, 230f, 400f };
     private static readonly float[] rowWorldY = { 250f, 100f, -70f, -230f };
 
@@ -133,7 +131,7 @@ public class PipeTile : MonoBehaviour
         switch (rotationState)
         {
             case RotationState.Deg0: z = 0f; break;
-            case RotationState.Deg90: z = -90f; break;   // clockwise
+            case RotationState.Deg90: z = -90f; break; 
             case RotationState.Deg180: z = -180f; break;
             case RotationState.Deg270: z = -270f; break;
         }
@@ -233,10 +231,6 @@ public class PipeTile : MonoBehaviour
 
         return curveMovableRotatableSprite;
     }
-
-    /// <summary>
-    /// Rotates the tile 90 degrees clockwise, updating rotationState and transform.
-    /// </summary>
     public void RotateClockwise()
     {
         if (!canRotate)
@@ -253,9 +247,6 @@ public class PipeTile : MonoBehaviour
         ApplyRotationFromState(force: false);
     }
 
-    /// <summary>
-    /// Sets the grid position (1-based) and snaps the transform to the correct cell.
-    /// </summary>
     public void SetGridPosition(int column, int row, bool ignoreCanMove = false)
     {
         if (Application.isPlaying && !ignoreCanMove && !canMove)
@@ -267,25 +258,15 @@ public class PipeTile : MonoBehaviour
         ApplyWorldPositionFromGrid(ignoreCanMove);
     }
 
-    /// <summary>
-    /// Returns true if this tile is a pipe (straight or curve).
-    /// </summary>
     public bool IsPipe =>
         tileKind == TileKind.StraightPipe || tileKind == TileKind.CurvePipe;
 
-    /// <summary>
-    /// Returns true if this tile has an opening on the given side,
-    /// according to its type and rotation, following the puzzle rules.
-    /// </summary>
     public bool HasConnection(PipeDirection dir)
     {
-        // Empty and obstacle have no openings
+
         if (tileKind == TileKind.Empty || tileKind == TileKind.Obstacle)
             return false;
 
-        // Straight pipes:
-        // 0 and 180 -> Up & Down
-        // 90 and 270 -> Left & Right
         if (tileKind == TileKind.StraightPipe)
         {
             bool vertical = (rotationState == RotationState.Deg0 ||
@@ -301,11 +282,6 @@ public class PipeTile : MonoBehaviour
             }
         }
 
-        // Curve pipes:
-        // 0   -> Left + Down
-        // 90  -> Left + Up
-        // 180 -> Up + Right
-        // 270 -> Down + Right
         if (tileKind == TileKind.CurvePipe)
         {
             switch (rotationState)
@@ -324,7 +300,6 @@ public class PipeTile : MonoBehaviour
             }
         }
 
-        // Start/End: we allow connection from any side, they are endpoints.
         if (tileKind == TileKind.StartPoint || tileKind == TileKind.EndPoint)
         {
             return true;
@@ -333,21 +308,13 @@ public class PipeTile : MonoBehaviour
         return false;
     }
 
-    /// <summary>
-    /// Given the direction from which the flow enters this tile,
-    /// returns the direction it exits, according to its shape and rotation.
-    /// Returns false if the incoming side is not connected or
-    /// there is no valid single exit.
-    /// </summary>
     public bool TryGetExitDirection(PipeDirection incoming, out PipeDirection exit)
     {
         exit = incoming;
 
-        // Only pipes route flow; Start/End/Empty/Obstacle do not.
         if (!IsPipe)
             return false;
 
-        // Straight pipes
         if (tileKind == TileKind.StraightPipe)
         {
             bool vertical = (rotationState == RotationState.Deg0 ||
@@ -367,7 +334,7 @@ public class PipeTile : MonoBehaviour
                 }
                 return false;
             }
-            else // horizontal
+            else
             {
                 if (incoming == PipeDirection.Left && HasConnection(PipeDirection.Left))
                 {
@@ -383,13 +350,13 @@ public class PipeTile : MonoBehaviour
             }
         }
 
-        // Curve pipes
+
         if (tileKind == TileKind.CurvePipe)
         {
             switch (rotationState)
             {
                 case RotationState.Deg0:
-                    // left <-> down
+
                     if (incoming == PipeDirection.Left && HasConnection(PipeDirection.Left))
                     {
                         exit = PipeDirection.Down;
@@ -403,7 +370,7 @@ public class PipeTile : MonoBehaviour
                     return false;
 
                 case RotationState.Deg90:
-                    // left <-> up
+          
                     if (incoming == PipeDirection.Left && HasConnection(PipeDirection.Left))
                     {
                         exit = PipeDirection.Up;
@@ -417,7 +384,7 @@ public class PipeTile : MonoBehaviour
                     return false;
 
                 case RotationState.Deg180:
-                    // up <-> right
+             
                     if (incoming == PipeDirection.Up && HasConnection(PipeDirection.Up))
                     {
                         exit = PipeDirection.Right;
@@ -431,7 +398,7 @@ public class PipeTile : MonoBehaviour
                     return false;
 
                 case RotationState.Deg270:
-                    // down <-> right
+    
                     if (incoming == PipeDirection.Down && HasConnection(PipeDirection.Down))
                     {
                         exit = PipeDirection.Right;
