@@ -163,4 +163,10 @@ public class MainMenuManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void CloseSettings()
+    {
+        CloseSettingsFromSettingsMenu();
+    }
+
+
 }

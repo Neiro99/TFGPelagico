@@ -4,24 +4,29 @@ using UnityEngine.UI;
 
 public class SettingsMenuManager : MonoBehaviour
 {
-    [Header("UI")]
+
     public GameObject settingsCanvas;
 
-    // 0 Master, 1 Musica, 2 SFX, 3 Ambiente, 4 Volver
+ 
     public List<GameObject> optionRows;
     public List<GameObject> leftMarkers;
-    public List<Slider> sliders; // solo 0..3
+    public List<Slider> sliders;
 
-    [Header("Navegación")]
-    public int index = 0;
-    public float step = 0.05f;
-    public float repeatDelay = 0.15f;
+    public int index;
+    public float step;
+    public float repeatDelay;
 
-    [Header("Main Menu")]
-    public MainMenuManager mainMenuManager;
+    public MonoBehaviour backTarget;
+
 
     float horizontalTimer;
 
+    void Start()
+    {
+        index = 0;
+        step = 0.05f;
+        repeatDelay = 0.15f;
+    }
     void OnEnable()
     {
         index = 0;
@@ -37,9 +42,6 @@ public class SettingsMenuManager : MonoBehaviour
         HandleSelect();
     }
 
-    // ───────────────────────────
-    // NAVEGACIÓN VERTICAL ↑ ↓
-    // ───────────────────────────
     void HandleVertical()
     {
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
@@ -57,12 +59,9 @@ public class SettingsMenuManager : MonoBehaviour
         }
     }
 
-    // ───────────────────────────
-    // AJUSTE HORIZONTAL ← →
-    // ───────────────────────────
     void HandleHorizontal()
     {
-        if (index > 3) return; // no estamos sobre un slider
+        if (index > 3) return;
 
         horizontalTimer -= Time.unscaledDeltaTime;
 
@@ -89,32 +88,23 @@ public class SettingsMenuManager : MonoBehaviour
         ApplyIndex(index, s.value);
     }
 
-    // ───────────────────────────
-    // SELECT / ENTER
-    // ───────────────────────────
     void HandleSelect()
     {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
         {
-            if (index == 4) // Volver
-            {
-                mainMenuManager.CloseSettingsFromSettingsMenu();
+            if (index == 4)
+            { 
+                backTarget.SendMessage("CloseSettings", SendMessageOptions.DontRequireReceiver);
             }
         }
     }
 
-    // ───────────────────────────
-    // VISUAL
-    // ───────────────────────────
     void RefreshMarkers()
     {
         for (int i = 0; i < leftMarkers.Count; i++)
             leftMarkers[i].SetActive(i == index);
     }
 
-    // ───────────────────────────
-    // AUDIO
-    // ───────────────────────────
     void SyncFromAudio()
     {
         var a = AudioSettingsManager.instancia;
@@ -140,9 +130,6 @@ public class SettingsMenuManager : MonoBehaviour
         }
     }
 
-    // ───────────────────────────
-    // ABRIR / CERRAR
-    // ───────────────────────────
     public void Open()
     {
         settingsCanvas.SetActive(true);

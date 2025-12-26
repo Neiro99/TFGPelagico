@@ -9,25 +9,67 @@ public class PauseManager : MonoBehaviour
     public List<GameObject> menuButtons;
     public int menuIndex;
 
+    [Header("Settings UI")]
+    public GameObject buttonContainer;
+    public GameObject settingsContainer;
+    public SettingsMenuManager settingsMenu;
+    public bool pauseMenuWorks = true;
+
     private void OnEnable()
     {
+        pauseMenuWorks = true;
+
+        buttonContainer.SetActive(true);
+        settingsContainer.SetActive(false);
+
         menuIndex = 1;
         NavigatePause(true);
 
         InputManager.MoveUpPressedEvent += MoveUp;
         InputManager.MoveDownPressedEvent += MoveDown;
         InputManager.SelectPressedEvent += SelectOption;
+        
     }
+
 
     private void OnDisable()
     {
+        settingsContainer.SetActive(false);
         InputManager.MoveUpPressedEvent -= MoveUp;
         InputManager.MoveDownPressedEvent -= MoveDown;
         InputManager.SelectPressedEvent -= SelectOption;
     }
 
-    private void MoveUp() => NavigatePause(true);
-    private void MoveDown() => NavigatePause(false);
+    private void MoveUp()
+    {
+        if (!pauseMenuWorks) return;
+        NavigatePause(true);
+    }
+
+    private void MoveDown()
+    {
+        if (!pauseMenuWorks) return;
+        NavigatePause(false);
+    }
+
+    private void SelectOption()
+    {
+        if (!pauseMenuWorks) return;
+
+        switch (menuIndex)
+        {
+            case 0:
+                Continue();
+                break;
+            case 1:
+                Configuration();
+                break;
+            case 2:
+                Exit();
+                break;
+        }
+    }
+
 
     private void NavigatePause(bool itsUp)
     {
@@ -68,23 +110,6 @@ public class PauseManager : MonoBehaviour
         }
     }
 
-
-    private void SelectOption()
-    {
-        switch (menuIndex)
-        {
-            case 0:
-                Continue();
-                break;
-            case 1:
-                Configuration();
-                break;
-            case 2:
-                Exit();               
-                break;
-        }
-    }
-
     public void Continue()
     {
         GameManager.instance.ChangeState(DataDefinitions.GameStates.Play);
@@ -92,8 +117,27 @@ public class PauseManager : MonoBehaviour
 
     public void Configuration()
     {
-        Debug.Log("Abrir configuración");
+        pauseMenuWorks = false;
+        buttonContainer.SetActive(false);
+        settingsContainer.SetActive(true);
+        settingsMenu.Open();
+        menuIndex = 0;
     }
+
+    public void CloseSettingsFromPause()
+    {
+        pauseMenuWorks = true;
+
+        settingsMenu.Close();
+        settingsContainer.SetActive(false);
+
+        buttonContainer.SetActive(true);
+
+        menuIndex = 1;
+        ResetPauseSelector();
+        UpdatePauseSelection(1);
+    }
+
 
     public void Exit()
     {
@@ -102,6 +146,11 @@ public class PauseManager : MonoBehaviour
         ChangeSceneManager.instance.nextSceneInsdex = 0;
         ChangeSceneManager.instance.typeOfFade = "StandarFade";
         GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
+    }
+
+    public void CloseSettings()
+    {
+        CloseSettingsFromPause();
     }
 
 }

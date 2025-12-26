@@ -127,6 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1303663148696228789, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
+      propertyPath: actualState
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3377395579887025635, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
       propertyPath: m_Name
       value: === GameManager ===
@@ -3895,7 +3899,7 @@ MonoBehaviour:
   index: 0
   step: 0.05
   repeatDelay: 0.15
-  mainMenuManager: {fileID: 1808948315}
+  backTarget: {fileID: 1808948315}
 --- !u!114 &1808948315 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4673949660371998501, guid: 032f2ac7f3662264da72036ea56942c8, type: 3}
