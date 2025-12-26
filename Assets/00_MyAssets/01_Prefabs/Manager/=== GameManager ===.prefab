@@ -3034,7 +3034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42f151e9ca9978049829f85cc31dd4e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualState: 0
+  actualState: 2
   currentDialogueCSV: 
 --- !u!1 &3425014241634459428
 GameObject:
@@ -9039,6 +9039,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4915988611779898068, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: background
+      value: 
+      objectReference: {fileID: 1900403212315965400}
     - target: {fileID: 4915988611779898068, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
       propertyPath: puzzleRoot
       value: 
