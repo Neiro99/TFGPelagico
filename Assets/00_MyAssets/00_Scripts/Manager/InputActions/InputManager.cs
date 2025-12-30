@@ -102,4 +102,9 @@ public class InputManager : MonoBehaviour
         inputActions.Player.Disable();
         inputActions.UI.Disable();
     }
+
+    public void AutopressE()
+    {
+        InteractPressedEvent?.Invoke();
+    }
 }

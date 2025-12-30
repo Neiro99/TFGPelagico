@@ -19,13 +19,13 @@ public class ItsOpen : MonoBehaviour, Interactable
         {
             firstInteract = false;
             StartCoroutine(WaitAndEnableInteraction());
-            ChangeText.text = "Pulsa de nuevo \"E\" para abrir la puerta";
+            GameManager.instance.currentDialogueAction = "OpenDoor";
         }
         else
         {
-            UIManager.instance.ResetUI();
-            UIManager.instance.ActivateUI("background", true);
-            UIManager.instance.ActivateUI("puzzle", true);
+                UIManager.instance.ResetUI();
+                UIManager.instance.ActivateUI("background", true);
+                UIManager.instance.ActivateUI("puzzle", true);
         }
     }
 

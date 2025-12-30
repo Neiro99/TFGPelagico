@@ -99,7 +99,7 @@ public class DialogueUIManager : MonoBehaviour
                 break;
 
             case "OpenDoor":
-                    //DoorAction.Instance.OpenDoor();
+                   ChangeWorldStatus.Instance.StartChanges();
                 break;
         }
 

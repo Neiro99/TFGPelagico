@@ -969,8 +969,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 200, y: -164.28}
-  m_SizeDelta: {x: 655.9, y: 252.32}
+  m_AnchoredPosition: {x: 200, y: -153.795}
+  m_SizeDelta: {x: 624.97, y: 210.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &490369536
 MonoBehaviour:
@@ -3946,8 +3946,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 327.95, y: -126.16}
-  m_SizeDelta: {x: 655.9, y: 252.32}
+  m_AnchoredPosition: {x: 312.485, y: -105.19}
+  m_SizeDelta: {x: 624.97, y: 210.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1814794435
 MonoBehaviour:
@@ -3983,9 +3983,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Programaci\xF3n y Sonido: Carlos Jim\xE9nez\r\nArte: Patricia Navero\r\nAnimaci\xF3n:
-    Elo\xEDsa Herrera \xB7 Patricia Navero\r\nHistoria: Patricia Navero \xB7 Carlos
-    Jim\xE9nez\r\nDise\xF1o: Carlos Jim\xE9nez\r\nM\xFAsica: AdrihUwU (Pixabay)\r\n"
+  m_text: "Programaci\xF3n y Sonido: Carlos Jim\xE9nez\r\nArte: Patricia Navero\r\nHistoria:
+    Patricia Navero \xB7 Carlos Jim\xE9nez\r\nDise\xF1o: Carlos Jim\xE9nez\r\nM\xFAsica:Pixabay"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b2f646df193f2348b24049d6ff3cd5a, type: 2}
   m_sharedMaterial: {fileID: 7336897319810564710, guid: 0b2f646df193f2348b24049d6ff3cd5a, type: 2}
@@ -4176,7 +4175,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 200, y: -396.68}
+  m_AnchoredPosition: {x: 200, y: -386.195}
   m_SizeDelta: {x: 297.52, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1835462454
@@ -4838,7 +4837,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2751502460169404094, guid: 032f2ac7f3662264da72036ea56942c8, type: 3}
       propertyPath: m_text
-      value: "Versi\xF3n 1.0"
+      value: "Versi\xF3n Gold Master 1.0"
       objectReference: {fileID: 0}
     - target: {fileID: 3110192877103325263, guid: 032f2ac7f3662264da72036ea56942c8, type: 3}
       propertyPath: m_AnchorMax.y

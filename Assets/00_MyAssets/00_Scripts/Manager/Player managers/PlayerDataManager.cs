@@ -6,6 +6,7 @@ public class PlayerDataManager : MonoBehaviour
 {
     public static PlayerDataManager Instance;
     public int affinity;
+    public int objectsForKey;
 
     private void Awake()
     {
@@ -29,5 +30,11 @@ public class PlayerDataManager : MonoBehaviour
     void ResetMainMenu()
     {
         affinity = 0;
+        objectsForKey= 0;
+    }
+    
+    public void AddOdbjectForKey()
+    {
+        objectsForKey++;
     }
 }

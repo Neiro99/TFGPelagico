@@ -22,7 +22,6 @@ public class TalkSym : MonoBehaviour
 
         GameManager.instance.ChangeState(DataDefinitions.GameStates.Reading);
         transform.GetChild(0).gameObject.SetActive(false);
-        InputManager.Instance.canMove = true;
         GetComponent<Collider>().enabled = false;
 
         CanInteract ci = GetComponent<CanInteract>();
