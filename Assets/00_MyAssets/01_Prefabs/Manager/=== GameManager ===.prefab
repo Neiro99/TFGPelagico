@@ -1323,6 +1323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   affinity: 0
+  objectsForKey: 0
 --- !u!1 &1327193711065044911
 GameObject:
   m_ObjectHideFlags: 0
@@ -3036,6 +3037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actualState: 2
   currentDialogueCSV: 
+  currentDialogueAction: 
 --- !u!1 &3425014241634459428
 GameObject:
   m_ObjectHideFlags: 0
@@ -3706,7 +3708,7 @@ MonoBehaviour:
   - key: TableTorpere
     sprite: {fileID: 21300000, guid: 5cf8dee33c3340d41824e50d7edabde4, type: 3}
   - key: Door
-    sprite: {fileID: 21300000, guid: 2e3d184223209a742aee560624c648d8, type: 3}
+    sprite: {fileID: 21300000, guid: 7847745ce7911624a96d9cf3a50fd2ff, type: 3}
 --- !u!1 &4035490218909022827
 GameObject:
   m_ObjectHideFlags: 0

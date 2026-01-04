@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8cde95602948e824dbf1d11dac8c9e6b, type: 3}
+  m_Sprite: {fileID: -9190064, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -95,14 +95,14 @@ MonoBehaviour:
   canRotate: 0
   rotationState: 0
   gridPos: {x: 0, y: 0}
-  straightStaticSprite: {fileID: 21300000, guid: 7110528435e2ead418161d318fa6042e, type: 3}
-  straightMovableSprite: {fileID: 21300000, guid: 5ea09bcea7cae99489a22a1f71f722d4, type: 3}
-  straightRotatableSprite: {fileID: 21300000, guid: f9197f55f35bdc941ad6e3e9c5570872, type: 3}
-  straightMovableRotatableSprite: {fileID: 21300000, guid: 863ceda5ecc4a8345b92ea1f49fa6d4b, type: 3}
-  curveStaticSprite: {fileID: 21300000, guid: 8cde95602948e824dbf1d11dac8c9e6b, type: 3}
-  curveMovableSprite: {fileID: 21300000, guid: 78f5776676c91b84289f51d3606cf48e, type: 3}
-  curveRotatableSprite: {fileID: 21300000, guid: 7a3f148047752be42bc8622dd0c9d43f, type: 3}
-  curveMovableRotatableSprite: {fileID: 21300000, guid: 052fe426a947669449d7614f0b48df96, type: 3}
-  obstacleSprite: {fileID: 21300000, guid: ada0fb38a3accd149ac8dc5c60c88d05, type: 3}
+  straightStaticSprite: {fileID: 1480861090, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
+  straightMovableSprite: {fileID: 27989390, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
+  straightRotatableSprite: {fileID: -1167569820, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
+  straightMovableRotatableSprite: {fileID: -2012620279, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
+  curveStaticSprite: {fileID: -9190064, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
+  curveMovableSprite: {fileID: 612446117, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
+  curveRotatableSprite: {fileID: 1376317401, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
+  curveMovableRotatableSprite: {fileID: 864898415, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
+  obstacleSprite: {fileID: 1963975044, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
   startSprite: {fileID: 21300000, guid: 79f5627ec872f064d954a14e2ce59c91, type: 3}
   endSprite: {fileID: 21300000, guid: 2c722211642720b4fa6a9ec01d6a35dd, type: 3}
