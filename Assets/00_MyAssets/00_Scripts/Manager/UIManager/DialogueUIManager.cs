@@ -11,6 +11,8 @@ public class DialogueUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TypewriterEffect typewriter;
     [SerializeField] private int UIPosition;
+    [SerializeField] private DialogueSpeakerStyler speakerStyler;
+
 
     [Header("Referencias externas")]
     [SerializeField] private DialogueDecisionManager decisionManager;
@@ -59,14 +61,21 @@ public class DialogueUIManager : MonoBehaviour
         }
 
         nameText.text = line.Name;
+
+        if (speakerStyler != null)
+            speakerStyler.ApplyStyle(line.Name);
+
         StartCoroutine(PlayTypewriter(line.text));
     }
+
 
     IEnumerator PlayTypewriter(string text)
     {
         isTyping = true;
         typewriter.StartTyping(text);
-        yield return new WaitUntil(() => dialogueText.text == text);
+
+        yield return new WaitUntil(() => !typewriter.IsTyping);
+
         isTyping = false;
     }
 

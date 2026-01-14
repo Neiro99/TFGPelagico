@@ -313,6 +313,7 @@ GameObject:
   - component: {fileID: 1164892091629587309}
   - component: {fileID: 1604816829164953692}
   - component: {fileID: 4773809819414627305}
+  - component: {fileID: 3264849544241282254}
   m_Layer: 5
   m_Name: Dialogue
   m_TagString: Untagged
@@ -367,6 +368,7 @@ MonoBehaviour:
   dialogueText: {fileID: 7550591198506599968}
   typewriter: {fileID: 4999269127366099627}
   UIPosition: 0
+  speakerStyler: {fileID: 0}
   decisionManager: {fileID: 4773809819414627305}
 --- !u!114 &4773809819414627305
 MonoBehaviour:
@@ -391,6 +393,29 @@ MonoBehaviour:
   - {fileID: 3039042890547726560}
   - {fileID: 2883152632600464749}
   - {fileID: 8046568207274400293}
+--- !u!114 &3264849544241282254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204813488234959206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917567330d3832047b34688c2a36dfc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textNameTMP: {fileID: 1055040380700690018}
+  textDialogueTMP: {fileID: 7550591198506599968}
+  styles:
+  - speakerName: Syn
+    nameColor: {r: 0.8594586, g: 0.8666667, b: 0.13333333, a: 0}
+    textColor: {r: 0.38431373, g: 0.38036, b: 0.1607843, a: 0}
+  - speakerName: Aster
+    nameColor: {r: 0.13373661, g: 0.5008306, b: 0.8679245, a: 0}
+    textColor: {r: 0.16045637, g: 0.2844516, b: 0.38364768, a: 0}
+  defaultNameColor: {r: 0.9529412, g: 0.9764706, b: 1, a: 1}
+  defaultTextColor: {r: 0.23529412, g: 0.25490198, b: 0.27058825, a: 1}
 --- !u!1 &332120323916064930
 GameObject:
   m_ObjectHideFlags: 0
