@@ -62,11 +62,18 @@ public class DialogueUIManager : MonoBehaviour
 
         nameText.text = line.Name;
 
-        if (speakerStyler != null)
-            speakerStyler.ApplyStyle(line.Name);
+        StartCoroutine(ApplyStyleNextFrame(line.Name));
 
         StartCoroutine(PlayTypewriter(line.text));
     }
+
+    IEnumerator ApplyStyleNextFrame(string speakerName)
+    {
+        yield return null; // 1 frame
+        if (speakerStyler != null)
+            speakerStyler.ApplyStyle(speakerName);
+    }
+
 
 
     IEnumerator PlayTypewriter(string text)
