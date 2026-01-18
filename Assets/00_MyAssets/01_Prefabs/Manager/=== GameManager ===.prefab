@@ -368,7 +368,7 @@ MonoBehaviour:
   dialogueText: {fileID: 7550591198506599968}
   typewriter: {fileID: 4999269127366099627}
   UIPosition: 0
-  speakerStyler: {fileID: 0}
+  speakerStyler: {fileID: 3264849544241282254}
   decisionManager: {fileID: 4773809819414627305}
 --- !u!114 &4773809819414627305
 MonoBehaviour:
@@ -408,12 +408,15 @@ MonoBehaviour:
   textNameTMP: {fileID: 1055040380700690018}
   textDialogueTMP: {fileID: 7550591198506599968}
   styles:
-  - speakerName: Syn
-    nameColor: {r: 0.8594586, g: 0.8666667, b: 0.13333333, a: 0}
-    textColor: {r: 0.38431373, g: 0.38036, b: 0.1607843, a: 0}
   - speakerName: Aster
-    nameColor: {r: 0.13373661, g: 0.5008306, b: 0.8679245, a: 0}
-    textColor: {r: 0.16045637, g: 0.2844516, b: 0.38364768, a: 0}
+    nameColor: {r: 0.8679245, g: 0.67774034, b: 0.66868395, a: 1}
+    textColor: {r: 0.58431375, g: 0.25490198, b: 0.23921569, a: 1}
+  - speakerName: Syn
+    nameColor: {r: 0.55132306, g: 0.57861626, b: 0.49673656, a: 1}
+    textColor: {r: 0.31093964, g: 0.38431373, b: 0.1607843, a: 1}
+  - speakerName: ????
+    nameColor: {r: 0.55132306, g: 0.57861626, b: 0.49673656, a: 1}
+    textColor: {r: 0.31093964, g: 0.38431373, b: 0.1607843, a: 1}
   defaultNameColor: {r: 0.9529412, g: 0.9764706, b: 1, a: 1}
   defaultTextColor: {r: 0.23529412, g: 0.25490198, b: 0.27058825, a: 1}
 --- !u!1 &332120323916064930
@@ -2140,7 +2143,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a1a849eb56911a441b547e2a63903669, type: 3}
   - {fileID: 8300000, guid: 05b309f196f6612469c9c75994325e69, type: 3}
   - {fileID: 8300000, guid: 0d4688f7fa7ad8941bde4b2c2e148bad, type: 3}
-  - {fileID: 8300000, guid: 911d81efe58799541a0c307ff6892df9, type: 3}
+  - {fileID: 8300000, guid: b7a52cb0cd18741469a18a4f5d929b14, type: 3}
   - {fileID: 8300000, guid: e69e54472000b7443be60ea2b5c02daf, type: 3}
   volumen: 1
 --- !u!82 &3519613679976260168

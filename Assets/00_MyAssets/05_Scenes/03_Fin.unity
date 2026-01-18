@@ -524,8 +524,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Espero que os haya gustado el juego.\nActualmente se esta trabajando para
-    seguir\nmejor\xE1ndolo y ofrecer una experiencia adecuada.\nPor favor, seria
+  m_text: "Espero que os haya gustado el juego.\nActualmente se est\xE1 trabajando
+    para seguir\nmejor\xE1ndolo y ofrecer una experiencia adecuada.\nPor favor, ser\xEDa
     de gran ayuda  si pudieras\nescanear el c\xF3digo QR y rellenar el formulario.
     \nTu opini\xF3n cuenta mucho."
   m_isRightToLeft: 0

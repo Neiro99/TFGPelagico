@@ -327,7 +327,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Musica
+  m_text: "M\xFAsica"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b2f646df193f2348b24049d6ff3cd5a, type: 2}
   m_sharedMaterial: {fileID: 7336897319810564710, guid: 0b2f646df193f2348b24049d6ff3cd5a, type: 2}
@@ -3984,7 +3984,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Programaci\xF3n y Sonido: Carlos Jim\xE9nez\r\nArte: Patricia Navero\r\nHistoria:
-    Patricia Navero \xB7 Carlos Jim\xE9nez\r\nDise\xF1o: Carlos Jim\xE9nez\r\nM\xFAsica:Pixabay"
+    Patricia Navero \xB7 Carlos Jim\xE9nez\r\nDise\xF1o: Carlos Jim\xE9nez\r\nM\xFAsica:
+    Pixabay"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b2f646df193f2348b24049d6ff3cd5a, type: 2}
   m_sharedMaterial: {fileID: 7336897319810564710, guid: 0b2f646df193f2348b24049d6ff3cd5a, type: 2}

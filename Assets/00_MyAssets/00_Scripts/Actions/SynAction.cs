@@ -4,6 +4,8 @@ public class SynAction : MonoBehaviour
 {
     public static SynAction Instance;
     private Animator animator;
+    public Animator moveanimator;
+
 
     private void Awake()
     {
@@ -14,6 +16,7 @@ public class SynAction : MonoBehaviour
     public void FinishTalkSym()
     {
         animator.SetBool("SynGo", true);
+        moveanimator.SetBool("SynWalk", true);
     }
 
     public void desactivateSyn()
