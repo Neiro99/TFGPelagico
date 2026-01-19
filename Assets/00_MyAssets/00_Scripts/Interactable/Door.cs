@@ -15,7 +15,7 @@ public class Door : MonoBehaviour
         {
             objectForeground.textToShow1 = "Door";
             objectForeground.textToShow2 = "Door";
-            objectForeground.showImage = true;
+            objectForeground.showImage = false;
             objectForeground.imageType = 2;
             objectForeground.spriteKey = "Door";
         }
