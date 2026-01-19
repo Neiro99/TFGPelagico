@@ -73,8 +73,8 @@ public class PipeTile : MonoBehaviour
     private Image uiImage;
     private SpriteRenderer spriteRenderer;
 
-    private static readonly float[] columnWorldX = { -400f, -230f, -70f, 70f, 230f, 400f };
-    private static readonly float[] rowWorldY = { 250f, 100f, -70f, -230f };
+    private static readonly float[] columnWorldX = { -400f, -200f, 0f, 200f, 400f, 600f };
+    private static readonly float[] rowWorldY = { 250f, 50f, -150f, -350f };
 
     private void Awake()
     {

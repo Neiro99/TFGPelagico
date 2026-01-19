@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -9190064, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
+  m_Sprite: {fileID: 1839136012, guid: 17318cab4c5ba48459b5e102237665a2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -95,14 +95,14 @@ MonoBehaviour:
   canRotate: 0
   rotationState: 0
   gridPos: {x: 0, y: 0}
-  straightStaticSprite: {fileID: 1480861090, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
-  straightMovableSprite: {fileID: 27989390, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
-  straightRotatableSprite: {fileID: -1167569820, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
-  straightMovableRotatableSprite: {fileID: -2012620279, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
-  curveStaticSprite: {fileID: -9190064, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
-  curveMovableSprite: {fileID: 612446117, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
-  curveRotatableSprite: {fileID: 1376317401, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
-  curveMovableRotatableSprite: {fileID: 864898415, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
-  obstacleSprite: {fileID: 1963975044, guid: 49c21c2794365bf40869048bdc9dfeb0, type: 3}
-  startSprite: {fileID: 21300000, guid: 79f5627ec872f064d954a14e2ce59c91, type: 3}
-  endSprite: {fileID: 21300000, guid: 2c722211642720b4fa6a9ec01d6a35dd, type: 3}
+  straightStaticSprite: {fileID: -1878965499, guid: 48448e937bc3c8642b6f907dd929c8cd, type: 3}
+  straightMovableSprite: {fileID: -806057022, guid: 17318cab4c5ba48459b5e102237665a2, type: 3}
+  straightRotatableSprite: {fileID: -735650773, guid: 48448e937bc3c8642b6f907dd929c8cd, type: 3}
+  straightMovableRotatableSprite: {fileID: -1942380056, guid: 48448e937bc3c8642b6f907dd929c8cd, type: 3}
+  curveStaticSprite: {fileID: 1839136012, guid: 17318cab4c5ba48459b5e102237665a2, type: 3}
+  curveMovableSprite: {fileID: 212789051, guid: 17318cab4c5ba48459b5e102237665a2, type: 3}
+  curveRotatableSprite: {fileID: -735650773, guid: 48448e937bc3c8642b6f907dd929c8cd, type: 3}
+  curveMovableRotatableSprite: {fileID: -1942579269, guid: 17318cab4c5ba48459b5e102237665a2, type: 3}
+  obstacleSprite: {fileID: -735650773, guid: 48448e937bc3c8642b6f907dd929c8cd, type: 3}
+  startSprite: {fileID: -735650773, guid: 48448e937bc3c8642b6f907dd929c8cd, type: 3}
+  endSprite: {fileID: -735650773, guid: 48448e937bc3c8642b6f907dd929c8cd, type: 3}
