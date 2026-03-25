@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public GameObject puzzle;
     public GameObject dialogue;
     public GameObject pause;
+    public GameObject diario;
 
     private void Awake()
     {

@@ -131,14 +131,26 @@ PrefabInstance:
       propertyPath: actualState
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2223909239006421008, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: background
-      value: 
-      objectReference: {fileID: 2121390983}
     - target: {fileID: 3377395579887025635, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
       propertyPath: m_Name
       value: === GameManager ===
       objectReference: {fileID: 0}
+    - target: {fileID: 3696016120481983075, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
+      propertyPath: m_Name
+      value: Diario
+      objectReference: {fileID: 0}
+    - target: {fileID: 3696016120481983075, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3781965057832362845, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
+      propertyPath: Ipad
+      value: 
+      objectReference: {fileID: 1946154719}
+    - target: {fileID: 3781965057832362845, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
+      propertyPath: Text
+      value: 
+      objectReference: {fileID: 278204691}
     - target: {fileID: 4659869576210555800, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -184,6 +196,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
+--- !u!1 &278204691 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3696016120481983075, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
+  m_PrefabInstance: {fileID: 70944932}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &756896628
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,9 +854,9 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863692501}
   m_CullTransparentMesh: 1
---- !u!1 &2121390983 stripped
+--- !u!1 &1946154719 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1900403212315965400, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4791775471430196480, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
   m_PrefabInstance: {fileID: 70944932}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &179799754741829447
