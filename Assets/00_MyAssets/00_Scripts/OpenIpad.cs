@@ -2,64 +2,30 @@ using UnityEngine;
 
 public class OpenIpad : MonoBehaviour
 {
-    [Header("Configuración")]
-    [SerializeField] private GameObject Ipad; 
-    [SerializeField] private GameObject Text; 
-    [SerializeField] private bool startActive = false; 
+    [Header("Hint de teclado (texto 'Pulsa Q')")]
+    [SerializeField] private GameObject hintText;
 
-    private bool isActive = false;
     private void OnEnable()
     {
-        GameManager.OnPlay += TextOn;
-    }
-    void Start()
-    {
-        // Configurar estado inicial
-        if (Ipad != null)
-        {
-            isActive = startActive;
-            Ipad.SetActive(isActive);
-        }
+        GameManager.OnPlay  += ShowHint;
+        GameManager.OnDiary += HideHint;
+        GameManager.ChangeScene += HideHint;
     }
 
-    void Update()
+    private void OnDisable()
     {
-        // Activar con Q
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            ToggleObject();
-        }
-
-        // Desactivar con Escape
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (isActive)
-            {
-                DeactivateObject();
-            }
-        }
+        GameManager.OnPlay  -= ShowHint;
+        GameManager.OnDiary -= HideHint;
+        GameManager.ChangeScene -= HideHint;
     }
 
-    void ToggleObject()
+    void ShowHint()
     {
-        if (Ipad != null)
-        {
-            isActive = !isActive;
-            Ipad.SetActive(isActive);
-        }
+        if (hintText != null) hintText.SetActive(true);
     }
 
-    void DeactivateObject()
+    void HideHint()
     {
-        if (Ipad != null)
-        {
-            isActive = false;
-            Ipad.SetActive(false);
-        }
-    }
-
-    void TextOn()
-    {
-        Text.SetActive(true);
+        if (hintText != null) hintText.SetActive(false);
     }
 }

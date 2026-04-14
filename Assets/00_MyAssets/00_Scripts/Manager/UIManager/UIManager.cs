@@ -31,6 +31,9 @@ public class UIManager : MonoBehaviour
         GameManager.OnPause += ActivatePause;
         GameManager.ChangeScene += DeactivatePause;
         GameManager.OnPlay += DeactivatePause;
+        GameManager.OnDiary += ActivateDiary;
+        GameManager.OnPlay += DeactivateDiary;
+        GameManager.ChangeScene += DeactivateDiary;
     }
 
     private void OnDisable()
@@ -38,6 +41,9 @@ public class UIManager : MonoBehaviour
         GameManager.OnPause -= ActivatePause;
         GameManager.ChangeScene -= DeactivatePause;
         GameManager.OnPlay -= DeactivatePause;
+        GameManager.OnDiary -= ActivateDiary;
+        GameManager.OnPlay -= DeactivateDiary;
+        GameManager.ChangeScene -= DeactivateDiary;
     }
 
     public void ActivateUI(string objectUI, bool active)
@@ -62,6 +68,9 @@ public class UIManager : MonoBehaviour
             case "pause":
                 pause.SetActive(active);
                 break;
+            case "diario":
+                diario.SetActive(active);
+                break;
         }
     }
     public void DeactivateUI(string uiKey)
@@ -77,7 +86,9 @@ public class UIManager : MonoBehaviour
         puzzle.SetActive(false);
         dialogue.SetActive(false);
         pause.SetActive(false);
+        diario.SetActive(false);
     }
+
     private void ActivatePause()
     {
         ActivateUI("pause", true);
@@ -86,6 +97,16 @@ public class UIManager : MonoBehaviour
     private void DeactivatePause()
     {
         ActivateUI("pause", false);
+    }
+
+    private void ActivateDiary()
+    {
+        ActivateUI("diario", true);
+    }
+
+    private void DeactivateDiary()
+    {
+        ActivateUI("diario", false);
     }
 
 }

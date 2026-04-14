@@ -19,6 +19,8 @@ public class InputManager : MonoBehaviour
     public static event Action SelectPressedEvent;
     public static event Action MoveDownPressedEvent;
     public static event Action MoveUpPressedEvent;
+    public static event Action MoveLeftPressedEvent;
+    public static event Action MoveRightPressedEvent;
     
     public bool canMove;
 
@@ -43,6 +45,7 @@ public class InputManager : MonoBehaviour
         GameManager.OnReading += OnUI;
         GameManager.OnMainMenu += OnUI;
         GameManager.OnPause += OnUI;
+        GameManager.OnDiary += OnUI;
         GameManager.OnCinematic += OnCinematic;
     }
 
@@ -53,6 +56,7 @@ public class InputManager : MonoBehaviour
         GameManager.OnReading -= OnUI;
         GameManager.OnMainMenu -= OnUI;
         GameManager.OnPause -= OnUI;
+        GameManager.OnDiary -= OnUI;
         GameManager.OnCinematic -= OnCinematic;
     }
     private void Update()
@@ -68,6 +72,9 @@ public class InputManager : MonoBehaviour
         if (inputActions.Player.Pause.WasPressedThisFrame() || inputActions.UI.Pause.WasPressedThisFrame())
             GameManager.instance.Pause();
 
+        if (Input.GetKeyDown(KeyCode.Q))
+            GameManager.instance.ToggleDiary();
+
         if (inputActions.Player.Interact.WasPressedThisFrame())
             InteractPressedEvent?.Invoke();
 
@@ -79,6 +86,12 @@ public class InputManager : MonoBehaviour
 
         if (inputActions.UI.MoveUp.WasPressedThisFrame())
             MoveUpPressedEvent?.Invoke();
+
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            MoveLeftPressedEvent?.Invoke();
+
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            MoveRightPressedEvent?.Invoke();
     }
 
     void ChangeScene()
