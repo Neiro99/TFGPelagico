@@ -27,6 +27,7 @@ public class InputManager : MonoBehaviour
     public static event Action MoveUpPressedEvent;
     public static event Action MoveLeftPressedEvent;
     public static event Action MoveRightPressedEvent;
+    public static event Action DiaryKeyPressedEvent;
     
     public bool canMove;
 
@@ -79,7 +80,13 @@ public class InputManager : MonoBehaviour
             GameManager.instance.Pause();
 
         if (Input.GetKeyDown(KeyCode.Q))
-            GameManager.instance.ToggleDiary();
+        {
+            // Si hay alguien suscrito (el icono del diario, normalmente), que él
+            // decida cómo abrir el diario (con su animación de "marcado" + delay).
+            // Si no hay nadie, fallback al comportamiento de siempre: toggle directo.
+            if (DiaryKeyPressedEvent != null) DiaryKeyPressedEvent.Invoke();
+            else GameManager.instance.ToggleDiary();
+        }
 
         if (inputActions.Player.Interact.WasPressedThisFrame())
             InteractPressedEvent?.Invoke();
