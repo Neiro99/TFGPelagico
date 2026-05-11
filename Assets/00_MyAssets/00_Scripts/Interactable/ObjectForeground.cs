@@ -15,6 +15,13 @@ public class ObjectForeground : MonoBehaviour, Interactable
 
     public bool caninteract;
 
+    [Header("Acción opcional en la primera interacción")]
+    [Tooltip("Si se rellena (por ejemplo \"BoatFirstInteract\"), esta cadena se asigna a " +
+             "GameManager.currentDialogueAction la primera vez que se interactúa con el objeto. " +
+             "Sirve para encadenar una cinemática después del diálogo inicial. " +
+             "Solo se aplica si la puerta sigue bloqueada y no hay otra cinemática programada.")]
+    public string firstInteractAction;
+
     public void Start()
     {
         caninteract = true;
@@ -27,6 +34,18 @@ public class ObjectForeground : MonoBehaviour, Interactable
         if (firstInteract)
         {
             GameManager.instance.currentDialogueCSV = textToShow1;
+
+            // Si está configurada una acción de primera interacción y nadie más ha
+            // programado ya la cinemática este frame, la dejamos lista para
+            // dispararla al terminar el diálogo.
+            if (!string.IsNullOrEmpty(firstInteractAction)
+                && !WorldState.DoorUnlocked
+                && !WorldState.BoatCinematicScheduled)
+            {
+                GameManager.instance.currentDialogueAction = firstInteractAction;
+                WorldState.BoatCinematicScheduled = true;
+            }
+
             firstInteract = false;
         }
         else GameManager.instance.currentDialogueCSV = textToShow2;

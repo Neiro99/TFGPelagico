@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 842bcad63b1d3d2408f716b4757d46cd
+guid: 2a631a73540546747beff463ff722818
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -94,19 +94,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -136,89 +123,111 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Munin-Front-IDLE_0
+      name: Munin-Side-Right-WALK_0
       rect:
         serializedVersion: 2
-        x: 27
-        y: 21
-        width: 222
-        height: 367
+        x: 45
+        y: 12
+        width: 246
+        height: 376
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91eea356ec54a6c4f93ff609649b1272
-      internalID: -685811434
+      spriteID: 640159a1108953a40b745b6a9f2adb29
+      internalID: -888204626
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munin-Front-IDLE_1
+      name: Munin-Side-Right-WALK_1
       rect:
         serializedVersion: 2
-        x: 299
-        y: 20
-        width: 222
-        height: 367
+        x: 326
+        y: 12
+        width: 246
+        height: 376
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3797a361fd1f9f41b54343340db0c1b
-      internalID: -1445329045
+      spriteID: 90bd1f5cdb464fc46b245f3e0e7deb61
+      internalID: 356755558
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munin-Front-IDLE_2
+      name: Munin-Side-Right-WALK_2
       rect:
         serializedVersion: 2
-        x: 576
-        y: 20
-        width: 222
-        height: 367
+        x: 594
+        y: 12
+        width: 246
+        height: 376
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1ac9166895fcbd46b419dc7a49798b7
-      internalID: -1747174955
+      spriteID: 4a9a9ee3b8bdac54f93193b703dfbd26
+      internalID: 1493508844
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munin-Front-IDLE_3
+      name: Munin-Side-Right-WALK_3
       rect:
         serializedVersion: 2
-        x: 870
-        y: 21
-        width: 222
-        height: 367
+        x: 879
+        y: 11
+        width: 246
+        height: 376
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2e5e08d5d8090c40b7a2a63888d7011
-      internalID: -1952976983
+      spriteID: 164214563b4b0634cbde35122883baf0
+      internalID: 912515632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Munin-Side-Right-WALK_4
+      rect:
+        serializedVersion: 2
+        x: 1151
+        y: 12
+        width: 246
+        height: 376
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86311c024cb23f94086973af3f46fef4
+      internalID: -656377057
       vertices: []
       indices: 
       edges: []
@@ -227,7 +236,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 0a649bc8b6ea78c46ade21c717c371b6
+    spriteID: 4c1a9950ac81d8b448350d8291047bfa
     internalID: 0
     vertices: []
     indices: 
@@ -237,10 +246,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Munin-Front-IDLE_0: -685811434
-      Munin-Front-IDLE_1: -1445329045
-      Munin-Front-IDLE_2: -1747174955
-      Munin-Front-IDLE_3: -1952976983
+      Munin-Side-Right-WALK_0: -888204626
+      Munin-Side-Right-WALK_1: 356755558
+      Munin-Side-Right-WALK_2: 1493508844
+      Munin-Side-Right-WALK_3: 912515632
+      Munin-Side-Right-WALK_4: -656377057
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

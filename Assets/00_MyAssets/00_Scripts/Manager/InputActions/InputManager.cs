@@ -15,6 +15,12 @@ public class InputManager : MonoBehaviour
     public static bool MoveLeft { get; private set; }
     public static bool MoveRight { get; private set; }
 
+    // Cuando esto es true, el Update() de aquí deja de sobreescribir los bools
+    // de movimiento; los gestiona quien haya llamado a SetScriptedMovement (por
+    // ejemplo PlayerMove.WalkTo durante una cinemática). Así IdleLogic y demás
+    // siguen funcionando exactamente igual y la animación de caminar se reproduce.
+    private static bool scriptedMove;
+
     public static event Action InteractPressedEvent;
     public static event Action SelectPressedEvent;
     public static event Action MoveDownPressedEvent;
@@ -61,7 +67,7 @@ public class InputManager : MonoBehaviour
     }
     private void Update()
     {
-        if (canMove) 
+        if (canMove && !scriptedMove)
         {
             MoveUp = inputActions.Player.MoveUp.IsPressed();
             MoveDown = inputActions.Player.MoveDown.IsPressed();
@@ -119,5 +125,36 @@ public class InputManager : MonoBehaviour
     public void AutopressE()
     {
         InteractPressedEvent?.Invoke();
+    }
+
+    // -----------------------------------------------------------------------
+    // Hooks para movimiento scriptado (cinemáticas, tutoriales, etc.)
+    // -----------------------------------------------------------------------
+
+    /// <summary>
+    /// Fuerza el estado de los bools de movimiento de InputManager. Mientras
+    /// esté activo este modo, el Update() no los sobreescribe con WASD real.
+    /// Sirve para que sistemas como IdleLogic, que leen estos bools para
+    /// pintar la animación, "vean" un movimiento sintético.
+    /// </summary>
+    public static void SetScriptedMovement(bool up, bool down, bool left, bool right)
+    {
+        scriptedMove = true;
+        MoveUp = up;
+        MoveDown = down;
+        MoveLeft = left;
+        MoveRight = right;
+    }
+
+    /// <summary>
+    /// Cierra el modo scriptado y vuelve a leer WASD en el siguiente Update().
+    /// </summary>
+    public static void ClearScriptedMovement()
+    {
+        scriptedMove = false;
+        MoveUp = false;
+        MoveDown = false;
+        MoveLeft = false;
+        MoveRight = false;
     }
 }

@@ -117,6 +117,21 @@ public class DialogueUIManager : MonoBehaviour
             case "OpenDoor":
                    ChangeWorldStatus.Instance.StartChanges();
                 break;
+
+            case "BoatFirstInteract":
+                    // Primer contacto con el barco (o intento de abrir la puerta
+                    // cerrada): arranca la cinemática en la que Syn y Munin
+                    // caminan hasta el barco y, al llegar, lanzan su diálogo.
+                    GameManager.instance.currentDialogueAction = "";
+                    UIManager.instance.ResetUI();
+                    BoatCinematicAction.Instance.StartCinematic();
+                    return; // la cinemática se encarga de cambiar el estado del juego
+
+            case "UnlockDoor":
+                    // Fin del diálogo de Syn y Munin: la puerta queda
+                    // desbloqueada y a partir de aquí ItsOpen puede abrir el puzzle.
+                    WorldState.DoorUnlocked = true;
+                break;
         }
 
         GameManager.instance.currentDialogueAction = "";
