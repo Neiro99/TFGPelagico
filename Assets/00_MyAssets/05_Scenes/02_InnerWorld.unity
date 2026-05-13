@@ -2520,6 +2520,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1303663148696228789, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
+      propertyPath: actualState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3377395579887025635, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
       propertyPath: m_Name
       value: === GameManager ===
@@ -7760,12 +7764,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5342539992939811002, guid: ef433ca99baf0a24cb78906173661b26, type: 3}
-      propertyPath: m_NormalizedViewPortRect.y
+      propertyPath: m_NormalizedViewPortRect.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5342539992939811002, guid: ef433ca99baf0a24cb78906173661b26, type: 3}
-      propertyPath: m_NormalizedViewPortRect.height
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0.0005123019
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342539992939811002, guid: ef433ca99baf0a24cb78906173661b26, type: 3}
+      propertyPath: m_NormalizedViewPortRect.width
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342539992939811002, guid: ef433ca99baf0a24cb78906173661b26, type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 0.9989754
       objectReference: {fileID: 0}
     - target: {fileID: 6270328765629616016, guid: ef433ca99baf0a24cb78906173661b26, type: 3}
       propertyPath: m_RenderPostProcessing
