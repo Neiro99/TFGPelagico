@@ -9,6 +9,7 @@ public static class DataDefinitions
         Pause,
         Reading,
         Diary,
+        Puzzle,
         GameOver
     }
 }

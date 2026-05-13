@@ -3213,7 +3213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42f151e9ca9978049829f85cc31dd4e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualState: 2
+  actualState: 0
   currentDialogueCSV: 
   currentDialogueAction: 
 --- !u!1 &3425014241634459428
@@ -3933,9 +3933,9 @@ Canvas:
   m_GameObject: {fileID: 4011135094259135054}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -3944,7 +3944,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1853083243
   m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &8563352427795437004
@@ -4006,6 +4006,11 @@ MonoBehaviour:
   dialogue: {fileID: 204813488234959206}
   pause: {fileID: 8731864220278611535}
   diario: {fileID: 4791775471430196480}
+  canvasesToRebind:
+  - {fileID: 8453717610062022342}
+  mainCameraTag: MainCamera
+  overridePlaneDistance: 0
+  planeDistance: 10
 --- !u!114 &4312309395244030267
 MonoBehaviour:
   m_ObjectHideFlags: 0

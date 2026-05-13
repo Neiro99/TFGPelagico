@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public static event Action OnPause;
     public static event Action OnReading;
     public static event Action OnDiary;
+    public static event Action OnPuzzle;
     public static event Action OnGameOver;
     public static event Action OnCinematic;
 
@@ -59,6 +60,9 @@ public class GameManager : MonoBehaviour
             case GameStates.Diary:
                 OnDiary?.Invoke();
                 break;
+            case GameStates.Puzzle:
+                OnPuzzle?.Invoke();
+                break;
             case GameStates.GameOver:
                 OnGameOver?.Invoke();
                 break;
@@ -84,6 +88,8 @@ public class GameManager : MonoBehaviour
             ChangeState(GameStates.Play);
         else if (actualState == GameStates.Diary)
             ToggleDiary(); // Escape desde el diario lo cierra, no abre el pause
+        else if (actualState == GameStates.Puzzle)
+            ChangeState(GameStates.Play); // Escape desde el puzzle lo cierra
     }
 
     public void ToggleDiary()

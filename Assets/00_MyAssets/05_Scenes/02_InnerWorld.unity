@@ -4388,7 +4388,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1327948545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7757,6 +7757,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5342539992939811002, guid: ef433ca99baf0a24cb78906173661b26, type: 3}
       propertyPath: m_BackGroundColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342539992939811002, guid: ef433ca99baf0a24cb78906173661b26, type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342539992939811002, guid: ef433ca99baf0a24cb78906173661b26, type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6270328765629616016, guid: ef433ca99baf0a24cb78906173661b26, type: 3}

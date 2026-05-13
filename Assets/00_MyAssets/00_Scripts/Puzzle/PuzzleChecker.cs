@@ -13,21 +13,29 @@ public class PuzzleChecker : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void OnEnable()
     {
+        // Nos suscribimos al evento "Aceptar" (Return → SelectPressedEvent).
+        // El mapa UI está activo durante el estado Puzzle (InputManager.OnPuzzle
+        // → OnUI), así que este evento sí se dispara mientras estamos en el puzzle.
+        InputManager.SelectPressedEvent += TrySolve;
+    }
 
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            bool solved = IsSolved();
-            if (solved)
-            {
-                puzzleRoot.SetActive(false);  
-                background.SetActive(false);
-                ChangeSceneManager.instance.nextSceneInsdex = 4;
-                ChangeSceneManager.instance.typeOfFade = "StandarFade";
-                GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
-            }
-        }
+    private void OnDisable()
+    {
+        InputManager.SelectPressedEvent -= TrySolve;
+    }
+
+    private void TrySolve()
+    {
+        bool solved = IsSolved();
+        if (!solved) return;
+
+        puzzleRoot.SetActive(false);
+        background.SetActive(false);
+        ChangeSceneManager.instance.nextSceneInsdex = 4;
+        ChangeSceneManager.instance.typeOfFade = "StandarFade";
+        GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
     }
 
     public bool IsSolved()

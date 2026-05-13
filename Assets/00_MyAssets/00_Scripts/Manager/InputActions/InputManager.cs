@@ -28,6 +28,8 @@ public class InputManager : MonoBehaviour
     public static event Action MoveLeftPressedEvent;
     public static event Action MoveRightPressedEvent;
     public static event Action DiaryKeyPressedEvent;
+    public static event Action RotatePressedEvent;    // tecla G (rotación en el puzzle)
+    public static event Action PickDropPressedEvent;  // tecla Space (coger/soltar en el puzzle)
     
     public bool canMove;
 
@@ -53,6 +55,7 @@ public class InputManager : MonoBehaviour
         GameManager.OnMainMenu += OnUI;
         GameManager.OnPause += OnUI;
         GameManager.OnDiary += OnUI;
+        GameManager.OnPuzzle += OnUI; // El puzzle se comporta como otro menú: sin movimiento de jugador, con UI activa.
         GameManager.OnCinematic += OnCinematic;
     }
 
@@ -64,6 +67,7 @@ public class InputManager : MonoBehaviour
         GameManager.OnMainMenu -= OnUI;
         GameManager.OnPause -= OnUI;
         GameManager.OnDiary -= OnUI;
+        GameManager.OnPuzzle -= OnUI;
         GameManager.OnCinematic -= OnCinematic;
     }
     private void Update()
@@ -105,6 +109,23 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             MoveRightPressedEvent?.Invoke();
+
+        // Eventos extra para que funcionen también en estados sin el mapa UI
+        // (típicamente: puzzle). Usamos solo W/S aquí porque UpArrow/DownArrow
+        // ya disparan MoveUp/DownPressedEvent vía el input action UI.MoveUp/Down
+        // cuando ese mapa está habilitado.
+        if (Input.GetKeyDown(KeyCode.W))
+            MoveUpPressedEvent?.Invoke();
+
+        if (Input.GetKeyDown(KeyCode.S))
+            MoveDownPressedEvent?.Invoke();
+
+        // Eventos específicos del puzzle (rotar pieza y coger/soltar pieza).
+        if (Input.GetKeyDown(KeyCode.G))
+            RotatePressedEvent?.Invoke();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            PickDropPressedEvent?.Invoke();
     }
 
     void ChangeScene()

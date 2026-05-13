@@ -52,9 +52,10 @@ public class ItsOpen : MonoBehaviour, Interactable
         }
         else
         {
-                UIManager.instance.ResetUI();
-                UIManager.instance.ActivateUI("background", true);
-                UIManager.instance.ActivateUI("puzzle", true);
+            // En vez de activar la UI a mano, cambiamos al estado Puzzle.
+            // El UIManager se encarga de mostrar el background + puzzle,
+            // y el InputManager habilita el mapa UI para los controles del puzzle.
+            GameManager.instance.ChangeState(DataDefinitions.GameStates.Puzzle);
         }
     }
 

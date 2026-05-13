@@ -14,7 +14,7 @@ public class SelectionCursor : MonoBehaviour
     public Vector2Int startCell = new Vector2Int(0, 0);
     public float cursorZOffset = -0.1f;
 
-   
+
     private Vector2Int cursorPos;
 
 
@@ -48,43 +48,57 @@ public class SelectionCursor : MonoBehaviour
 
     private void OnEnable()
     {
-        InputManager.Instance.canMove = false;
+        // El puzzle se comporta como otro menú: bloqueamos el movimiento de Aster
+        // y nos suscribimos a los eventos del InputManager.
+        if (InputManager.Instance != null)
+            InputManager.Instance.canMove = false;
+
+        InputManager.MoveLeftPressedEvent  += MoveLeft;
+        InputManager.MoveRightPressedEvent += MoveRight;
+        InputManager.MoveUpPressedEvent    += MoveUp;
+        InputManager.MoveDownPressedEvent  += MoveDown;
+        InputManager.RotatePressedEvent    += TryRotate;
+        InputManager.PickDropPressedEvent  += TryPickDrop;
     }
 
-    private void Update()
+    private void OnDisable()
     {
-        HandleMovementInput();
-        HandleRotateInput();
-        HandlePickDropInput();
+        InputManager.MoveLeftPressedEvent  -= MoveLeft;
+        InputManager.MoveRightPressedEvent -= MoveRight;
+        InputManager.MoveUpPressedEvent    -= MoveUp;
+        InputManager.MoveDownPressedEvent  -= MoveDown;
+        InputManager.RotatePressedEvent    -= TryRotate;
+        InputManager.PickDropPressedEvent  -= TryPickDrop;
+
+        // Si Aster vuelve a Play, devolvemos el control del movimiento.
+        if (InputManager.Instance != null)
+            InputManager.Instance.canMove = true;
     }
 
-    private void HandleMovementInput()
+    // ---------------------------------------------------------------------
+    // Handlers de los eventos del InputManager
+    // ---------------------------------------------------------------------
+
+    private void MoveLeft()  { TryMove(Vector2Int.left);  }
+    private void MoveRight() { TryMove(Vector2Int.right); }
+
+    // Igual que en la versión original: pulsar "arriba" baja la coordenada Y
+    // (porque y=0 está arriba en el board), y pulsar "abajo" la sube.
+    private void MoveUp()    { TryMove(Vector2Int.down);  }
+    private void MoveDown()  { TryMove(Vector2Int.up);    }
+
+    private void TryMove(Vector2Int delta)
     {
-        Vector2Int delta = Vector2Int.zero;
-
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-            delta += Vector2Int.left;
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-            delta += Vector2Int.right;
-      
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-            delta += Vector2Int.down;
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-            delta += Vector2Int.up;
-
-        if (delta == Vector2Int.zero)
-            return;
+        if (board == null) return;
 
         Vector2Int newPos = cursorPos + delta;
 
         newPos.x = Mathf.Clamp(newPos.x, 0, board.width - 1);
         newPos.y = Mathf.Clamp(newPos.y, 0, board.height - 1);
 
-
         if (heldTile != null)
         {
             PipeTile targetTile = board.GetTile(newPos);
-
 
             if (targetTile != null &&
                 targetTile != heldTile &&
@@ -99,11 +113,9 @@ public class SelectionCursor : MonoBehaviour
         UpdateCursorVisualPosition();
     }
 
-
-    private void HandleRotateInput()
+    private void TryRotate()
     {
-        if (!Input.GetKeyDown(KeyCode.G))
-            return;
+        if (board == null) return;
 
         if (heldTile != null)
         {
@@ -122,10 +134,9 @@ public class SelectionCursor : MonoBehaviour
         }
     }
 
-    private void HandlePickDropInput()
+    private void TryPickDrop()
     {
-        if (!Input.GetKeyDown(KeyCode.Space))
-            return;
+        if (board == null) return;
 
         PipeTile currentTile = board.GetTile(cursorPos);
 
@@ -165,6 +176,10 @@ public class SelectionCursor : MonoBehaviour
             HideHeldVisual();
         }
     }
+
+    // ---------------------------------------------------------------------
+    // Helpers internos (no cambian respecto al original)
+    // ---------------------------------------------------------------------
 
     private void ClampCursor()
     {
