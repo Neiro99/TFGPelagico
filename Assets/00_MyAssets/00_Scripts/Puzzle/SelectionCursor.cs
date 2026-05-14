@@ -195,12 +195,17 @@ public class SelectionCursor : MonoBehaviour
             return;
 
         PipeTile tile = board.GetTile(cursorPos);
-        if (tile != null)
-        {
-            Vector3 p = tile.transform.position;
-            p.z += cursorZOffset;
-            cursorVisual.position = p;
-        }
+        if (tile == null) return;
+
+        // Igualamos la posición XY del cursor a la del tile usando posición mundial
+        // (para que funcione esté donde esté el Canvas), pero forzamos LocalPosition.z = 0
+        // para mantenerlo en el plano del Canvas. Si dejamos el Z mundial sin tocar,
+        // el cursor hereda el Z del Canvas (por ejemplo -76 en Screen Space - Camera)
+        // y termina con un LocalPosition.z != 0, descolocándolo del plano de la UI.
+        cursorVisual.position = tile.transform.position;
+        Vector3 lp = cursorVisual.localPosition;
+        lp.z = 0f;
+        cursorVisual.localPosition = lp;
     }
 
     private void CacheHeldRenderer(PipeTile tile)
