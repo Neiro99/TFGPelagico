@@ -21,6 +21,8 @@ public class BoatCinematicAction : MonoBehaviour
 {
     public static BoatCinematicAction Instance;
 
+    public ObjectForeground tableScript;
+
     [Header("Animator de Syn (sprite: idle ↔ walk)")]
     [Tooltip("Animator del Syn que aparece cerca del barco para esta cinemática.")]
     public Animator synAnimator;
@@ -136,6 +138,9 @@ public class BoatCinematicAction : MonoBehaviour
         // 3. Activamos el caminar: sprite de Syn, sprite de Munin y movimiento de conjunto.
         SetBoolSafe(synAnimator, synWalkBoolName, true);
         SetBoolSafe(muninAnimator, muninWalkBoolName, true);
+
+        tableScript.textToShow1 = "TableTorpere1";
+        tableScript.textToShow2 = "TableTorpere1";
 
         // El animator de movimiento puede activarse por bool y/o habilitando el componente.
         if (movementAnimator != null && enableMovementAnimatorOnStart)

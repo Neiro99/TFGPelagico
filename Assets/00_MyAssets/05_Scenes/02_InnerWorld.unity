@@ -8053,8 +8053,8 @@ Transform:
   m_GameObject: {fileID: 936274636}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.5, y: -2.19, z: 15.13}
-  m_LocalScale: {x: 9.218857, y: 2.5273314, z: 5.8362513}
+  m_LocalPosition: {x: 1.4, y: -2.19, z: 11.3}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -21573,6 +21573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 729de18fe36906248ae0dc004d295e35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tableScript: {fileID: 535492813}
   synAnimator: {fileID: 7656247876467948521}
   synWalkBoolName: SynWalk
   muninAnimator: {fileID: 1154382103}
