@@ -19,11 +19,18 @@ public static class WorldState
     public static bool BoatCinematicScheduled = false;
 
     /// <summary>
+    /// El jugador ya ha le�do los apuntes/dibujos en la mesa de Torpere y por
+    /// tanto puede intentar abrir la puerta del barco (acceder al puzzle).
+    /// </summary>
+    public static bool PapersFound = false;
+
+    /// <summary>
     /// Restablece el estado. �til para reiniciar la partida desde el men�.
     /// </summary>
     public static void ResetAll()
     {
         DoorUnlocked = false;
         BoatCinematicScheduled = false;
+        PapersFound = false;
     }
 }

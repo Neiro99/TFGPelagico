@@ -16,10 +16,11 @@ public class ObjectForeground : MonoBehaviour, Interactable
     public bool caninteract;
 
     [Header("Acción opcional en la primera interacción")]
-    [Tooltip("Si se rellena (por ejemplo \"BoatFirstInteract\"), esta cadena se asigna a " +
-             "GameManager.currentDialogueAction la primera vez que se interactúa con el objeto. " +
-             "Sirve para encadenar una cinemática después del diálogo inicial. " +
-             "Solo se aplica si la puerta sigue bloqueada y no hay otra cinemática programada.")]
+    [Tooltip("Si se rellena, esta cadena se asigna a GameManager.currentDialogueAction la " +
+             "primera vez que se interactúa con el objeto, para encadenar una cinemática " +
+             "o un cambio de estado después del diálogo inicial. " +
+             "Ejemplos: \"BoatFirstInteract\" (barco), \"FindPapers\" (mesa de Torpere). " +
+             "Cada acción comprueba sus propias condiciones en DialogueUIManager.EndDialogue.")]
     public string firstInteractAction;
 
     public void Start()
@@ -35,16 +36,12 @@ public class ObjectForeground : MonoBehaviour, Interactable
         {
             GameManager.instance.currentDialogueCSV = textToShow1;
 
-            // Si está configurada una acción de primera interacción y nadie más ha
-            // programado ya la cinemática este frame, la dejamos lista para
-            // dispararla al terminar el diálogo.
-            if (!string.IsNullOrEmpty(firstInteractAction)
-                && !WorldState.DoorUnlocked
-                && !WorldState.BoatCinematicScheduled)
-            {
+            // Si hay acción configurada se la asignamos. La acción se procesa en
+            // DialogueUIManager.EndDialogue y es allí donde cada caso comprueba
+            // si todavía toca ejecutarse (por ejemplo BoatFirstInteract solo
+            // dispara la cinemática si la puerta sigue bloqueada).
+            if (!string.IsNullOrEmpty(firstInteractAction))
                 GameManager.instance.currentDialogueAction = firstInteractAction;
-                WorldState.BoatCinematicScheduled = true;
-            }
 
             firstInteract = false;
         }

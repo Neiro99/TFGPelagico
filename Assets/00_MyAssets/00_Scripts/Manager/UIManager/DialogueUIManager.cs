@@ -132,6 +132,21 @@ public class DialogueUIManager : MonoBehaviour
                     // desbloqueada y a partir de aquí ItsOpen puede abrir el puzzle.
                     WorldState.DoorUnlocked = true;
                 break;
+
+            case "FindPapers":
+                    // Fin del diálogo de la mesa de Torpere: el jugador ya
+                    // tiene los apuntes y puede intentar resolver el puzzle.
+                    WorldState.PapersFound = true;
+                break;
+
+            case "EndPuzzleSequence":
+                    // Conversación posterior al puzzle terminada: el siguiente
+                    // paso es el cambio de escena que el PuzzleChecker dejó
+                    // pre-configurado (nextSceneInsdex + typeOfFade).
+                    GameManager.instance.currentDialogueAction = "";
+                    UIManager.instance.ResetUI();
+                    GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
+                    return; // no caer al cambio a Play del final del método
         }
 
         GameManager.instance.currentDialogueAction = "";

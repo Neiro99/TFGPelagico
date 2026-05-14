@@ -6,10 +6,16 @@ public static class DialogueCSVLoader
     public static List<DialogueLine> LoadDialogue(string csvFileName)
     {
         List<DialogueLine> dialogueLines = new();
+
+        // Defensivo: si en el Inspector se coló un espacio al principio o al
+        // final del nombre del CSV, Resources.Load fallaría. Lo limpiamos.
+        if (!string.IsNullOrEmpty(csvFileName))
+            csvFileName = csvFileName.Trim();
+
         TextAsset csvFile = Resources.Load<TextAsset>(csvFileName);
         if (csvFile == null)
         {
-            Debug.LogError($"No se encontr� el archivo CSV: {csvFileName}");
+            Debug.LogError($"No se encontr� el archivo CSV: '{csvFileName}'");
             return dialogueLines;
         }
 

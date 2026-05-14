@@ -5,6 +5,18 @@ public class PuzzleChecker : MonoBehaviour
     public PuzzleBoard board;
     public GameObject puzzleRoot;
     public GameObject background;
+
+    [Header("Diálogo posterior al puzzle")]
+    [Tooltip("CSV en Resources/ con la conversación que se reproduce tras resolver el puzzle. " +
+             "Al acabar el diálogo se dispara el cambio de escena configurado más abajo.")]
+    public string afterPuzzleDialogueCSV = "PuzzleSolved";
+
+    [Header("Cambio de escena al terminar el diálogo")]
+    [Tooltip("Índice (en Build Settings) de la escena a la que se salta al terminar el diálogo posterior al puzzle.")]
+    public int nextSceneIndex = 4;
+    [Tooltip("Nombre del fade del ChangeSceneManager.")]
+    public string sceneTransitionFade = "StandarFade";
+
     private void Start()
     {
         if (board == null)
@@ -31,11 +43,26 @@ public class PuzzleChecker : MonoBehaviour
         bool solved = IsSolved();
         if (!solved) return;
 
+        // Ocultamos la UI del puzzle a mano (el UIManager no la desactiva al
+        // pasar de Puzzle a Reading porque solo lo hace en OnPlay / ChangeScene).
         puzzleRoot.SetActive(false);
         background.SetActive(false);
-        ChangeSceneManager.instance.nextSceneInsdex = 4;
-        ChangeSceneManager.instance.typeOfFade = "StandarFade";
-        GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
+
+        // Pre-configuramos el destino del fade. El cambio de escena real se
+        // dispara cuando termine el diálogo posterior al puzzle (acción
+        // "EndPuzzleSequence" en DialogueUIManager.EndDialogue).
+        ChangeSceneManager.instance.nextSceneInsdex = nextSceneIndex;
+        ChangeSceneManager.instance.typeOfFade = sceneTransitionFade;
+
+        // Lanzamos la conversación final entre Syn y Aster.
+        GameManager.instance.currentDialogueCSV = afterPuzzleDialogueCSV;
+        GameManager.instance.currentDialogueAction = "EndPuzzleSequence";
+
+        UIManager.instance.ActivateUI("background", true);
+        UIManager.instance.ActivateUI("dialogue", true);
+        UIManager.instance.ActivateUI("characters", true);
+
+        GameManager.instance.ChangeState(DataDefinitions.GameStates.Reading);
     }
 
     public bool IsSolved()

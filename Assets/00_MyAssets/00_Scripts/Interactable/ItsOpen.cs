@@ -13,6 +13,14 @@ public class ItsOpen : MonoBehaviour, Interactable
              "Si se deja vacío y nadie más ha programado la cinemática, no se hace nada extra.")]
     public string lockedDialogueCSV = "Door";
 
+    [Header("Comportamiento cuando aún faltan los apuntes (Syn ya habló pero no se ha visitado la mesa de Torpere)")]
+    [Tooltip("CSV de diálogo que se muestra al intentar abrir la puerta antes de leer los apuntes.")]
+    public string needsPapersDialogueCSV = "DoorNeedsPapers";
+
+    [Header("Comportamiento la primera vez que se intenta abrir con apuntes")]
+    [Tooltip("CSV de diálogo que se muestra justo antes de entrar al puzzle por primera vez.")]
+    public string withPapersDialogueCSV = "DoorWithPapers";
+
     public void Start()
     {
         firstInteract = true;
@@ -20,16 +28,12 @@ public class ItsOpen : MonoBehaviour, Interactable
 
     public void ItsInteracting()
     {
-        // Mientras la puerta no esté desbloqueada, no abrimos el puzzle.
-        // En cambio, garantizamos que se dispare el flujo "Door.csv → cinemática
-        // → diálogo Syn+Munin", aunque el ObjectForeground del barco no llegue
-        // a activarse en este frame.
+        // 1) Puerta todavía bloqueada (Syn y Munin no han hablado con Aster).
+        //    Disparamos el flujo "Door.csv → cinemática → BoatFirstTime".
         if (!WorldState.DoorUnlocked)
         {
             if (!WorldState.BoatCinematicScheduled)
             {
-                // Nadie más ha programado la cinemática: la disparamos nosotros
-                // tras el diálogo de "puerta cerrada".
                 if (!string.IsNullOrEmpty(lockedDialogueCSV))
                 {
                     GameManager.instance.currentDialogueCSV = lockedDialogueCSV;
@@ -40,21 +44,42 @@ public class ItsOpen : MonoBehaviour, Interactable
                     GameManager.instance.ChangeState(DataDefinitions.GameStates.Reading);
                 }
             }
-            // En cualquier caso, no seguimos al flujo del puzzle.
             return;
         }
 
+        // 2) Puerta desbloqueada pero todavía no hemos leído los apuntes en la
+        //    mesa de Torpere → mostramos solo el diálogo "Necesito encontrar
+        //    los apuntes...". No abrimos el puzzle ni avanzamos el flujo.
+        if (!WorldState.PapersFound)
+        {
+            if (!string.IsNullOrEmpty(needsPapersDialogueCSV))
+            {
+                GameManager.instance.currentDialogueCSV = needsPapersDialogueCSV;
+                GameManager.instance.currentDialogueAction = "";
+                UIManager.instance.ActivateUI("dialogue", true);
+                GameManager.instance.ChangeState(DataDefinitions.GameStates.Reading);
+            }
+            return;
+        }
+
+        // 3) Puerta desbloqueada y apuntes encontrados.
         if (firstInteract)
         {
+            // Primera vez con apuntes: mostramos "A ver cómo narices...", y al
+            // terminar el diálogo la acción OpenDoor encadena el puzzle.
             firstInteract = false;
             StartCoroutine(WaitAndEnableInteraction());
+
+            if (!string.IsNullOrEmpty(withPapersDialogueCSV))
+                GameManager.instance.currentDialogueCSV = withPapersDialogueCSV;
             GameManager.instance.currentDialogueAction = "OpenDoor";
+
+            UIManager.instance.ActivateUI("dialogue", true);
+            GameManager.instance.ChangeState(DataDefinitions.GameStates.Reading);
         }
         else
         {
-            // En vez de activar la UI a mano, cambiamos al estado Puzzle.
-            // El UIManager se encarga de mostrar el background + puzzle,
-            // y el InputManager habilita el mapa UI para los controles del puzzle.
+            // Interacciones posteriores: directamente al puzzle.
             GameManager.instance.ChangeState(DataDefinitions.GameStates.Puzzle);
         }
     }
