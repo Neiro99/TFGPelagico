@@ -110,15 +110,11 @@ public class InputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             MoveRightPressedEvent?.Invoke();
 
-        // Eventos extra para que funcionen también en estados sin el mapa UI
-        // (típicamente: puzzle). Usamos solo W/S aquí porque UpArrow/DownArrow
-        // ya disparan MoveUp/DownPressedEvent vía el input action UI.MoveUp/Down
-        // cuando ese mapa está habilitado.
-        if (Input.GetKeyDown(KeyCode.W))
-            MoveUpPressedEvent?.Invoke();
-
-        if (Input.GetKeyDown(KeyCode.S))
-            MoveDownPressedEvent?.Invoke();
+        // Nota: NO disparamos MoveUp/Down desde KeyDown(W/S) porque el InputActions
+        // del proyecto ya tiene W y S bindeadas a UI.MoveUp/Down. Si lo hacemos
+        // duplicaríamos el evento (el menú avanzaría de 2 en 2). En el estado
+        // Puzzle el mapa UI también está habilitado, así que UI.MoveUp/Down
+        // dispara MoveUp/DownPressedEvent una sola vez.
 
         // Eventos específicos del puzzle (rotar pieza y coger/soltar pieza).
         if (Input.GetKeyDown(KeyCode.G))

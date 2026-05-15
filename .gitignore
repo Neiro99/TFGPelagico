@@ -73,3 +73,8 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Builds personalizados del proyecto (no van al repo)
+/00_Builds/
+/00Ejecutable Gold master/
+/00_Builds.zip
