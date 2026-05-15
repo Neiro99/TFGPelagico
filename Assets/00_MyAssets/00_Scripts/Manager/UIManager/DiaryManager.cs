@@ -77,13 +77,31 @@ public class DiaryManager : MonoBehaviour
 
     void NextPage()
     {
-        if (isAnimating || currentPage >= pages.Count - 1) return;
+        if (isAnimating || currentPage >= MaxAvailablePageIndex()) return;
 
         // Mostramos la flecha derecha "marcada" durante la transición.
         if (rightArrow != null && rightArrowPressed != null)
             rightArrow.sprite = rightArrowPressed;
 
         StartCoroutine(SlideTo(currentPage + 1, direction: 1));
+    }
+
+    /// <summary>
+    /// Devuelve el índice de la última página disponible en este momento.
+    /// Antes de que el jugador haya visto la cinemática post-puzzle, la 4ª
+    /// página (índice 3) y siguientes están bloqueadas.
+    /// </summary>
+    int MaxAvailablePageIndex()
+    {
+        if (pages == null || pages.Count == 0) return 0;
+
+        int max = pages.Count - 1;
+
+        // Sin la cinemática vista, limitamos a la 3ª página (índice 2).
+        if (!WorldState.PostPuzzleCinematicSeen && max > 2)
+            max = 2;
+
+        return max;
     }
 
     void PrevPage()
@@ -151,8 +169,9 @@ public class DiaryManager : MonoBehaviour
     /// </summary>
     void UpdateArrowStates()
     {
+        int maxAvailable = MaxAvailablePageIndex();
         bool canGoLeft  = currentPage > 0;
-        bool canGoRight = pages != null && currentPage < pages.Count - 1;
+        bool canGoRight = pages != null && currentPage < maxAvailable;
 
         if (leftArrow != null)
         {

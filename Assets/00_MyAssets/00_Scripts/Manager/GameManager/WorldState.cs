@@ -25,6 +25,13 @@ public static class WorldState
     public static bool PapersFound = false;
 
     /// <summary>
+    /// La cinem�tica posterior al puzzle (PostPuzzleCinematic) ya se ha visto.
+    /// Sirve para desbloquear contenido que no debe estar disponible antes,
+    /// como la 4� p�gina del diario.
+    /// </summary>
+    public static bool PostPuzzleCinematicSeen = false;
+
+    /// <summary>
     /// Restablece el estado. �til para reiniciar la partida desde el men�.
     /// </summary>
     public static void ResetAll()
@@ -32,5 +39,6 @@ public static class WorldState
         DoorUnlocked = false;
         BoatCinematicScheduled = false;
         PapersFound = false;
+        PostPuzzleCinematicSeen = false;
     }
 }

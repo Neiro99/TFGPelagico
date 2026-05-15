@@ -134,6 +134,10 @@ public class PostPuzzleCinematic : MonoBehaviour
 
         if (cinematicRoot != null) cinematicRoot.SetActive(false);
 
+        // Marcamos el flag global para desbloquear el contenido posterior
+        // (por ejemplo, la 4ª página del diario).
+        WorldState.PostPuzzleCinematicSeen = true;
+
         // Disparamos el cambio de escena con el fade configurado.
         ChangeSceneManager.instance.nextSceneInsdex = nextSceneIndex;
         ChangeSceneManager.instance.typeOfFade = sceneTransitionFade;
