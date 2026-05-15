@@ -8,14 +8,9 @@ public class PuzzleChecker : MonoBehaviour
 
     [Header("Diálogo posterior al puzzle")]
     [Tooltip("CSV en Resources/ con la conversación que se reproduce tras resolver el puzzle. " +
-             "Al acabar el diálogo se dispara el cambio de escena configurado más abajo.")]
+             "Al acabar el diálogo se dispara la cinemática (PostPuzzleCinematic), y al " +
+             "terminar la cinemática se hace el cambio de escena que esa cinemática gestiona.")]
     public string afterPuzzleDialogueCSV = "PuzzleSolved";
-
-    [Header("Cambio de escena al terminar el diálogo")]
-    [Tooltip("Índice (en Build Settings) de la escena a la que se salta al terminar el diálogo posterior al puzzle.")]
-    public int nextSceneIndex = 4;
-    [Tooltip("Nombre del fade del ChangeSceneManager.")]
-    public string sceneTransitionFade = "StandarFade";
 
     private void Start()
     {
@@ -48,13 +43,9 @@ public class PuzzleChecker : MonoBehaviour
         puzzleRoot.SetActive(false);
         background.SetActive(false);
 
-        // Pre-configuramos el destino del fade. El cambio de escena real se
-        // dispara cuando termine el diálogo posterior al puzzle (acción
-        // "EndPuzzleSequence" en DialogueUIManager.EndDialogue).
-        ChangeSceneManager.instance.nextSceneInsdex = nextSceneIndex;
-        ChangeSceneManager.instance.typeOfFade = sceneTransitionFade;
-
-        // Lanzamos la conversación final entre Syn y Aster.
+        // Lanzamos la conversación final entre Syn y Aster. Al cerrarse, la
+        // acción "EndPuzzleSequence" en DialogueUIManager dispara la cinemática
+        // (PostPuzzleCinematic), y esa cinemática se ocupa del cambio de escena.
         GameManager.instance.currentDialogueCSV = afterPuzzleDialogueCSV;
         GameManager.instance.currentDialogueAction = "EndPuzzleSequence";
 

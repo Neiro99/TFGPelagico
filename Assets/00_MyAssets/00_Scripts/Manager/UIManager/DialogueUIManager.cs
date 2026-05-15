@@ -140,13 +140,14 @@ public class DialogueUIManager : MonoBehaviour
                 break;
 
             case "EndPuzzleSequence":
-                    // Conversación posterior al puzzle terminada: el siguiente
-                    // paso es el cambio de escena que el PuzzleChecker dejó
-                    // pre-configurado (nextSceneInsdex + typeOfFade).
+                    // Conversación posterior al puzzle terminada. Antes de cambiar
+                    // de escena se reproduce una cinemática a pantalla completa.
+                    // Cuando termine, PostPuzzleCinematic se encarga del cambio
+                    // de escena con el fade configurado (SwichFade → escena 4).
                     GameManager.instance.currentDialogueAction = "";
                     UIManager.instance.ResetUI();
-                    GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
-                    return; // no caer al cambio a Play del final del método
+                    PostPuzzleCinematic.Instance.PlayCinematic();
+                    return; // la cinemática se encarga del estado a partir de aquí
         }
 
         GameManager.instance.currentDialogueAction = "";
