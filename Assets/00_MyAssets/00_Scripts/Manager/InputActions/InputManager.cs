@@ -57,6 +57,7 @@ public class InputManager : MonoBehaviour
         GameManager.OnDiary += OnUI;
         GameManager.OnPuzzle += OnUI; // El puzzle se comporta como otro menú: sin movimiento de jugador, con UI activa.
         GameManager.OnCinematic += OnCinematic;
+        GameManager.OnLoading += OnLoading;
     }
 
     private void OnDisable()
@@ -69,6 +70,7 @@ public class InputManager : MonoBehaviour
         GameManager.OnDiary -= OnUI;
         GameManager.OnPuzzle -= OnUI;
         GameManager.OnCinematic -= OnCinematic;
+        GameManager.OnLoading -= OnLoading;
     }
     private void Update()
     {
@@ -142,6 +144,14 @@ public class InputManager : MonoBehaviour
 
     private void OnCinematic()
     {
+        inputActions.Player.Disable();
+        inputActions.UI.Disable();
+    }
+
+    private void OnLoading()
+    {
+        // Mismo trato que la cinemática: el jugador no puede moverse, ni
+        // navegar menús, ni interactuar. Solo se ve la pantalla de carga.
         inputActions.Player.Disable();
         inputActions.UI.Disable();
     }

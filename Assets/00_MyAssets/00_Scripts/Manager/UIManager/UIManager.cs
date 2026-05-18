@@ -17,6 +17,10 @@ public class UIManager : MonoBehaviour
     public GameObject dialogue;
     public GameObject pause;
     public GameObject diario;
+    [Tooltip("Capa de pantalla de carga (controles + salpa). Debe estar como hijo " +
+             "del canvas persistente y, en la jerarquía, por encima del resto para " +
+             "que tape todo al activarse.")]
+    public GameObject loading;
 
     [Header("Canvases que dependen de la cámara de cada escena")]
     [Tooltip("Lista de Canvas en modo Screen Space - Camera (o World Space) que tienen que " +
@@ -59,6 +63,9 @@ public class UIManager : MonoBehaviour
         GameManager.OnPuzzle += ActivatePuzzle;
         GameManager.OnPlay += DeactivatePuzzle;
         GameManager.ChangeScene += DeactivatePuzzle;
+        GameManager.OnLoading += ActivateLoading;
+        GameManager.OnPlay += DeactivateLoading;
+        GameManager.ChangeScene += DeactivateLoading;
 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -74,6 +81,9 @@ public class UIManager : MonoBehaviour
         GameManager.OnPuzzle -= ActivatePuzzle;
         GameManager.OnPlay -= DeactivatePuzzle;
         GameManager.ChangeScene -= DeactivatePuzzle;
+        GameManager.OnLoading -= ActivateLoading;
+        GameManager.OnPlay -= DeactivateLoading;
+        GameManager.ChangeScene -= DeactivateLoading;
 
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
@@ -153,6 +163,9 @@ public class UIManager : MonoBehaviour
             case "diario":
                 diario.SetActive(active);
                 break;
+            case "loading":
+                if (loading != null) loading.SetActive(active);
+                break;
         }
     }
     public void DeactivateUI(string uiKey)
@@ -169,6 +182,7 @@ public class UIManager : MonoBehaviour
         dialogue.SetActive(false);
         pause.SetActive(false);
         diario.SetActive(false);
+        if (loading != null) loading.SetActive(false);
     }
 
     private void ActivatePause()
@@ -203,6 +217,19 @@ public class UIManager : MonoBehaviour
     {
         ActivateUI("puzzle", false);
         ActivateUI("background", false);
+    }
+
+    private void ActivateLoading()
+    {
+        // Como pantalla "todo encima", reseteamos primero para que no se mezcle
+        // con diálogos, diario, pausa, etc. y activamos solo la capa loading.
+        ResetUI();
+        ActivateUI("loading", true);
+    }
+
+    private void DeactivateLoading()
+    {
+        ActivateUI("loading", false);
     }
 
 }

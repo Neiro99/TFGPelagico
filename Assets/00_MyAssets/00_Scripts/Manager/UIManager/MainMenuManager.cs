@@ -111,9 +111,21 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        ChangeSceneManager.instance.nextSceneInsdex = 2;
-        ChangeSceneManager.instance.typeOfFade = "StandarFade";
-        GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
+        // En vez de saltar directamente al cambio de escena, pedimos al
+        // LoadingScreenManager que muestre la pantalla de controles ("Controls").
+        // Cuando termine, será él quien dispare el cambio a la escena 2.
+        if (LoadingScreenManager.instance != null)
+        {
+            LoadingScreenManager.instance.StartLoading("Controls", 2);
+        }
+        else
+        {
+            // Fallback: si por lo que sea no hay LoadingScreenManager (escena
+            // sin la jerarquía persistente), mantenemos el comportamiento antiguo.
+            ChangeSceneManager.instance.nextSceneInsdex = 2;
+            ChangeSceneManager.instance.typeOfFade = "StandarFade";
+            GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
+        }
     }
 
     public void OpenSettings()

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public static event Action OnPuzzle;
     public static event Action OnGameOver;
     public static event Action OnCinematic;
+    public static event Action OnLoading;
 
     public string currentDialogueCSV;
     public string currentDialogueAction;
@@ -50,6 +51,9 @@ public class GameManager : MonoBehaviour
                 break;
             case GameStates.Cinematic:
                 OnCinematic?.Invoke();
+                break;
+            case GameStates.Loading:
+                OnLoading?.Invoke();
                 break;
             case GameStates.Pause:
                 OnPause?.Invoke();

@@ -45,8 +45,15 @@ public class PostPuzzleCinematic : MonoBehaviour
     [Tooltip("Índice de la escena destino (Build Settings).")]
     public int nextSceneIndex = 4;
     [Tooltip("Tipo de fade del ChangeSceneManager. Por defecto el mismo que se usa al " +
-             "pasar de la escena 02 a la 03 (\"SwichFade\").")]
+             "pasar de la escena 02 a la 03 (\"SwichFade\"). Solo se usa si no hay " +
+             "pantalla de carga intermedia.")]
     public string sceneTransitionFade = "SwichFade";
+
+    [Header("Pantalla de carga intermedia (opcional)")]
+    [Tooltip("Si se rellena, al terminar la cinemática NO se cambia de escena " +
+             "directamente: se le pide al LoadingScreenManager que muestre la pantalla " +
+             "con esta key, y será él quien dispare el cambio a nextSceneIndex.")]
+    public string loadingScreenKey = "Inner->Outer2";
 
     private bool finished;
     private Coroutine watchdogRoutine;
@@ -138,9 +145,18 @@ public class PostPuzzleCinematic : MonoBehaviour
         // (por ejemplo, la 4ª página del diario).
         WorldState.PostPuzzleCinematicSeen = true;
 
-        // Disparamos el cambio de escena con el fade configurado.
-        ChangeSceneManager.instance.nextSceneInsdex = nextSceneIndex;
-        ChangeSceneManager.instance.typeOfFade = sceneTransitionFade;
-        GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
+        // Si hay pantalla de carga intermedia configurada y disponible, pasamos
+        // por ella antes del cambio de escena. Si no, hacemos el cambio directo
+        // como hasta ahora.
+        if (!string.IsNullOrEmpty(loadingScreenKey) && LoadingScreenManager.instance != null)
+        {
+            LoadingScreenManager.instance.StartLoading(loadingScreenKey, nextSceneIndex);
+        }
+        else
+        {
+            ChangeSceneManager.instance.nextSceneInsdex = nextSceneIndex;
+            ChangeSceneManager.instance.typeOfFade = sceneTransitionFade;
+            GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
+        }
     }
 }
