@@ -100,7 +100,9 @@ public class ChangeSceneManager : MonoBehaviour
             return;
         }
 
-        if (nextSceneInsdex == 1)
+        // Tras eliminar la escena 00_Introduccion, el MainMenu pasa a ser la
+        // primera escena (buildIndex 0). Por eso comparamos contra 0.
+        if (nextSceneInsdex == 0)
             GameManager.instance.ChangeState(DataDefinitions.GameStates.MainMenu);
         else
             GameManager.instance.ChangeState(DataDefinitions.GameStates.Play);

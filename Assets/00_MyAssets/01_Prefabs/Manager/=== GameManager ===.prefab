@@ -6087,14 +6087,14 @@ MonoBehaviour:
   defaultFade: StandarFade
   entries:
   - key: Controls
-    contentSprite: {fileID: 21300000, guid: 5ccbbb33667c36541a2e60119a0225bd, type: 3}
+    contentSprite: {fileID: 21300000, guid: 9dfc881bbd1c9184083da0c28d3d8a9c, type: 3}
     duration: 10
     overrideFade: 
-  - key: TableInteractScript
+  - key: Outer->Inner
     contentSprite: {fileID: 21300000, guid: 70356f67b48ff6843af2e18d20dea7df, type: 3}
     duration: 10
     overrideFade: 
-  - key: PostPuzzleCinematic
+  - key: Outer->Inner2
     contentSprite: {fileID: 21300000, guid: 70356f67b48ff6843af2e18d20dea7df, type: 3}
     duration: 10
     overrideFade: 

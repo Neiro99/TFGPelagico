@@ -42,8 +42,9 @@ public class PostPuzzleCinematic : MonoBehaviour
     public float maxDuration = 30f;
 
     [Header("Cambio de escena al terminar")]
-    [Tooltip("Índice de la escena destino (Build Settings).")]
-    public int nextSceneIndex = 4;
+    [Tooltip("Índice de la escena destino (Build Settings). " +
+             "Tras eliminar 00_Introduccion: 04_OuterWorld 2 = buildIndex 3.")]
+    public int nextSceneIndex = 3;
     [Tooltip("Tipo de fade del ChangeSceneManager. Por defecto el mismo que se usa al " +
              "pasar de la escena 02 a la 03 (\"SwichFade\"). Solo se usa si no hay " +
              "pantalla de carga intermedia.")]

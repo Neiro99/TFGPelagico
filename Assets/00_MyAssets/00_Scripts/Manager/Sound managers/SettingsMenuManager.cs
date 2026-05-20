@@ -29,6 +29,18 @@ public class SettingsMenuManager : MonoBehaviour
     }
     void OnEnable()
     {
+        ResetState();
+    }
+
+    /// <summary>
+    /// Reinicia el estado del panel: cursor arriba del todo, sliders
+    /// sincronizados con el audio y markers visibles consistentes.
+    /// Se llama desde OnEnable y desde <see cref="Open"/> para garantizar
+    /// que el panel siempre se ve "en posición 1" la primera vez que se
+    /// abre (sin depender del orden exacto entre OnEnable y Open).
+    /// </summary>
+    private void ResetState()
+    {
         index = 0;
         SyncFromAudio();
         RefreshMarkers();
@@ -134,6 +146,16 @@ public class SettingsMenuManager : MonoBehaviour
     {
         settingsCanvas.SetActive(true);
         enabled = true;
+
+        // Forzamos el reset explícitamente aquí. Si dejamos esto solo en
+        // OnEnable, la primera vez que se abre el panel puede pasar que
+        // OnEnable se ejecute antes de que Open() termine de configurar el
+        // estado (por ejemplo si el componente arranca con enabled=false
+        // serializado), y los markers visuales queden desincronizados
+        // (típicamente apareciendo como si index=1). Llamando a
+        // ResetState aquí garantizamos que cada apertura deja el panel en
+        // index=0 de forma idempotente.
+        ResetState();
     }
 
     public void Close()

@@ -130,15 +130,20 @@ public class MusicManager : MonoBehaviour
 
     private AudioClip ClipSegunBuildIndex(int buildIndex)
     {
+        // Tras eliminar la escena 00_Introduccion el orden de buildIndex es:
+        //   0 = 01_MainMenu        -> musica1
+        //   1 = 02_OuterWorld      -> musica2
+        //   2 = 03_InnerWorld      -> musica3
+        //   3 = 04_OuterWorld 2    -> musica1
+        //   4 = 05_Fin             -> musica1 (default)
         switch (buildIndex)
         {
             case 0:
-            case 1:
-            case 4:
-                return musica1;
-            case 2:
-                return musica2;
             case 3:
+                return musica1;
+            case 1:
+                return musica2;
+            case 2:
                 return musica3;
             default:
                 return musica1;

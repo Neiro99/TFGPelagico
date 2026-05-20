@@ -11,8 +11,9 @@ public class TableInteractScript : MonoBehaviour, Interactable
              "escena destino.")]
     public string loadingScreenKey = "Outer->Inner";
 
-    [Tooltip("Índice de la escena destino (Build Settings).")]
-    public int nextSceneIndex = 3;
+    [Tooltip("Índice de la escena destino (Build Settings). " +
+             "Tras eliminar 00_Introduccion: 03_InnerWorld = buildIndex 2.")]
+    public int nextSceneIndex = 2;
 
     [Tooltip("Fade que se usa SOLO si no hay pantalla de carga configurada.")]
     public string sceneTransitionFade = "SwichFade";

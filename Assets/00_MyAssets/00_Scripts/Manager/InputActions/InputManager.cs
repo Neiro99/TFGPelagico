@@ -30,6 +30,7 @@ public class InputManager : MonoBehaviour
     public static event Action DiaryKeyPressedEvent;
     public static event Action RotatePressedEvent;    // tecla G (rotación en el puzzle)
     public static event Action PickDropPressedEvent;  // tecla Space (coger/soltar en el puzzle)
+    public static event Action BackPressedEvent;      // tecla Esc para "volver atrás" en menús
     
     public bool canMove;
 
@@ -83,7 +84,15 @@ public class InputManager : MonoBehaviour
         }
 
         if (inputActions.Player.Pause.WasPressedThisFrame() || inputActions.UI.Pause.WasPressedThisFrame())
+        {
+            // GameManager.Pause() gestiona el toggle Play <-> Pause (y los
+            // casos Diary / Puzzle). En estados de menú (MainMenu, etc.)
+            // no hace nada; para esos casos disparamos también un evento
+            // genérico "Back" que los gestores de UI pueden usar para
+            // cerrar sub-paneles (Créditos, Controles, Configuración).
             GameManager.instance.Pause();
+            BackPressedEvent?.Invoke();
+        }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {

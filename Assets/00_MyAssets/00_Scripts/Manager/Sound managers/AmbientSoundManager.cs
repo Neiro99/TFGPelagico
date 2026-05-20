@@ -96,7 +96,11 @@ public class AmbientSoundManager : MonoBehaviour
 
     private bool DebeSonarEn(int buildIndex)
     {
-        return buildIndex == 1 || buildIndex == 3 || buildIndex == 4;
+        // Tras eliminar la escena 00_Introduccion el orden de buildIndex es:
+        //   0 = 01_MainMenu, 1 = 02_OuterWorld, 2 = 03_InnerWorld,
+        //   3 = 04_OuterWorld 2, 4 = 05_Fin.
+        // Mantenemos el ambiente en MainMenu, InnerWorld y OuterWorld 2.
+        return buildIndex == 0 || buildIndex == 2 || buildIndex == 3;
     }
 
     private IEnumerator FadeOutAndStop()

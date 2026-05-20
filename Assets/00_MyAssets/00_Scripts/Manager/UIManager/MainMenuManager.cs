@@ -11,6 +11,10 @@ public class MainMenuManager : MonoBehaviour
     public int menuIndex;
 
     public GameObject credits;
+    [Tooltip("Panel de la pantalla de Controles. Se comporta exactamente igual " +
+             "que el panel de Créditos: se abre desde el botón 'Controles' del " +
+             "menú y se cierra con Confirmar (Intro/Espacio).")]
+    public GameObject controls;
     public GameObject mainMenu;
     public bool mainMenuWorks;
 
@@ -30,6 +34,7 @@ public class MainMenuManager : MonoBehaviour
         InputManager.MoveUpPressedEvent += MoveUp;
         InputManager.MoveDownPressedEvent += MoveDown;
         InputManager.SelectPressedEvent += SelectOption;
+        InputManager.BackPressedEvent += OnBackPressed;
     }
 
     private void OnDisable()
@@ -39,10 +44,61 @@ public class MainMenuManager : MonoBehaviour
         InputManager.MoveUpPressedEvent -= MoveUp;
         InputManager.MoveDownPressedEvent -= MoveDown;
         InputManager.SelectPressedEvent -= SelectOption;
+        InputManager.BackPressedEvent -= OnBackPressed;
     }
 
-    private void MoveUp() => NavigateMenu(true);
-    private void MoveDown() => NavigateMenu(false);
+    /// <summary>
+    /// Handler para la tecla "Atrás" (Esc). Cierra el sub-panel actual
+    /// (Créditos, Controles o Configuración) sin afectar al estado del
+    /// juego, igual que hace Confirmar sobre la opción "Volver".
+    /// Si no hay sub-panel abierto, no hace nada (el jugador no debería
+    /// poder "salir" del menú principal con Esc).
+    /// </summary>
+    private void OnBackPressed()
+    {
+        // Caso 1: Créditos o Controles abierto -> cerrar como en SelectOption.
+        if (!mainMenuWorks)
+        {
+            mainMenuWorks = true;
+            mainMenu.SetActive(true);
+            credits.SetActive(false);
+            if (controls != null) controls.SetActive(false);
+            menuIndex = 1;
+            NavigateMenu(true);
+            return;
+        }
+
+        // Caso 2: Configuración abierto -> cerrarlo igual que pulsar
+        // "Volver" dentro del panel. Centralizamos el cierre aquí en vez
+        // de en SettingsMenuManager para que el evento Back solo tenga
+        // efecto en el contexto del Main Menu y no interfiera con el
+        // panel de Configuración dentro de la Pausa del juego, donde
+        // Esc ya está bindeado a "salir del Pause" en GameManager.
+        if (!settingsWorks)
+        {
+            CloseSettingsFromSettingsMenu();
+            return;
+        }
+
+        // Caso 3: estamos en el menú raíz -> Esc no hace nada.
+    }
+
+    private void MoveUp()
+    {
+        // Si hay un sub-panel abierto (Créditos / Controles), el menú
+        // principal no debe navegarse "por detrás": dejamos que sea el
+        // propio sub-panel (p. ej. el carrusel de Controles) quien
+        // capture la pulsación. Cuando el jugador cierra el sub-panel,
+        // mainMenuWorks vuelve a true y la navegación normal se reanuda.
+        if (!mainMenuWorks) return;
+        NavigateMenu(true);
+    }
+
+    private void MoveDown()
+    {
+        if (!mainMenuWorks) return;
+        NavigateMenu(false);
+    }
 
     private void ActivateMenu()
     {
@@ -90,6 +146,10 @@ public class MainMenuManager : MonoBehaviour
             mainMenuWorks = true;
             mainMenu.SetActive(true);
             credits.SetActive(false);
+            // El mismo gesto de "Confirmar" cierra el panel de Controles si
+            // está abierto. Aceptamos null por si la referencia no se ha
+            // asignado todavía en el Inspector.
+            if (controls != null) controls.SetActive(false);
             menuIndex = 1;
             NavigateMenu(true);
             return;
@@ -114,15 +174,17 @@ public class MainMenuManager : MonoBehaviour
         // En vez de saltar directamente al cambio de escena, pedimos al
         // LoadingScreenManager que muestre la pantalla de controles ("Controls").
         // Cuando termine, será él quien dispare el cambio a la escena 2.
+        // Tras eliminar la escena 00_Introduccion los buildIndex se desplazan:
+        // MainMenu pasa a 0, OuterWorld (antes 2) pasa a 1.
         if (LoadingScreenManager.instance != null)
         {
-            LoadingScreenManager.instance.StartLoading("Controls", 2);
+            LoadingScreenManager.instance.StartLoading("Controls", 1);
         }
         else
         {
             // Fallback: si por lo que sea no hay LoadingScreenManager (escena
             // sin la jerarquía persistente), mantenemos el comportamiento antiguo.
-            ChangeSceneManager.instance.nextSceneInsdex = 2;
+            ChangeSceneManager.instance.nextSceneInsdex = 1;
             ChangeSceneManager.instance.typeOfFade = "StandarFade";
             GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
         }
@@ -134,6 +196,7 @@ public class MainMenuManager : MonoBehaviour
 
         mainMenu.SetActive(false);
         credits.SetActive(false);
+        if (controls != null) controls.SetActive(false);
 
         settingsMenu.SetActive(true);
         settingsMgr.Open();
@@ -154,17 +217,46 @@ public class MainMenuManager : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Botón "Controles" del Main Menu. Funciona como <see cref="OpenCredits"/>:
+    /// abre un sub-panel dentro del propio menú (sin cambio de escena). El
+    /// panel se cierra automáticamente al pulsar Confirmar (gestionado en
+    /// <see cref="SelectOption"/> a través del flag <see cref="mainMenuWorks"/>).
+    /// El nombre del método se mantiene como OpenExtras por compatibilidad
+    /// con referencias antiguas en el Inspector / eventos OnClick.
+    /// </summary>
     public void OpenExtras()
     {
-        ChangeSceneManager.instance.nextSceneInsdex = 0;
-        ChangeSceneManager.instance.typeOfFade = "StandarFade";
-        GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
+        OpenControls();
+    }
+
+    /// <summary>
+    /// Muestra el panel de Controles. Mismo patrón que OpenCredits: bloquea la
+    /// navegación normal del menú y desactiva la UI del menú principal hasta
+    /// que el jugador pulse Confirmar.
+    /// </summary>
+    public void OpenControls()
+    {
+        if (controls == null)
+        {
+            // Si todavía no se ha asignado el panel en el Inspector, no
+            // hacemos nada (mejor que dejar el menú en un estado raro).
+            Debug.LogWarning("[MainMenuManager] El panel 'controls' no está " +
+                             "asignado en el Inspector. El botón Controles " +
+                             "no hará nada hasta que lo asignes.");
+            return;
+        }
+
+        mainMenuWorks = false;
+        mainMenu.SetActive(false);
+        controls.SetActive(true);
     }
 
     public void OpenCredits()
     {
         mainMenuWorks = false;
         mainMenu.SetActive(false);
+        if (controls != null) controls.SetActive(false);
         credits.SetActive(true);
     }
 

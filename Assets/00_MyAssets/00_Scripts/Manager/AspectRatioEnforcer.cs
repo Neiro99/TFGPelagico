@@ -18,7 +18,13 @@ using UnityEngine;
 ///      principal pinte su viewport letterboxed encima.
 /// </summary>
 [RequireComponent(typeof(Camera))]
-[ExecuteAlways]
+// Nota: se ha quitado [ExecuteAlways] a propósito. En modo edición, si la
+// Game window o la Scene window reportan Screen.width/height = 0 (cosa que
+// pasa al cambiar el layout del Editor o al colapsar pestañas), este script
+// terminaba escribiendo un cam.rect con NaN/Infinity y eso disparaba
+// cientos de warnings tipo "The bounds contain one of the following values:
+// NaN, float.PositiveInfinity, float.NegativeInfinity" cada frame. La
+// proporción de aspecto solo importa al jugar, así que ejecutamos en Play.
 public class AspectRatioEnforcer : MonoBehaviour
 {
     [Header("Proporción objetivo")]
@@ -36,6 +42,14 @@ public class AspectRatioEnforcer : MonoBehaviour
     private void OnEnable()
     {
         cam = GetComponent<Camera>();
+
+        // Sanity reset: si la cámara llega con un rect ya envenenado de
+        // antes (NaN/Infinity), Apply() podría hacer early return en este
+        // frame (p. ej. si Screen.width aún es 0) y dejarlo así. Ponemos
+        // el rect a pantalla completa como suelo seguro antes de calcular.
+        if (cam != null)
+            cam.rect = new Rect(0f, 0f, 1f, 1f);
+
         Apply();
     }
 
@@ -49,6 +63,19 @@ public class AspectRatioEnforcer : MonoBehaviour
 
     private void Update()
     {
+        // Sanity check del rect actual: si por lo que sea (otro script
+        // tocando la cámara, una restauración mala desde una sesión
+        // previa, etc.) el cam.rect ha quedado con valores no finitos,
+        // lo reseteamos a pantalla completa y forzamos un Apply. Esto
+        // sirve de red de seguridad incluso si la causa del veneno no
+        // es nuestra.
+        if (cam != null && !IsRectSane(cam.rect))
+        {
+            cam.rect = new Rect(0f, 0f, 1f, 1f);
+            Apply();
+            return;
+        }
+
         // Solo recalculamos si cambia el tamaño de la ventana o los valores
         // objetivo. Así no toqueteamos el Rect cada frame innecesariamente.
         if (Screen.width != lastWidth
@@ -66,13 +93,22 @@ public class AspectRatioEnforcer : MonoBehaviour
         if (cam == null) return;
         if (targetWidth <= 0f || targetHeight <= 0f) return;
 
-        lastWidth = Screen.width;
-        lastHeight = Screen.height;
+        // Si la ventana del Editor (o el Game tab) está colapsada y reporta
+        // 0px, NO tocamos cam.rect: la división daría Infinity/NaN y luego
+        // Unity escupiría miles de warnings tipo
+        // "The bounds contain one of the following values: NaN, ...".
+        // Esperamos a que el siguiente Update nos traiga un tamaño válido.
+        int sw = Screen.width;
+        int sh = Screen.height;
+        if (sw <= 0 || sh <= 0) return;
+
+        lastWidth = sw;
+        lastHeight = sh;
         lastTargetW = targetWidth;
         lastTargetH = targetHeight;
 
         float targetAspect = targetWidth / targetHeight;
-        float windowAspect = (float)Screen.width / Screen.height;
+        float windowAspect = (float)sw / sh;
         float scale = windowAspect / targetAspect;
 
         Rect rect = new Rect(0f, 0f, 1f, 1f);
@@ -97,6 +133,28 @@ public class AspectRatioEnforcer : MonoBehaviour
             rect.y = 0f;
         }
 
+        // Validación final: si por lo que sea el rect ha salido con valores
+        // no finitos o fuera del rango [0..1], no lo aplicamos. Mejor un
+        // frame con el rect anterior que un cam.rect con NaN que envenene
+        // todos los cálculos de bounds del resto del frame.
+        if (!IsRectSane(rect)) return;
+
         cam.rect = rect;
+    }
+
+    private static bool IsRectSane(Rect r)
+    {
+        if (!IsFinite(r.x) || !IsFinite(r.y)) return false;
+        if (!IsFinite(r.width) || !IsFinite(r.height)) return false;
+        if (r.width <= 0f || r.height <= 0f) return false;
+        if (r.x < 0f || r.y < 0f) return false;
+        if (r.x + r.width > 1.0001f) return false;
+        if (r.y + r.height > 1.0001f) return false;
+        return true;
+    }
+
+    private static bool IsFinite(float v)
+    {
+        return !float.IsNaN(v) && !float.IsInfinity(v);
     }
 }

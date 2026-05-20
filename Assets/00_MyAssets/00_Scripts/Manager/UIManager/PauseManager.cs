@@ -143,8 +143,9 @@ public class PauseManager : MonoBehaviour
     {
         menuIndex = 1;
         NavigatePause(true);
-        // Volvemos al Main Menu (escena 1) en vez de a la pantalla de "Saber más" (escena 0).
-        ChangeSceneManager.instance.nextSceneInsdex = 1;
+        // Volvemos al Main Menu. Tras eliminar la escena 00_Introduccion el
+        // Main Menu es ahora la escena con buildIndex 0.
+        ChangeSceneManager.instance.nextSceneInsdex = 0;
         ChangeSceneManager.instance.typeOfFade = "StandarFade";
         GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
     }

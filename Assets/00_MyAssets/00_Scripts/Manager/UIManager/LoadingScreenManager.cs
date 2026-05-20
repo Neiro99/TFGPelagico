@@ -122,9 +122,9 @@ public class LoadingScreenManager : MonoBehaviour
     /// El flujo completo (fade OUT → loading → fade OUT → escena nueva) lo
     /// gestiona internamente este manager.
     ///
-    /// Ejemplo de uso:
-    ///   LoadingScreenManager.instance.StartLoading("Controls", 2);
-    ///   LoadingScreenManager.instance.StartLoading("Outer->Inner", 3);
+    /// Ejemplo de uso (buildIndex tras eliminar 00_Introduccion):
+    ///   LoadingScreenManager.instance.StartLoading("Controls", 1);     // 02_OuterWorld
+    ///   LoadingScreenManager.instance.StartLoading("Outer->Inner", 2); // 03_InnerWorld
     /// </summary>
     public void StartLoading(string key, int nextSceneIndex)
     {

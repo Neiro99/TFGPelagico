@@ -213,6 +213,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1303663148696228789, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
+      propertyPath: actualState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3377395579887025635, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
       propertyPath: m_Name
       value: === GameManager ===
@@ -1362,6 +1366,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae6923e3e5a2bf4d85d7062b60ec459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadingScreenKey: Outer->Inner
+  nextSceneIndex: 2
+  sceneTransitionFade: SwichFade
 --- !u!114 &1771814825
 MonoBehaviour:
   m_ObjectHideFlags: 0
