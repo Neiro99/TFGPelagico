@@ -40,6 +40,19 @@ public class DiaryManager : MonoBehaviour
     [Tooltip("Sprite mientras dura la animación de paso de página hacia la derecha.")]
     [SerializeField] private Sprite rightArrowPressed;
 
+    [Header("Flujo final del juego")]
+    [Tooltip("Índice (dentro de la lista de páginas) de la página que, una vez " +
+             "vista, completa el segundo paso del flujo final. Por defecto 3 = " +
+             "la 4ª página (la nueva).")]
+    [SerializeField] private int finalPageIndex = 3;
+    [Tooltip("BuildIndex de la escena de Fin a la que se salta cuando el " +
+             "jugador cierra el diario tras haber visto la página final, " +
+             "habiendo interactuado antes con las flores. Tras eliminar la " +
+             "escena 00_Introduccion, la escena 05_Fin es buildIndex 4.")]
+    [SerializeField] private int finalSceneBuildIndex = 4;
+    [Tooltip("Fade que se usará para la transición a la escena Fin.")]
+    [SerializeField] private string finalFadeType = "StandarFade";
+
     private RectTransform currentRt;
     private Image         currentImg;
     private RectTransform nextRt;
@@ -73,6 +86,35 @@ public class DiaryManager : MonoBehaviour
         StopAllCoroutines();
         InputManager.MoveRightPressedEvent -= NextPage;
         InputManager.MoveLeftPressedEvent  -= PrevPage;
+
+        TryTriggerFinalSceneTransition();
+    }
+
+    /// <summary>
+    /// Si tras cerrar el diario se cumplen las dos condiciones del flujo
+    /// final (haber hablado con las flores y haber visto la página 4),
+    /// arranca un fade-out hacia la escena de Fin. Se protege con
+    /// <see cref="WorldState.FinalSceneTriggered"/> para que solo ocurra
+    /// una vez aunque el jugador siga abriendo y cerrando el diario.
+    /// </summary>
+    private void TryTriggerFinalSceneTransition()
+    {
+        if (WorldState.FinalSceneTriggered) return;
+        if (!WorldState.FlowersInteracted) return;
+        if (!WorldState.Page4Seen) return;
+
+        // El OnDisable se invoca también cuando la escena se descarga; en
+        // ese caso los managers pueden estar ya destruyéndose. Si alguno no
+        // está disponible, no hacemos nada (la escena ya está cambiando).
+        if (GameManager.instance == null) return;
+        if (ChangeSceneManager.instance == null) return;
+        if (GameManager.instance.actualState == DataDefinitions.GameStates.ChangeScene) return;
+
+        WorldState.FinalSceneTriggered = true;
+
+        ChangeSceneManager.instance.nextSceneInsdex = finalSceneBuildIndex;
+        ChangeSceneManager.instance.typeOfFade = finalFadeType;
+        GameManager.instance.ChangeState(DataDefinitions.GameStates.ChangeScene);
     }
 
     void NextPage()
@@ -148,6 +190,13 @@ public class DiaryManager : MonoBehaviour
         // Al acabar la animación, restauramos las flechas al estado correcto
         // según la nueva página (normal u opacada).
         UpdateArrowStates();
+
+        // Si el jugador acaba de aterrizar en la página marcada como final
+        // del flujo, dejamos constancia en el WorldState. Al cerrar el
+        // diario se comprobará si toca disparar la transición a la escena
+        // de Fin (junto con FlowersInteracted).
+        if (currentPage >= finalPageIndex)
+            WorldState.Page4Seen = true;
     }
 
     void SwapBuffers()

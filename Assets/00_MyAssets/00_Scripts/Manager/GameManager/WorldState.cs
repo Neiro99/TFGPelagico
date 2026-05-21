@@ -32,6 +32,26 @@ public static class WorldState
     public static bool PostPuzzleCinematicSeen = false;
 
     /// <summary>
+    /// El jugador ha interactuado con las flores de la mesa en la penultima
+    /// escena. Es el primer paso del flujo final: abrir el diario, ir a la
+    /// pagina 4 y cerrarlo dispara el cambio a la escena de Fin.
+    /// </summary>
+    public static bool FlowersInteracted = false;
+
+    /// <summary>
+    /// El jugador ha llegado a ver la pagina 4 (indice 3) del diario al
+    /// menos una vez. Segundo paso del flujo final.
+    /// </summary>
+    public static bool Page4Seen = false;
+
+    /// <summary>
+    /// Se pone a true en el momento en que se dispara la transicion a la
+    /// escena Fin para evitar que se dispare mas de una vez si el jugador
+    /// vuelve a abrir y cerrar el diario.
+    /// </summary>
+    public static bool FinalSceneTriggered = false;
+
+    /// <summary>
     /// Restablece el estado. �til para reiniciar la partida desde el men�.
     /// </summary>
     public static void ResetAll()
@@ -40,5 +60,8 @@ public static class WorldState
         BoatCinematicScheduled = false;
         PapersFound = false;
         PostPuzzleCinematicSeen = false;
+        FlowersInteracted = false;
+        Page4Seen = false;
+        FinalSceneTriggered = false;
     }
 }

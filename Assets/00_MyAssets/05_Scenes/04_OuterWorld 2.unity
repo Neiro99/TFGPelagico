@@ -1223,7 +1223,7 @@ MonoBehaviour:
   imageType: 0
   spriteKey: 
   caninteract: 0
-  firstInteractAction: 
+  firstInteractAction: InteractFlowers
 --- !u!1 &1175252593
 GameObject:
   m_ObjectHideFlags: 0

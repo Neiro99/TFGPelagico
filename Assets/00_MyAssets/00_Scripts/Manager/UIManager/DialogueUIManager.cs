@@ -139,6 +139,15 @@ public class DialogueUIManager : MonoBehaviour
                     WorldState.PapersFound = true;
                 break;
 
+            case "InteractFlowers":
+                    // Fin del diálogo al interactuar con las flores en la
+                    // escena final. A partir de aquí el siguiente paso del
+                    // flujo es que el jugador abra el diario y vea la
+                    // página 4: cuando lo cierre, el DiaryManager se
+                    // encarga de la transición a la escena Fin.
+                    WorldState.FlowersInteracted = true;
+                break;
+
             case "EndPuzzleSequence":
                     // Conversación posterior al puzzle terminada. Antes de cambiar
                     // de escena se reproduce una cinemática a pantalla completa.
