@@ -35,6 +35,13 @@ public class MainMenuManager : MonoBehaviour
         InputManager.MoveDownPressedEvent += MoveDown;
         InputManager.SelectPressedEvent += SelectOption;
         InputManager.BackPressedEvent += OnBackPressed;
+
+        // Cuando arranca la pantalla de carga (estado Loading), nos
+        // apagamos a nosotros mismos. El evento OnLoading se dispara en
+        // el frame de negro total del fade out (callback OnPhase1Black
+        // del LoadingScreenManager), así que el cambio no se ve y la
+        // pantalla de carga queda visible sin el Main Menu por encima.
+        GameManager.OnLoading += DeactivateMenuUI;
     }
 
     private void OnDisable()
@@ -45,6 +52,23 @@ public class MainMenuManager : MonoBehaviour
         InputManager.MoveDownPressedEvent -= MoveDown;
         InputManager.SelectPressedEvent -= SelectOption;
         InputManager.BackPressedEvent -= OnBackPressed;
+
+        GameManager.OnLoading -= DeactivateMenuUI;
+    }
+
+    /// <summary>
+    /// Apaga la jerarquía visual del Main Menu. Se llama cuando arranca la
+    /// pantalla de carga ("Loading") para que no quede pintado encima.
+    /// También cierra cualquier sub-panel que pudiera estar abierto, para
+    /// que al volver al menú el estado quede limpio.
+    /// </summary>
+    private void DeactivateMenuUI()
+    {
+        if (mainMenuUI != null) mainMenuUI.SetActive(false);
+        if (mainMenu != null) mainMenu.SetActive(false);
+        if (credits != null) credits.SetActive(false);
+        if (controls != null) controls.SetActive(false);
+        if (settingsMenu != null) settingsMenu.SetActive(false);
     }
 
     /// <summary>

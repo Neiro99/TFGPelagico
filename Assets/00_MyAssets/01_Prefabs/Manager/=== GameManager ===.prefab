@@ -3288,7 +3288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42f151e9ca9978049829f85cc31dd4e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualState: 0
+  actualState: 2
   currentDialogueCSV: 
   currentDialogueAction: 
 --- !u!1 &3425014241634459428
@@ -4863,6 +4863,9 @@ MonoBehaviour:
   rightArrowNormal: {fileID: 21300000, guid: 76cdf9ce08ed4254a8dd91968290509b, type: 3}
   rightArrowDimmed: {fileID: 21300000, guid: 69504a969bbcfbe4ea3a7b635eaf9e4f, type: 3}
   rightArrowPressed: {fileID: 21300000, guid: 26334a090c64c06428ed1a9293b72ed2, type: 3}
+  finalPageIndex: 3
+  finalSceneBuildIndex: 4
+  finalFadeType: StandarFade
 --- !u!1 &4780771582424017380
 GameObject:
   m_ObjectHideFlags: 0
@@ -9993,6 +9996,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 413378297239022266, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 413378297239022266, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 413378297239022266, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 613524421855292299, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -806057022, guid: 17318cab4c5ba48459b5e102237665a2, type: 3}
+    - target: {fileID: 613524421855292299, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 613524421855292299, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 791852660959312290, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -10073,6 +10100,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1310163866887350686, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: canMove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310163866887350686, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: tileKind
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310163866887350686, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: canRotate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1992860572014556318, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
       propertyPath: m_Name
       value: Puzzle
@@ -10089,6 +10128,18 @@ PrefabInstance:
       propertyPath: m_LocalRotation.w
       value: -0.7071068
       objectReference: {fileID: 0}
+    - target: {fileID: 3238359825200393107, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3238359825200393107, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3238359825200393107, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4915988611779898068, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
       propertyPath: background
       value: 
@@ -10101,9 +10152,49 @@ PrefabInstance:
       propertyPath: m_LocalRotation.w
       value: -0.7071068
       objectReference: {fileID: 0}
+    - target: {fileID: 5686571784548139529, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1942579269, guid: 17318cab4c5ba48459b5e102237665a2, type: 3}
+    - target: {fileID: 5686571784548139529, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686571784548139529, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073047776078921756, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: canMove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073047776078921756, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: tileKind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6447180697954582829, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: canMove
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6447180697954582829, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: tileKind
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6447180697954582829, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
       propertyPath: rotationState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8085253166417313796, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: canMove
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8085253166417313796, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: tileKind
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8085253166417313796, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8745031200196145017, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
       propertyPath: rotationState
