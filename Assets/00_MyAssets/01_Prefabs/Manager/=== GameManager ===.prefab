@@ -3425,7 +3425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42f151e9ca9978049829f85cc31dd4e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualState: 0
+  actualState: 2
   currentDialogueCSV: 
   currentDialogueAction: 
 --- !u!1 &3425014241634459428
@@ -5066,10 +5066,10 @@ MonoBehaviour:
   pageB: {fileID: 3473246521663287931}
   pageBRt: {fileID: 1743876684889679882}
   pages:
-  - {fileID: 21300000, guid: 1ef2faabdfda41c40b136761c4bcd5b6, type: 3}
-  - {fileID: 21300000, guid: 122560619a2624048942d81e1b7d2049, type: 3}
-  - {fileID: 21300000, guid: b7e2068952b515e489ca90be5780d8fe, type: 3}
-  - {fileID: 21300000, guid: 2281c0a09fbfc014a968fa4767912f46, type: 3}
+  - {fileID: 21300000, guid: fbd97a41f368d1947b1c590304e7753a, type: 3}
+  - {fileID: 21300000, guid: 3ef73586291a4504a8a67a59dc28bf7b, type: 3}
+  - {fileID: 21300000, guid: 28b95bc9c3b318a479fdd4aaa1d6c138, type: 3}
+  - {fileID: 21300000, guid: 84e631fe7eed960459717db38a821bd4, type: 3}
   slideOffset: 2000
   slideDuration: 0.3
   leftArrow: {fileID: 8693930870214953103}

@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: 2281c0a09fbfc014a968fa4767912f46
+guid: 3ef73586291a4504a8a67a59dc28bf7b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
-    mipMapsPreserveCoverage: 0
+    mipMapsPreserveCoverage: 1
     alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
@@ -34,9 +34,9 @@ TextureImporter:
   maxTextureSize: 4096
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
-    aniso: 1
-    mipBias: 0
+    filterMode: 2
+    aniso: 4
+    mipBias: -0.5
     wrapU: 1
     wrapV: 1
     wrapW: 0
