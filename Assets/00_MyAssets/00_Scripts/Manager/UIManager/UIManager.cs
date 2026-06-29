@@ -21,6 +21,10 @@ public class UIManager : MonoBehaviour
              "del canvas persistente y, en la jerarquía, por encima del resto para " +
              "que tape todo al activarse.")]
     public GameObject loading;
+    [Tooltip("Previsualización a tamaño grande (p. ej. el dibujo del papel de la " +
+             "mesa de Torpere a pantalla completa). Vive en este canvas " +
+             "persistente y se activa/desactiva desde ObjectForeground.")]
+    public GameObject largePreview;
 
     [Header("Canvases que dependen de la cámara de cada escena")]
     [Tooltip("Lista de Canvas en modo Screen Space - Camera (o World Space) que tienen que " +
@@ -166,6 +170,9 @@ public class UIManager : MonoBehaviour
             case "loading":
                 if (loading != null) loading.SetActive(active);
                 break;
+            case "largePreview":
+                if (largePreview != null) largePreview.SetActive(active);
+                break;
         }
     }
     public void DeactivateUI(string uiKey)
@@ -183,6 +190,7 @@ public class UIManager : MonoBehaviour
         pause.SetActive(false);
         diario.SetActive(false);
         if (loading != null) loading.SetActive(false);
+        if (largePreview != null) largePreview.SetActive(false);
     }
 
     private void ActivatePause()

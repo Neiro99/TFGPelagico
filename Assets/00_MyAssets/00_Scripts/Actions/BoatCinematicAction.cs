@@ -142,6 +142,15 @@ public class BoatCinematicAction : MonoBehaviour
         tableScript.textToShow1 = "TableTorpere1";
         tableScript.textToShow2 = "TableTorpere1";
 
+        // Reseteamos el firstInteract de la mesa: aunque el jugador ya
+        // hubiera interactuado antes (con los textos viejos, sin que se
+        // considerara "leer los papeles"), la próxima interacción
+        // mostrará "TableTorpere1" y volverá a disparar "FindPapers".
+        // El propio FindPapers ya solo activa PapersFound si DoorUnlocked
+        // es true, lo cual ocurre al terminar este diálogo.
+        if (tableScript != null)
+            tableScript.ResetFirstInteract();
+
         // El animator de movimiento puede activarse por bool y/o habilitando el componente.
         if (movementAnimator != null && enableMovementAnimatorOnStart)
             movementAnimator.enabled = true;

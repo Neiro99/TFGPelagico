@@ -134,9 +134,15 @@ public class DialogueUIManager : MonoBehaviour
                 break;
 
             case "FindPapers":
-                    // Fin del diálogo de la mesa de Torpere: el jugador ya
-                    // tiene los apuntes y puede intentar resolver el puzzle.
-                    WorldState.PapersFound = true;
+                    // Fin del diálogo de la mesa de Torpere. Solo damos por
+                    // "encontrados" los apuntes si la 2ª aparición de Syn
+                    // (la cinemática Syn-Munin del barco) ya ha ocurrido
+                    // — esa cinemática es la que activa DoorUnlocked.
+                    // Si el jugador interactúa con la mesa ANTES de esa
+                    // cinemática, ve el texto pero el progreso de la
+                    // historia no se considera "leer los papeles" todavía.
+                    if (WorldState.DoorUnlocked)
+                        WorldState.PapersFound = true;
                 break;
 
             case "InteractFlowers":

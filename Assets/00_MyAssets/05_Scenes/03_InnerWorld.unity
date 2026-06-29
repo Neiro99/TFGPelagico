@@ -306,6 +306,8 @@ MonoBehaviour:
   spriteKey: Salpa
   caninteract: 0
   firstInteractAction: 
+  useLargePreview: 0
+  largePreviewOverride: {fileID: 0}
 --- !u!114 &29359240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,8 +496,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.428096, y: 2.7999997, z: 4.356747}
-  m_Center: {x: -1.1290499, y: 0.00000008806833, z: 2.0457003}
+  m_Size: {x: 7.0961847, y: 2.7999997, z: 4.998992}
+  m_Center: {x: -1.5102215, y: 0.00000008806833, z: 1.7245777}
 --- !u!114 &61174353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6886,6 +6888,8 @@ MonoBehaviour:
   spriteKey: TableTorpere
   caninteract: 0
   firstInteractAction: FindPapers
+  useLargePreview: 1
+  largePreviewOverride: {fileID: 0}
 --- !u!114 &535492814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7546,6 +7550,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1303663148696228789, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
+      propertyPath: actualState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3377395579887025635, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
       propertyPath: m_Name
       value: === GameManager ===
@@ -7829,6 +7837,8 @@ MonoBehaviour:
   spriteKey: 
   caninteract: 0
   firstInteractAction: 
+  useLargePreview: 0
+  largePreviewOverride: {fileID: 0}
 --- !u!114 &856721339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8914,6 +8924,8 @@ MonoBehaviour:
   spriteKey: 
   caninteract: 0
   firstInteractAction: 
+  useLargePreview: 0
+  largePreviewOverride: {fileID: 0}
 --- !u!114 &1019679709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15481,8 +15493,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 9.880001, y: 14.398719, z: 0.20000018}
-  m_Center: {x: 0, y: 7.835518, z: 0}
+  m_Size: {x: 9.880001, y: 14.398719, z: 2.5261247}
+  m_Center: {x: -0.0000000025216482, y: 7.83554, z: -0.22665244}
 --- !u!1 &1544569545
 GameObject:
   m_ObjectHideFlags: 0
@@ -21714,6 +21726,8 @@ MonoBehaviour:
   spriteKey: 
   caninteract: 0
   firstInteractAction: BoatFirstInteract
+  useLargePreview: 0
+  largePreviewOverride: {fileID: 0}
 --- !u!114 &1915440896
 MonoBehaviour:
   m_ObjectHideFlags: 0
