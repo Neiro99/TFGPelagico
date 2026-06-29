@@ -135,18 +135,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: === GameManager ===
       objectReference: {fileID: 0}
-    - target: {fileID: 4640041152130421744, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: entries.Array.data[2].key
-      value: Inner->Outer2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4640041152130421744, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: entries.Array.data[1].duration
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4640041152130421744, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
-      propertyPath: entries.Array.data[2].duration
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 4659869576210555800, guid: ea93aca22df98dd43810d318ea93dde6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
