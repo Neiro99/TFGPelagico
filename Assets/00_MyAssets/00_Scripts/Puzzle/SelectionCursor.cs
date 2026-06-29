@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,11 +15,31 @@ public class SelectionCursor : MonoBehaviour
     public Vector2Int startCell = new Vector2Int(0, 0);
     public float cursorZOffset = -0.1f;
 
+    [Header("Feedback de acción inválida")]
+    [Tooltip("Índice del clip en SoundManager que se reproduce cuando se " +
+             "intenta una acción no permitida (mover hacia algo bloqueado, " +
+             "rotar una pieza fija, coger una casilla vacía, etc.). " +
+             "Configura el sonido en el array 'sfx' del SoundManager y pon " +
+             "aquí su índice. Si lo dejas en -1 no suena nada.")]
+    public int rejectSfxIndex = -1;
+
+    [Tooltip("Duración total del meneo cuando la acción se rechaza (segundos).")]
+    [Range(0.05f, 1f)] public float shakeDuration = 0.22f;
+
+    [Tooltip("Distancia máxima del meneo. Si el cursor es un RectTransform (UI) " +
+             "se interpreta en píxeles del Canvas; si es un Transform normal, en " +
+             "unidades del mundo. Valores típicos: 8-20 para UI, 0.1-0.3 para mundo.")]
+    [Range(0.01f, 50f)] public float shakeAmplitude = 12f;
+
+    [Tooltip("Número de oscilaciones del meneo (mayor = más vibración).")]
+    [Range(1, 12)] public int shakeOscillations = 5;
+
 
     private Vector2Int cursorPos;
 
 
     private PipeTile heldTile = null;
+    private Coroutine shakeCoroutine;
 
     private SpriteRenderer heldRendererSR;
     private Image heldRendererImg;
@@ -90,21 +111,37 @@ public class SelectionCursor : MonoBehaviour
     private void TryMove(Vector2Int delta)
     {
         if (board == null) return;
+        // Mientras está el meneo del feedback de error, ignoramos cualquier
+        // intento de moverse: si dejásemos pasar, cursorPos cambiaría pero
+        // el cursorVisual está siendo controlado por ShakeRoutine, que al
+        // terminar restauraría su posición vieja y se vería un "salto".
+        if (shakeCoroutine != null) return;
 
         Vector2Int newPos = cursorPos + delta;
 
         newPos.x = Mathf.Clamp(newPos.x, 0, board.width - 1);
         newPos.y = Mathf.Clamp(newPos.y, 0, board.height - 1);
 
+        // Caso 1: el cursor está pegado al borde y se intenta salir.
+        // El Clamp deja newPos == cursorPos así que no se mueve nada;
+        // damos feedback de que la acción no tiene efecto.
+        if (newPos == cursorPos)
+        {
+            PlayRejectFeedback();
+            return;
+        }
+
         if (heldTile != null)
         {
             PipeTile targetTile = board.GetTile(newPos);
 
+            // Caso 2: arrastrando una pieza, la casilla destino está ocupada
+            // por otra pieza distinta de la que llevamos.
             if (targetTile != null &&
                 targetTile != heldTile &&
                 targetTile.tileKind != TileKind.Empty)
             {
-                Debug.Log("no pudo moverse");
+                PlayRejectFeedback();
                 return;
             }
         }
@@ -116,6 +153,9 @@ public class SelectionCursor : MonoBehaviour
     private void TryRotate()
     {
         if (board == null) return;
+        // Bloqueamos durante el meneo para que la entrada quede coherente
+        // con el feedback visual (ver comentario en TryMove).
+        if (shakeCoroutine != null) return;
 
         if (heldTile != null)
         {
@@ -123,6 +163,11 @@ public class SelectionCursor : MonoBehaviour
             {
                 heldTile.RotateClockwise();
                 UpdateHeldVisualFromHeldTile();
+            }
+            else
+            {
+                // Pieza agarrada que no puede rotar.
+                PlayRejectFeedback();
             }
             return;
         }
@@ -132,24 +177,44 @@ public class SelectionCursor : MonoBehaviour
         {
             tile.RotateClockwise();
         }
+        else
+        {
+            // Casilla vacía o pieza fija: no se puede rotar.
+            PlayRejectFeedback();
+        }
     }
 
     private void TryPickDrop()
     {
         if (board == null) return;
+        // Bloqueamos durante el meneo (ver comentario en TryMove).
+        if (shakeCoroutine != null) return;
 
         PipeTile currentTile = board.GetTile(cursorPos);
 
         if (heldTile == null)
         {
+            // Intentar coger:
+            // - No hay tile bajo el cursor.
+            // - O la pieza es fija (no se puede mover).
+            // - O la casilla está vacía.
             if (currentTile == null)
+            {
+                PlayRejectFeedback();
                 return;
+            }
 
             if (!currentTile.canMove)
+            {
+                PlayRejectFeedback();
                 return;
+            }
 
             if (currentTile.tileKind == TileKind.Empty)
+            {
+                PlayRejectFeedback();
                 return;
+            }
 
             heldTile = currentTile;
             CacheHeldRenderer(heldTile);
@@ -158,8 +223,10 @@ public class SelectionCursor : MonoBehaviour
         }
         else
         {
+            // Intentar soltar.
             if (currentTile == null)
             {
+                PlayRejectFeedback();
                 return;
             }
 
@@ -167,7 +234,16 @@ public class SelectionCursor : MonoBehaviour
             {
                 board.SwapTiles(heldTile, currentTile);
             }
-
+            else if (currentTile != heldTile)
+            {
+                // No es Empty y no es la misma pieza que llevamos: la pieza
+                // no se puede colocar aquí. El comportamiento original
+                // "soltaba" la pieza igualmente (devolviéndola a su sitio).
+                // Mantenemos eso pero damos feedback de posición inválida.
+                PlayRejectFeedback();
+            }
+            // else: soltar en la misma casilla de la que se cogió la pieza
+            // es una "cancelación" del agarre, no un error. No suena nada.
 
             RestoreHeldTileColor();
             heldTile = null;
@@ -175,6 +251,74 @@ public class SelectionCursor : MonoBehaviour
             heldRendererImg = null;
             HideHeldVisual();
         }
+    }
+
+    // ---------------------------------------------------------------------
+    // Feedback de acción inválida (sonido + meneo)
+    // ---------------------------------------------------------------------
+
+    /// <summary>
+    /// Reproduce el SFX configurado y hace un meneo visual del cursor (o de
+    /// la pieza, si hay una agarrada) para indicar que la acción que se
+    /// acaba de intentar no se puede realizar.
+    /// </summary>
+    private void PlayRejectFeedback()
+    {
+        // Sonido a través del SoundManager existente, usando el índice
+        // configurado en el Inspector.
+        if (rejectSfxIndex >= 0 && SoundManager.instancia != null)
+            SoundManager.instancia.PlaySFX(rejectSfxIndex);
+
+        // Meneamos la pieza agarrada si la hay; si no, el propio cursor.
+        Transform target = (heldTile != null && heldVisual != null) ? heldVisual : cursorVisual;
+        if (target == null) return;
+
+        if (shakeCoroutine != null) StopCoroutine(shakeCoroutine);
+        shakeCoroutine = StartCoroutine(ShakeRoutine(target));
+    }
+
+    /// <summary>
+    /// Oscila la posición del target con amplitud decreciente durante
+    /// <see cref="shakeDuration"/> segundos. Detecta si el target es un
+    /// RectTransform y, en ese caso, usa <c>anchoredPosition</c> (en
+    /// píxeles del Canvas); si es un Transform normal usa
+    /// <c>localPosition</c> (en unidades del mundo). Esto evita que en
+    /// Canvas Screen Space - Camera con scale pequeña el meneo no se vea.
+    ///
+    /// Usa Time.unscaledDeltaTime para funcionar aunque el puzzle pause
+    /// el juego (Time.timeScale = 0).
+    /// </summary>
+    private IEnumerator ShakeRoutine(Transform t)
+    {
+        RectTransform rt = t as RectTransform;
+
+        Vector2 rtOrigin = rt != null ? rt.anchoredPosition : Vector2.zero;
+        Vector3 tOrigin  = rt == null ? t.localPosition     : Vector3.zero;
+
+        float elapsed = 0f;
+
+        while (elapsed < shakeDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float u = Mathf.Clamp01(elapsed / shakeDuration);
+
+            // Onda senoidal con amplitud que se atenúa a 0 al final.
+            float wave = Mathf.Sin(u * shakeOscillations * Mathf.PI * 2f);
+            float damp = 1f - u;
+            float offset = wave * shakeAmplitude * damp;
+
+            if (rt != null)
+                rt.anchoredPosition = rtOrigin + new Vector2(offset, 0f);
+            else
+                t.localPosition = tOrigin + new Vector3(offset, 0f, 0f);
+
+            yield return null;
+        }
+
+        if (rt != null) rt.anchoredPosition = rtOrigin;
+        else            t.localPosition    = tOrigin;
+
+        shakeCoroutine = null;
     }
 
     // ---------------------------------------------------------------------

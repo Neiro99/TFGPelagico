@@ -2431,6 +2431,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0d4688f7fa7ad8941bde4b2c2e148bad, type: 3}
   - {fileID: 8300000, guid: b7a52cb0cd18741469a18a4f5d929b14, type: 3}
   - {fileID: 8300000, guid: e69e54472000b7443be60ea2b5c02daf, type: 3}
+  - {fileID: 8300000, guid: 6feab14a7052e2246a5bce29852e8caf, type: 3}
   volumen: 1
 --- !u!82 &3519613679976260168
 AudioSource:
@@ -3424,7 +3425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42f151e9ca9978049829f85cc31dd4e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualState: 2
+  actualState: 0
   currentDialogueCSV: 
   currentDialogueAction: 
 --- !u!1 &3425014241634459428
@@ -10475,6 +10476,10 @@ PrefabInstance:
     - target: {fileID: 8745031200196145017, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
       propertyPath: rotationState
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9187471473932534733, guid: 8fe091ffce5a359448b9bde0f6658d36, type: 3}
+      propertyPath: rejectSfxIndex
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
